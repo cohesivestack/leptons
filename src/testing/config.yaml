@@ -1,0 +1,12 @@
+breakpoints:
+  m: 48
+  l: 64
+  xl: 128
+modules:
+  spacing: [ .25, .50, 1, 1.5 ]
+  colors: { black: "#000", near-black: "#111", white: "#fff" }
+  widths: [ 1, 2, 3 ]
+  font-sizes: [ 1, 2, 3 ]
+  display: default
+  flexbox: default
+  
