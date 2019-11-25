@@ -4,7 +4,7 @@
   "description": "Atomic CSS Generator",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,15 @@
   "author": "Carlos Forero",
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^24.0.23",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.2.0",
     "tslint": "^5.20.1",
     "typescript": "^3.7.2"
+  },
+  "dependencies": {
+    "@types/js-yaml": "^3.12.1",
+    "@types/node": "^12.12.12",
+    "js-yaml": "^3.13.1"
   }
 }
