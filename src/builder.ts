@@ -56,6 +56,8 @@ export class Builder {
     const config = this.config as Config;
 
     const breakpoints = this.config.breakpoints || pkg.breakpoints;
+    // undefined or true is true
+    const includeAll = this.config.includeAll !== false;
 
     if (breakpoints) {
       Object.keys(breakpoints).forEach(name => {
@@ -65,12 +67,23 @@ export class Builder {
       });
     }
 
-    pkg.modules.forEach(m => {
-      const configModule = config.modules?.find(cm => cm.name == m.name);
-      const buildContext = new BuildContext(this, config, m, configModule)
+    if (includeAll) {
+      pkg.modules.forEach(mod => {
+        const configModule = config.modules?.find(cm => cm.name == mod.name);
+        const buildContext = new BuildContext(this, config, mod, configModule)
 
-      m.build(buildContext);
-    });
+        mod.build(buildContext);
+      });
+    } else {
+      config.modules?.forEach(cm => {
+        const m = pkg.modules.find(m => m.name == cm.name);
+        if (!m)
+          throw Error('The package ' + pkg.name + " doesn't provide a module " + cm.name);
+        const buildContext = new BuildContext(this, config, m, cm);
+
+        m.build(buildContext);
+      });
+    }
 
     let output = '';
     this.medias.forEach(m => {
