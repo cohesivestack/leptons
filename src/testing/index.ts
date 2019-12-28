@@ -1,1 +1,0 @@
-export const configPath = 'src/testing/config.yaml';
