@@ -1,7 +1,7 @@
 {
-  "name": "atomic-styles",
+  "name": "leptons",
   "version": "0.0.1",
-  "description": "Atomic CSS Generator",
+  "description": "Leptons is an atomic CSS generator",
   "main": "index.ts",
   "scripts": {
     "test": "jest"
@@ -29,6 +29,9 @@
   "dependencies": {
     "@types/js-yaml": "^3.12.1",
     "@types/node": "^12.12.12",
-    "js-yaml": "^3.13.1"
+    "ajv": "^6.10.2",
+    "class-transformer": "^0.2.3",
+    "js-yaml": "^3.13.1",
+    "typescript-json-schema": "^0.40.0"
   }
 }

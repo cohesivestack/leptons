@@ -1,12 +1,27 @@
+package: default
+
 breakpoints:
   m: 48
   l: 64
   xl: 128
+
 modules:
-  spacing: [ .25, .50, 1, 1.5 ]
-  colors: { black: "#000", near-black: "#111", white: "#fff" }
-  widths: [ 1, 2, 3 ]
-  font-sizes: [ 1, 2, 3 ]
-  display: default
-  flexbox: default
-  
+  - colors: { black: "#000", white: "#fff", near-white: "#eee" }
+  - fontSizes: [ 1, 2, 3 ]
+  - display: default
+  - flexbox: default
+
+# imports:
+#   - repo: http://github.com/carlosforero/atomic-tachyons
+#     breakpoints:
+#       m: 48
+#       l: 64
+#       xl: 128
+#     modules:
+#       spacing: [.23, .5, .8]
+
+# css:
+#   single:
+#     myclass: 'a: s; b:x'
+#   with-breakpoints:
+#     'input': 'a: s; b:x'

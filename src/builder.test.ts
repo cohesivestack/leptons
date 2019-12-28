@@ -3,20 +3,20 @@ import { configPath } from './testing';
 
 describe("Builder", () => {
 
-  test("Builder shoud be created", () => {
-
-    console.log(configPath)
-    const builder = new Builder(configPath);
-    expect(builder).toBeTruthy();
-
-  });
-
   test("Builder shoud create an output", () => {
 
-    const builder = new Builder(configPath);
-    const output = builder.build();
-    expect(output).toBeTruthy();
+    const plainConfig = {
+      package: "default",
+      breakpoints: {m: 48, l: 64, xl: 128},
+      modules: [
+        { "font-size": [0.5, 1, 1.5] }
+      ]
+    }
 
+    const builder = new Builder();
+    let output = builder.build(plainConfig);
+
+    expect(output.trim().length).toBeGreaterThan(0);
   });
 
 });

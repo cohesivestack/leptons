@@ -1,91 +1,95 @@
 import fs from 'fs';
-import yaml from 'js-yaml';
-import { ModuleInfo } from './module-info';
-import { display } from './display';
-import { flexBox } from './flex-box';
+import path from 'path';
 
-class Media {
-  private _output: string = '';
-  private currentModule? : ModuleInfo;
+import { Media } from './media';
+import { BuildContext } from './build-context';
+import { Config, isConfigErrors, parse, parseFromYaml, parseFromJson, ConfigError } from './config';
+import { pkg as defaultPkg } from './default';
 
-  constructor(
-    public readonly name: string = 'default',
-    private breakpoint?: number) { }
-
-  public appendModule(moduleInfo: ModuleInfo): void {
-    const mi = this.currentModule = moduleInfo;
-
-    this._output +=
-      '\n/*\n\n' + mi.name + (this.name !== 'default' ? ' ' + this.name : '') +
-      '\n*********************************************************************/\n\n'
-  }
-
-  public append(className: string, body: string): void {
-    this._output += className;
-
-    if (this.name !== 'default') this._output += '-' + this.name;
-
-    this._output += ' { ' + body + ' }\n';
-  }
-
-  public get output() {
-    return this._output;
-  }
-}
 
 export class Builder {
 
-  private config: any;
+  private config?: Config;
+
   private medias = new Map<string, Media>();
-  private modules = new Map<string, ModuleInfo>();
-  private currentModule?: ModuleInfo;
 
-  constructor(configPath: string) {
-    this.config = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'));
+  buildFromFile(filePath: string): string {
+    const textConfig = fs.readFileSync(filePath, 'utf8');
+    const configExtension = path.extname(filePath);
 
-    this.medias.set('default', new Media());
-
-    const breakpoints = new Map<string, number>(
-      Object.entries(this.config.breakpoints));
-
-    breakpoints.forEach((value, name) =>
-      this.medias.set(name, new Media(name, value)));
-
-    this.initializeModules();
+    switch (configExtension) {
+      case 'yaml':
+      case 'yml':
+        return this.buildFromYaml(textConfig);
+      case 'json':
+        return this.buildFromJson(textConfig);
+      default:
+        throw Error("Invalid file extension (must be any of: .yaml, .yml or .json)")
+    }
   }
 
-  private initializeModules() {
-    this
-      .registerModule(display)
-      .registerModule(flexBox);
+  buildFromYaml(yamlConfig: string): string {
+    return this.build(parseFromYaml(yamlConfig));
   }
 
-  public registerModule(moduleInfo: ModuleInfo): Builder {
-    this.modules.set(moduleInfo.name, moduleInfo);
-    return this;
+  buildFromJson(jsonConfig: string): string {
+    return this.build(parseFromJson(jsonConfig));
   }
 
-  public append(name: string, shortName: string, body: string): Builder {
-    if (!this.currentModule)
-      throw Error('Missing currentModule');
+  build(plainConfig: any): string {
 
-    const className = '.' + this.currentModule.prefix + shortName;
+    const pkg = defaultPkg;
+
+    const configOutput = parse(plainConfig);
+    if (isConfigErrors(configOutput)) {
+      const errors = configOutput as ConfigError[];
+
+      let reportErrors = '';
+      errors.forEach(e => {
+        reportErrors += '  ' + e.path + ' -> ' + e.message + '\n';
+      })
+
+      throw Error("Errors parsing plain object:\n" + reportErrors);
+    }
+
+    this.config = configOutput;
+    const config = this.config as Config;
+
+    const breakpoints = this.config.breakpoints || pkg.breakpoints;
+
+    if (breakpoints) {
+      Object.keys(breakpoints).forEach(name => {
+        if (breakpoints) {
+          this.medias.set(name, new Media(name, breakpoints[name]));
+        }
+      });
+    }
+
+    pkg.modules.forEach(m => {
+      const configModule = config.modules?.find(cm => cm.name == m.name);
+      const buildContext = new BuildContext(this, config, m, configModule)
+
+      m.build(buildContext);
+    });
+
+    let output = '';
+    this.medias.forEach(m => {
+      output += m.output + '\n'
+    })
+
+    return output
+  }
+
+  appendWithShort(context: BuildContext, name: string, shortName: string, body: string) {
+    const className = '.' + context.prefix + shortName;
     this.medias.forEach(m => m.append(className, body));
     return this;
   }
 
-  public build(): string {
-    this.modules.forEach((mi, name) => {
-      this.currentModule = mi;
-      this.medias.forEach(m => m.appendModule(mi));
-      mi.build(this);
-    });
-
-    let output = '';
-    this.medias.forEach(m => output += m.output);
-
-    return output;
+  append(context: BuildContext, name: string, body: string) {
+    const className = '.' + context.prefix + name;
+    this.medias.forEach(m => m.append(className, body));
+    return this;
   }
-
 
 }
