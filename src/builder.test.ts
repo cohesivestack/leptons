@@ -1,5 +1,4 @@
 import { Builder } from "./builder";
-import { configPath } from './testing';
 
 describe("Builder", () => {
 
@@ -18,5 +17,4 @@ describe("Builder", () => {
 
     expect(output.trim().length).toBeGreaterThan(0);
   });
-
 });
