@@ -1,6 +1,7 @@
 import Ajv from 'ajv';
 import yaml from 'js-yaml';
 
+import { Package } from './package';
 import { ModuleValue } from './module';
 import { Breakpoints } from './breakpoints';
 
@@ -132,4 +133,18 @@ export function parse(plainConfig: any): (Config | ConfigError[]) {
   }
 
   return config as Config;
+}
+
+export function getInitConfig(pkg: Package): string {
+  const config = {
+    package: pkg.name,
+    breakpoints: pkg.breakpoints,
+    modules: pkg.modules.filter(m => m.initExplicit).map(m => {
+      const om: any = {};
+      // TODO: Fix default value in modules
+      om[m.name] = 'TODO';
+      return om;
+    })
+  };
+  return yaml.dump(config);
 }

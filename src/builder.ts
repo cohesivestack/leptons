@@ -3,7 +3,13 @@ import path from 'path';
 
 import { Media } from './media';
 import { BuildContext } from './build-context';
-import { Config, isConfigErrors, parse, parseFromYaml, parseFromJson, ConfigError } from './config';
+import { Config,
+  ConfigError,
+  getInitConfig,
+  isConfigErrors,
+  parse,
+  parseFromYaml,
+  parseFromJson } from './config';
 import { pkg as defaultPkg } from './default';
 
 
@@ -12,6 +18,14 @@ export class Builder {
   private config?: Config;
 
   private medias: Media[] = [];
+
+  init(filePath: string) {
+    if (fs.existsSync(filePath)) {
+      throw Error("Error: a file '" + filePath + "' already exists");
+    } else {
+      fs.writeFileSync(filePath, getInitConfig(defaultPkg));
+    }
+  }
 
   buildFromFile(filePath: string): string {
     const textConfig = fs.readFileSync(filePath, 'utf8');
