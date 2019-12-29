@@ -1,4 +1,5 @@
 import yargs from 'yargs';
+import { Builder } from './builder';
 
 export const command = yargs
   .command('init', 'Init a leptons config file', y => {
@@ -8,5 +9,11 @@ export const command = yargs
         default: 'leptons.yaml'
       })
   }, (argv) => {
-    console.log('TODO');
+    const builder = new Builder();
+    builder.init(argv.file as string);
+    console.log("The leptons configuration file '" + argv.file + "' was created!\n" +
+      "Edit it or run:\n" +
+      "  'leptons build'\n" +
+      "  'leptons build > mystyles.css'\n" +
+      "  'leptons build -o mystyles.css'\n");
   });
