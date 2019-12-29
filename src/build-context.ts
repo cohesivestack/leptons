@@ -15,7 +15,7 @@ export class BuildContext {
   constructor(
     private builder: Builder,
     private config: Config,
-    private mod: Module,
+    public readonly mod: Module,
     configModule?: ConfigModule) {
 
     this.prefix = configModule?.prefix || mod.prefix;

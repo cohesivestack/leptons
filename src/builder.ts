@@ -11,7 +11,7 @@ export class Builder {
 
   private config?: Config;
 
-  private medias = new Map<string, Media>();
+  private medias: Media[] = [];
 
   buildFromFile(filePath: string): string {
     const textConfig = fs.readFileSync(filePath, 'utf8');
@@ -56,16 +56,20 @@ export class Builder {
     const config = this.config as Config;
 
     const breakpoints = this.config.breakpoints || pkg.breakpoints;
-    // undefined or true is true
-    const includeAll = this.config.includeAll !== false;
+
+
+    this.medias.push(new Media());
 
     if (breakpoints) {
       Object.keys(breakpoints).forEach(name => {
         if (breakpoints) {
-          this.medias.set(name, new Media(name, breakpoints[name]));
+          this.medias.push(new Media(name, breakpoints[name]));
         }
       });
     }
+
+    // undefined or true is true
+    const includeAll = this.config.includeAll !== false;
 
     if (includeAll) {
       pkg.modules.forEach(mod => {
@@ -95,13 +99,13 @@ export class Builder {
 
   appendWithShort(context: BuildContext, name: string, shortName: string, body: string) {
     const className = '.' + context.prefix + shortName;
-    this.medias.forEach(m => m.append(className, body));
+    this.medias.forEach(m => m.append(context.mod, className, body));
     return this;
   }
 
   append(context: BuildContext, name: string, body: string) {
     const className = '.' + context.prefix + name;
-    this.medias.forEach(m => m.append(className, body));
+    this.medias.forEach(m => m.append(context.mod, className, body));
     return this;
   }
 
