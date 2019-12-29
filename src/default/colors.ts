@@ -11,7 +11,7 @@ const defaultColors: any = {
 };
 
 export const colors: Module = {
-  name: '',
+  name: 'colors',
   prefix: '',
   useShortName: 'inapplicable',
   initExplicit: true,
@@ -20,7 +20,7 @@ export const colors: Module = {
     const colors = context.valueOrDefault(defaultColors);
 
     Object.keys(colors).forEach(name => {
-      context.append(name, 'color: ' + colors[name]);
+      context.append('', 'color: ' + colors[name]);
     });
   }
 
