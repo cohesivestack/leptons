@@ -1,4 +1,5 @@
-import { Config, ConfigModule, schemaErrors, parse } from './config';
+import { Config, ConfigModule, schemaErrors, parse, getInitConfig } from './config';
+import { pkg as defaultPkg } from './default';
 
 describe("Config", () => {
 
@@ -29,6 +30,12 @@ describe("Config", () => {
     expect(modules[1].name).toBe('b');
     expect(modules[1].value).toBe(12);
 
+  });
+
+  test("Init function should return a yaml content", () => {
+    const output = getInitConfig(defaultPkg);
+
+    expect((new RegExp(/^package: default\n/)).test(output)).toBe(true);
   });
 
 });
