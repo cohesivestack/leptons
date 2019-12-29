@@ -8,6 +8,7 @@ export const fontSize: Module = {
   name: 'font-size',
   prefix: 'f',
   useShortName: 'inapplicable',
+  initExplicit: true,
 
   build: (context: BuildContext) => {
     const sizes = context.valueOrDefault(defaultSizes) as number[];

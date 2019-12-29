@@ -8,6 +8,7 @@ export type Module = {
   useShortName: 'inapplicable' | boolean,
   breakpoints?: Breakpoints,
   dependencies?: Dependency[],
+  initExplicit?: boolean,
   build: (buildContext: BuildContext) => void
 }
 

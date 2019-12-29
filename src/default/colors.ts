@@ -14,6 +14,7 @@ export const colors: Module = {
   name: '',
   prefix: '',
   useShortName: 'inapplicable',
+  initExplicit: true,
 
   build: (context: BuildContext) => {
     const colors = context.valueOrDefault(defaultColors);
