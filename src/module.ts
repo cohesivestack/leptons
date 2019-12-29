@@ -9,6 +9,7 @@ export type Module = {
   breakpoints?: Breakpoints,
   dependencies?: Dependency[],
   initExplicit?: boolean,
+  value: ModuleValue,
   build: (buildContext: BuildContext) => void
 }
 

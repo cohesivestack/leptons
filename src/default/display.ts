@@ -5,11 +5,8 @@ export const display: Module = {
   name: 'display',
   prefix: 'd',
   useShortName: true,
+  value: 'default',
   build: (context: BuildContext) => {
-
-    if (context.value !== 'default') {
-      throw Error("Display module only accept default value")
-    }
 
     context
       .appendWithShort('none', 'n', 'display: none')

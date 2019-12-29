@@ -5,6 +5,7 @@ export const borders: Module = {
   name: '',
   prefix: '',
   useShortName: true,
+  value: 'default',
   build: (context: BuildContext) => {
   }
 }

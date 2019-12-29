@@ -21,7 +21,11 @@ export class BuildContext {
     this.prefix = configModule?.prefix || mod.prefix;
     this.breakpoints = configModule?.breakpoints || mod.breakpoints || config.breakpoints;
     this.custom = configModule?.custom;
-    this.value = configModule?.value || 'default';
+    if (mod.value === 'default' && configModule && configModule.value !== 'default') {
+      throw Error('Module ' + mod.name + ' only accept "default" value');
+    } else {
+      this.value = configModule?.value || mod.value;
+    }
 
     if (mod.useShortName === 'inapplicable' && configModule?.useShortName !== undefined) {
       throw Error('Setting useShortName is innaplicable for the module ' + mod.name);
@@ -34,10 +38,6 @@ export class BuildContext {
         this.moduleDependencies.set(d.module, undefined);
       });
     }
-  }
-
-  valueOrDefault(defaultValue: any) {
-    return !this.value || this.value === 'default' ? defaultValue : this.value;
   }
 
   getDependencyContext(mod: Module): BuildContext {

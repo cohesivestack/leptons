@@ -141,10 +141,9 @@ export function getInitConfig(pkg: Package): string {
     breakpoints: pkg.breakpoints,
     modules: pkg.modules.filter(m => m.initExplicit).map(m => {
       const om: any = {};
-      // TODO: Fix default value in modules
-      om[m.name] = 'TODO';
+      om[m.name] = m.value;
       return om;
     })
   };
-  return yaml.dump(config);
+  return yaml.dump(config, {flowLevel: 3});
 }

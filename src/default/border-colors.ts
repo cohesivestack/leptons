@@ -8,6 +8,7 @@ export const borderColors: Module = {
   name: 'border-colors',
   prefix: 'bc',
   useShortName: 'inapplicable',
+  value: 'default',
   dependencies: [
     {
       module: colors,
@@ -16,10 +17,6 @@ export const borderColors: Module = {
   ],
 
   build: (context: BuildContext) => {
-    if (context.value !== 'default') {
-      throw Error("borderColors module only accept default value")
-    }
-
     const colorsContext = context.getDependencyContext(colors);
 
     Object.keys(colorsContext.value).forEach(name => {

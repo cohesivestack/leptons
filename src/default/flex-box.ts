@@ -5,11 +5,8 @@ export const flexBox: Module = {
   name: 'flex-box',
   prefix: 'f',
   useShortName: true,
+  value: 'default',
   build: (context: BuildContext) => {
-
-    if (context.value !== 'default') {
-      throw Error("Flexbox module only accept default value")
-    }
 
     context
       .appendWithShort('auto', 'a', 'flex: 1 1 auto; min-width:0; min-height:0')
