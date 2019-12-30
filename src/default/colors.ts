@@ -19,7 +19,7 @@ export const colors: Module = {
     const colors = context.value;
 
     Object.keys(colors).forEach(name => {
-      context.append('', 'color: ' + colors[name]);
+      context.append(name, `color: ${colors[name]};`);
     });
   }
 
