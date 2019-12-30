@@ -23,8 +23,28 @@ describe("Cli", () => {
     expect(fs.existsSync(configPath)).toBe(false);
 
     childProcess.exec(`ts-node ${cli} init ${configPath}`, function(_error: any, stdout: any, stderr: any) {
-      expect((new RegExp(/The leptons configuration file '\.\/tmp\/leptons\.yaml'/)).test(stdout)).toBe(true);
+      expect((new RegExp(/The leptons configuration file '\.\/tmp\/leptons\.yaml' was created!/)).test(stdout)).toBe(true);
       done();
+      expect(fs.existsSync(configPath)).toBe(true);
+    });
+
+  });
+
+  test("Cli should build the configuration file", (done) => {
+    const configPath = './tmp/leptons.yaml'
+    const cssPath = './tmp/leptons.css'
+
+    if (fs.existsSync(configPath)) fs.unlinkSync(configPath);
+    if (fs.existsSync(cssPath)) fs.unlinkSync(cssPath);
+
+    expect(fs.existsSync(cssPath)).toBe(false);
+
+    childProcess.execSync(`ts-node ${cli} init ${configPath}`);
+
+    childProcess.exec(`ts-node ${cli} build ${cssPath} -c ${configPath}`, function(_error: any, stdout: any, stderr: any) {
+      expect((new RegExp(/The leptons css file '\.\/tmp\/leptons\.css' was created!/)).test(stdout)).toBe(true);
+      done();
+      expect(fs.existsSync(cssPath)).toBe(true);
     });
 
   });
