@@ -6,7 +6,7 @@ const cli = path.join(__dirname, './cli.ts');
 
 describe("Cli", () => {
 
-  test("Cli should return help", (done) => {
+  test("should return help", (done) => {
 
     childProcess.exec(`ts-node ${cli} -h`, function(_error: any, stdout: any, stderr: any) {
       expect((new RegExp(/Usage: cli\.ts \[options\] \[command\]/)).test(stdout)).toBe(true);
@@ -15,7 +15,7 @@ describe("Cli", () => {
 
   });
 
-  test("Cli should init the configuration file", (done) => {
+  test("should init the configuration file", (done) => {
     const configPath = './tmp/leptons.yaml'
 
     if (fs.existsSync(configPath)) fs.unlinkSync(configPath);
@@ -30,7 +30,7 @@ describe("Cli", () => {
 
   });
 
-  test("Cli should build the configuration file", (done) => {
+  test("should build the configuration file", (done) => {
     const configPath = './tmp/leptons.yaml'
     const cssPath = './tmp/leptons.css'
 

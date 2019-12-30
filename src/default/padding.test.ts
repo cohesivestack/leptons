@@ -1,8 +1,8 @@
 import { Builder } from "../builder";
 
-describe("Builder", () => {
+describe("Padding module", () => {
 
-  test("Padding shoud be created ", () => {
+  test("shoud generate css", () => {
 
     const plainConfig = {
       package: "default",

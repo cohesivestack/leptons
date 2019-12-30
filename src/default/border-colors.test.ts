@@ -1,8 +1,8 @@
 import { Builder } from "../builder";
 
-describe('Border Colors', () => {
+describe('BorderColors module', () => {
 
-  test('border-colors shoud generate css', () => {
+  test('shoud generate css', () => {
 
     const plainConfig = {
       package: 'default',

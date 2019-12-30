@@ -2,7 +2,7 @@ import { Builder } from "../builder";
 
 describe("BorderWidths module", () => {
 
-  test("shoud be created", () => {
+  test("shoud generate css", () => {
 
     const plainConfig = {
       package: "default",

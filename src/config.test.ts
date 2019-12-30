@@ -3,7 +3,7 @@ import { pkg as defaultPkg } from './default';
 
 describe("Config", () => {
 
-  test("Scheme should be parsed correctly without errors", () => {
+  test("should parse the scheme correctly without errors", () => {
 
     const plainConfig = {
       package: "default",
@@ -32,7 +32,7 @@ describe("Config", () => {
 
   });
 
-  test("Init function should return a yaml content", () => {
+  test("should return yaml content with the Init function", () => {
     const output = getInitConfig(defaultPkg);
 
     expect((new RegExp(/^package: default\n/)).test(output)).toBe(true);

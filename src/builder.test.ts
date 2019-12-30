@@ -3,7 +3,7 @@ import fs from "fs";
 
 describe("Builder", () => {
 
-  test("Builder shoud init a default config file", () => {
+  test("shoud init a default config file", () => {
     const filePath = './tmp/leptons.yaml';
     if (fs.existsSync(filePath)) {
       fs.unlinkSync(filePath);
@@ -22,7 +22,7 @@ describe("Builder", () => {
 
   });
 
-  test("Builder shoud create an output", () => {
+  test("shoud create an output", () => {
 
     const plainConfig = {
       package: "default",

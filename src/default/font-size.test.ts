@@ -1,8 +1,8 @@
 import { Builder } from "../builder";
 
-describe("Builder", () => {
+describe("FontSize module", () => {
 
-  test("FontSize shoud be created ", () => {
+  test("FontSize shoud generate css", () => {
 
     const plainConfig = {
       package: "default",
