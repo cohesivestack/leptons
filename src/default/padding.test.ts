@@ -6,7 +6,7 @@ describe("Builder", () => {
 
     const plainConfig = {
       package: "default",
-      breakpoints: {m: 48, l: 64},
+      breakpoints: {m: 48},
       includeAll: false,
       modules: [
         { "padding": [0.5, 1] }
@@ -51,27 +51,6 @@ describe("Builder", () => {
   .pl1-m { padding-left: 1; }
   .pr05-m { padding-right: 0.5; }
   .pr1-m { padding-right: 1; }
-
-}
-
-/* Breakpoint: l */
-@media screen and (min-width: 64rem) {
-
-  /* Module: padding - breakpoint: l */
-  .pa05-l { padding: 0.5; }
-  .pa1-l { padding: 1; }
-  .pv05-l { padding-top: 0.5; padding-bottom: 0.5; }
-  .pv1-l { padding-top: 1; padding-bottom: 1; }
-  .ph05-l { padding-left: 0.5; padding-right: 0.5; }
-  .ph1-l { padding-left: 1; padding-right: 1; }
-  .pt05-l { padding-top: 0.5; }
-  .pt1-l { padding-top: 1; }
-  .pb05-l { padding-bottom: 0.5; }
-  .pb1-l { padding-bottom: 1; }
-  .pl05-l { padding-left: 0.5; }
-  .pl1-l { padding-left: 1; }
-  .pr05-l { padding-right: 0.5; }
-  .pr1-l { padding-right: 1; }
 
 }
 `
