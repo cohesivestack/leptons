@@ -5,6 +5,7 @@ import { borderWidths } from './border-widths';
 import { borderColors } from './border-colors';
 import { fontSize } from './font-size';
 import { padding } from './padding';
+import { margin } from './margin';
 import { flexBox } from './flex-box';
 
 export const pkg: Package = {
@@ -23,6 +24,7 @@ export const pkg: Package = {
     borderColors,
     fontSize,
     padding,
+    margin,
     flexBox
   ]
 }
