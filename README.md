@@ -1,3 +1,5 @@
+# WARNING: This package is in an alpha phase. Don't use yet!
+
 # Leptons
 
 Leptons is an Atomic CSS generator
@@ -19,6 +21,6 @@ modules:
 
 ## License
 
-Copyright © 2020 Carlos Forero
+Copyright © 2019-2020 Carlos Forero
 
 Atomic Styles is released under the [MIT License](LICENSE).
