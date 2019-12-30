@@ -1,7 +1,7 @@
 import { Package } from '../package';
 import { colors } from './colors';
 import { display } from './display';
-import { borders } from './borders';
+import { borderWidths } from './border-widths';
 import { borderColors } from './border-colors';
 import { fontSize } from './font-size';
 import { padding } from './padding';
@@ -18,7 +18,7 @@ export const pkg: Package = {
   modules: [
     colors,
     display,
-    borders,
+    borderWidths,
     borderColors,
     fontSize,
     padding
