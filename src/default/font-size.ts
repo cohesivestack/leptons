@@ -6,7 +6,7 @@ export const fontSize: Module = {
   name: 'font-size',
   prefix: 'f',
   useShortName: 'inapplicable',
-  value: [0.50, 0.75, 1, 1.5, 2, 3, 4, 6],
+  value: [0.50, 0.75, 1, 1.5, 2, 3, 4, 6, 8],
   initExplicit: true,
 
   build: (context: BuildContext) => {
