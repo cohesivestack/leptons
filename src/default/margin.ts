@@ -14,17 +14,17 @@ export const margin: Module = {
     const sizes = context.value as number[];
 
     [
-      ['all', 'a', (s: number | string) => `margin: ${s};`],
-      ['vertical', 'v', (s: number | string) => `margin-top: ${s}; margin-bottom: ${s};`],
-      ['horizontal', 'h', (s: number | string) => `margin-left: ${s}; margin-right: ${s};`],
-      ['top', 't', (s: number | string) => `margin-top: ${s};`],
-      ['bottom', 'b', (s: number | string) => `margin-bottom: ${s};`],
-      ['left', 'l', (s: number | string) => `margin-left: ${s};`],
-      ['right', 'r', (s: number | string) => `margin-right: ${s};`]
+      ['all', 'a', (s: string) => `margin: ${s};`],
+      ['vertical', 'v', (s: string) => `margin-top: ${s}; margin-bottom: ${s};`],
+      ['horizontal', 'h', (s: string) => `margin-left: ${s}; margin-right: ${s};`],
+      ['top', 't', (s: string) => `margin-top: ${s};`],
+      ['bottom', 'b', (s: string) => `margin-bottom: ${s};`],
+      ['left', 'l', (s: string) => `margin-left: ${s};`],
+      ['right', 'r', (s: string) => `margin-right: ${s};`]
     ].forEach(values => {
       const name = values[0] as string;
       const shortName = values[1] as string;
-      const style = values[2] as (s: number | string) => string;
+      const style = values[2] as (s: string) => string;
 
       context.appendWithShort(
         `${name}-auto`, `${shortName}-auto`, style('auto'))
@@ -33,7 +33,7 @@ export const margin: Module = {
         const suffix = numberToName(size);
 
         context.appendWithShort(
-          `${name}-${suffix}`, `${shortName}${suffix}`, style(size))
+          `${name}-${suffix}`, `${shortName}${suffix}`, style(size + 'rem'))
       });
     })
 
