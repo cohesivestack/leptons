@@ -14,8 +14,7 @@ export const pkg: Package = {
   includeAll: true,
   breakpoints: {
     m: 48,
-    l: 64,
-    xl: 80,
+    l: 64
   },
   modules: [
     colors,

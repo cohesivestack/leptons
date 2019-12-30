@@ -10,7 +10,6 @@ package: default
 breakpoints:
   m: 48
   l: 64
-  xl: 80
 modules:
   - colors: {lightest-red: '#ffebee', light-red: '#ef9a9a', red: '#f44336', dark-red: '#d32f2f', darkest-red: '#b71c1c'}
   - border-widths: [0.0625, 0.125, 0.25, 0.5, 1]
