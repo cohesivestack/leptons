@@ -25,19 +25,19 @@
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^24.0.23",
-    "@types/yargs": "^13.0.4",
+    "@types/node": "^12.12.22",
     "jest": "^24.9.0",
     "ts-jest": "^24.2.0",
+    "ts-node": "^8.5.4",
     "tslint": "^5.20.1",
     "typescript": "^3.7.2"
   },
   "dependencies": {
     "@types/js-yaml": "^3.12.1",
-    "@types/node": "^12.12.12",
     "ajv": "^6.10.2",
     "class-transformer": "^0.2.3",
+    "commander": "^4.0.1",
     "js-yaml": "^3.13.1",
-    "typescript-json-schema": "^0.40.0",
-    "yargs": "^15.0.0"
+    "typescript-json-schema": "^0.40.0"
   }
 }
