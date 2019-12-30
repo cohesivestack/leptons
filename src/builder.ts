@@ -27,27 +27,39 @@ export class Builder {
     }
   }
 
-  buildFromFile(filePath: string): string {
-    const textConfig = fs.readFileSync(filePath, 'utf8');
-    const configExtension = path.extname(filePath);
+  buildFromFile(configFilePath: string): string {
+    const textConfig = fs.readFileSync(configFilePath, 'utf8');
+    const configExtension = path.extname(configFilePath);
 
     switch (configExtension) {
-      case 'yaml':
-      case 'yml':
+      case '.yaml':
+      case '.yml':
         return this.buildFromYaml(textConfig);
-      case 'json':
+      case '.json':
         return this.buildFromJson(textConfig);
       default:
-        throw Error("Invalid file extension (must be any of: .yaml, .yml or .json)")
+        throw Error('Invalid file extension (must be any of: .yaml, .yml or .json)');
     }
+  }
+
+  buildFromFileToFile(configFilePath: string, outputFilePath: string) {
+    this.writeToFile(outputFilePath, this.buildFromFile(configFilePath));
   }
 
   buildFromYaml(yamlConfig: string): string {
     return this.build(parseFromYaml(yamlConfig));
   }
 
+  buildFromYamlToFile(yamlConfig: string, outputFilePath: string) {
+    this.writeToFile(outputFilePath, this.buildFromYaml(yamlConfig));
+  }
+
   buildFromJson(jsonConfig: string): string {
     return this.build(parseFromJson(jsonConfig));
+  }
+
+  buildFromJsonToFile(jsonConfig: string, outputFilePath: string) {
+    this.writeToFile(outputFilePath, this.buildFromJson(jsonConfig));
   }
 
   build(plainConfig: any): string {
@@ -109,6 +121,14 @@ export class Builder {
     })
 
     return output
+  }
+
+  buildToFile(plainConfig: any, outputFilePath: string) {
+    this.writeToFile(outputFilePath, this.build(plainConfig));
+  }
+
+  private writeToFile(outputFilePath: string, cssContent: string) {
+    fs.writeFileSync(outputFilePath, cssContent);
   }
 
   appendWithShort(context: BuildContext, name: string, shortName: string, body: string) {
