@@ -14,13 +14,13 @@ export const padding: Module = {
     const sizes = context.value as number[];
 
     [
-      ['all', 'a', (s: number) => `padding: ${s}`],
-      ['vertical', 'v', (s: number) => `padding-top: ${s}; padding-bottom: ${s}`],
-      ['horizontal', 'h', (s: number) => `padding-left: ${s}; padding-right: ${s}`],
-      ['top', 't', (s: number) => `padding-top: ${s}`],
-      ['bottom', 'b', (s: number) => `padding-bottom: ${s}`],
-      ['left', 'l', (s: number) => `padding-left: ${s}`],
-      ['right', 'r', (s: number) => `padding-right: ${s}`]
+      ['all', 'a', (s: number) => `padding: ${s};`],
+      ['vertical', 'v', (s: number) => `padding-top: ${s}; padding-bottom: ${s};`],
+      ['horizontal', 'h', (s: number) => `padding-left: ${s}; padding-right: ${s};`],
+      ['top', 't', (s: number) => `padding-top: ${s};`],
+      ['bottom', 'b', (s: number) => `padding-bottom: ${s};`],
+      ['left', 'l', (s: number) => `padding-left: ${s};`],
+      ['right', 'r', (s: number) => `padding-right: ${s};`]
     ].forEach(values => {
       const name = values[0] as string;
       const shortName = values[1] as string;

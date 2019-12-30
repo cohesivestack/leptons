@@ -13,7 +13,7 @@ export const fontSize: Module = {
     const sizes = context.value as number[];
 
     sizes.forEach(size => {
-      context.append(numberToName(size), `font-size: ${size}rem`);
+      context.append(numberToName(size), `font-size: ${size}rem;`);
     });
   }
 
