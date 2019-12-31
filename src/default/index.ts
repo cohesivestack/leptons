@@ -1,5 +1,6 @@
 import { Package } from '../package';
 import { colors } from './colors';
+import { backgroundColors } from './background-colors';
 import { display } from './display';
 import { borderWidths } from './border-widths';
 import { borderColors } from './border-colors';
@@ -19,6 +20,7 @@ export const pkg: Package = {
   },
   modules: [
     colors,
+    backgroundColors,
     display,
     flexBox,
     borderWidths,
