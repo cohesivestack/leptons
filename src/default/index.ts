@@ -5,6 +5,7 @@ import { borderWidths } from './border-widths';
 import { borderColors } from './border-colors';
 import { fontSize } from './font-size';
 import { padding } from './padding';
+import { widths } from './widths';
 import { margin } from './margin';
 import { flexBox } from './flex-box';
 
@@ -19,11 +20,12 @@ export const pkg: Package = {
   modules: [
     colors,
     display,
+    flexBox,
     borderWidths,
     borderColors,
     fontSize,
     padding,
     margin,
-    flexBox
+    widths
   ]
 }
