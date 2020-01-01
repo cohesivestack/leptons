@@ -7,6 +7,7 @@ import { borderColors } from './border-colors';
 import { fontSize } from './font-size';
 import { padding } from './padding';
 import { widths } from './widths';
+import { heights } from './heights';
 import { margin } from './margin';
 import { flexBox } from './flex-box';
 
@@ -28,6 +29,7 @@ export const pkg: Package = {
     fontSize,
     padding,
     margin,
-    widths
+    widths,
+    heights
   ]
 }
