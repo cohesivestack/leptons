@@ -22,6 +22,7 @@ describe("Widths module", () => {
 .w64 { width: 64rem; }
 .w10p { width: 10%; }
 .w100p { width: 100%; }
+.w-auto { width: auto; }
 
 /* Breakpoint: m */
 @media screen and (min-width: 48rem) {
@@ -31,6 +32,7 @@ describe("Widths module", () => {
   .w64-m { width: 64rem; }
   .w10p-m { width: 10%; }
   .w100p-m { width: 100%; }
+  .w-auto-m { width: auto; }
 
 }
 `

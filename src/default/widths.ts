@@ -19,10 +19,12 @@ export const widths: Module = {
     remWidths.forEach(size => {
       context.append(numberToName(size), `width: ${size}rem;`);
     });
-
+    
     percentageWidths.forEach(size => {
       context.append(`${numberToName(size)}p`, `width: ${size}%;`);
     });
+
+    context.append('-auto', `width: auto;`);
   }
 
 }

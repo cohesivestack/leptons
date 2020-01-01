@@ -23,6 +23,8 @@ export const heights: Module = {
     percentageHeights.forEach(size => {
       context.append(`${numberToName(size)}p`, `height: ${size}%;`);
     });
+
+    context.append('-auto', `height: auto;`);
   }
 
 }

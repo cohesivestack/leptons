@@ -22,6 +22,7 @@ describe("Heights module", () => {
 .h64 { height: 64rem; }
 .h10p { height: 10%; }
 .h100p { height: 100%; }
+.h-auto { height: auto; }
 
 /* Breakpoint: m */
 @media screen and (min-width: 48rem) {
@@ -31,6 +32,7 @@ describe("Heights module", () => {
   .h64-m { height: 64rem; }
   .h10p-m { height: 10%; }
   .h100p-m { height: 100%; }
+  .h-auto-m { height: auto; }
 
 }
 `
