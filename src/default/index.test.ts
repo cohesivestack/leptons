@@ -23,3 +23,26 @@ modules:
   });
 
 });
+
+describe('Default Pkg', () => {
+  test('Init function should return a minimum yaml content', () => {
+    const output = getInitConfig(defaultPkg, true);
+
+    const expectedOutput = `
+breakpoints:
+  m: 48
+  l: 64
+modules:
+  - colors: {}
+  - border-widths: []
+  - font-size: []
+  - padding: []
+  - margin: []
+  - widths: {rem: [], percentage: []}
+  - heights: {rem: [], percentage: [], viewport: []}
+`;
+
+    expect(output.trim()).toBe(expectedOutput.trim());
+  });
+
+});

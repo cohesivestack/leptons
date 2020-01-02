@@ -6,11 +6,12 @@ program.version('0.0.1')
 program
   .command('init [file_path]')
   .description('init a leptons config file. Defaults to ./leptons.yaml')
-  .action(configPath => {
+  .option("-m, --minimum", "minimum module values")
+  .action((configPath, options) => {
 
     configPath = configPath || './leptons.yaml';
 
-    (new Builder()).init(configPath);
+    (new Builder()).init(configPath, options.minimum);
 
     console.log("The leptons configuration file '" + configPath + "' was created!\n" +
       "Edit it or run:\n" +

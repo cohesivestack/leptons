@@ -10,6 +10,7 @@ export type Module = {
   dependencies?: Dependency[],
   initExplicit?: boolean,
   value: ModuleValue,
+  minimumValue?: ModuleValue,
   build: (buildContext: BuildContext) => void
 }
 

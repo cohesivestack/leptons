@@ -19,11 +19,11 @@ export class Builder {
 
   private medias: Media[] = [];
 
-  init(filePath: string) {
+  init(filePath: string, minimum = false) {
     if (fs.existsSync(filePath)) {
       throw Error("Error: a file '" + filePath + "' already exists");
     } else {
-      fs.writeFileSync(filePath, getInitConfig(defaultPkg));
+      fs.writeFileSync(filePath, getInitConfig(defaultPkg, minimum));
     }
   }
 

@@ -135,12 +135,27 @@ export function parse(plainConfig: any): (Config | ConfigError[]) {
   return config as Config;
 }
 
-export function getInitConfig(pkg: Package): string {
+export function getInitConfig(pkg: Package, minimum = false): string {
   const config = {
     breakpoints: pkg.breakpoints,
     modules: pkg.modules.filter(m => m.initExplicit).map(m => {
+      var value: any;
+      if (minimum) {
+        if (m.minimumValue !== undefined) {
+          value = m.minimumValue;
+        } else if (Array.isArray(m.value)) {
+          value = [];
+        } else if (typeof m.value === 'object') {
+          value = {};
+        } else {
+          value = m.value;
+        }
+      } else {
+        value = m.value;
+      }
+
       const om: any = {};
-      om[m.name] = m.value;
+      om[m.name] = value;
       return om;
     })
   };

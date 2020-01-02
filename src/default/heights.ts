@@ -11,6 +11,11 @@ export const heights: Module = {
     percentage: [16.66,40,60,83.33,100],
     viewport: [16.66,40,60,83.33,100]
   },
+  minimumValue:  {
+    rem: [],
+    percentage: [],
+    viewport: []
+  },
   initExplicit: true,
 
   build: (context: BuildContext) => {
