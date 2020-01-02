@@ -16,13 +16,17 @@ export const widths: Module = {
     const remWidths = context.value.rem as number[];
     const percentageWidths = context.value.percentage as number[];
 
-    remWidths.forEach(size => {
-      context.append(numberToName(size), `width: ${size}rem;`);
-    });
+    if (remWidths) {
+      remWidths.forEach(size => {
+        context.append(numberToName(size), `width: ${size}rem;`);
+      });
+    }
     
-    percentageWidths.forEach(size => {
-      context.append(`${numberToName(size)}p`, `width: ${size}%;`);
-    });
+    if (percentageWidths) {
+      percentageWidths.forEach(size => {
+        context.append(`${numberToName(size)}p`, `width: ${size}%;`);
+      });
+    }
 
     context.append('-auto', `width: auto;`);
   }

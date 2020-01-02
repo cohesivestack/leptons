@@ -16,18 +16,25 @@ export const heights: Module = {
   build: (context: BuildContext) => {
     const remHeights = context.value.rem as number[];
     const percentageHeights = context.value.percentage as number[];
+    const viewportHeights = context.value.percentage as number[];
 
-    remHeights.forEach(size => {
-      context.append(numberToName(size), `height: ${size}rem;`);
-    });
+    if (remHeights) {
+      remHeights.forEach(size => {
+        context.append(numberToName(size), `height: ${size}rem;`);
+      });
+    }
 
-    percentageHeights.forEach(size => {
-      context.append(`${numberToName(size)}p`, `height: ${size}%;`);
-    });
+    if (percentageHeights) {
+      percentageHeights.forEach(size => {
+        context.append(`${numberToName(size)}p`, `height: ${size}%;`);
+      });
+    }
 
-    percentageHeights.forEach(size => {
-      context.append(`${numberToName(size)}vh`, `height: ${size}vh;`);
-    });
+    if (viewportHeights) {
+      viewportHeights.forEach(size => {
+        context.append(`${numberToName(size)}vh`, `height: ${size}vh;`);
+      });
+    }
 
     context.append('-auto', `height: auto;`);
   }
