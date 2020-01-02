@@ -2,6 +2,9 @@
   "name": "leptons",
   "version": "0.0.1",
   "description": "Leptons is an atomic CSS generator",
+  "homepage": "github.com/cohesivestack/leptons",
+  "author": "Carlos Forero",
+  "license": "MIT",
   "main": "index.ts",
   "scripts": {
     "test": "jest",
@@ -26,8 +29,6 @@
     "typescript",
     "javascript"
   ],
-  "author": "Carlos Forero",
-  "license": "MIT",
   "devDependencies": {
     "@types/jest": "^24.0.23",
     "@types/node": "^12.12.22",
