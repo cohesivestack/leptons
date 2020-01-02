@@ -10,6 +10,11 @@
   "bin": {
     "leptons": "./bin/leptons"
   },
+  "files": [
+    "bin",
+    "dist",
+    "src"
+  ],
   "repository": {
     "type": "git",
     "url": "github.com/cohesivestack/atomic-styles"
