@@ -22,6 +22,8 @@ describe("Heights module", () => {
 .h64 { height: 64rem; }
 .h10p { height: 10%; }
 .h100p { height: 100%; }
+.h10vh { height: 10vh; }
+.h100vh { height: 100vh; }
 .h-auto { height: auto; }
 
 /* Breakpoint: m */
@@ -32,6 +34,8 @@ describe("Heights module", () => {
   .h64-m { height: 64rem; }
   .h10p-m { height: 10%; }
   .h100p-m { height: 100%; }
+  .h10vh-m { height: 10vh; }
+  .h100vh-m { height: 100vh; }
   .h-auto-m { height: auto; }
 
 }

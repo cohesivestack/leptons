@@ -8,7 +8,8 @@ export const heights: Module = {
   useShortName: true,
   value: {
     rem: [1,2,3,4,6,8,12,16,24,32],
-    percentage: [8.33,10,16.66,20,25,30,33.33,40,50,60,66.66,70,75,80,83.33,90,91.66,100]
+    percentage: [16.66,40,60,83.33,100],
+    viewport: [16.66,40,60,83.33,100]
   },
   initExplicit: true,
 
@@ -22,6 +23,10 @@ export const heights: Module = {
 
     percentageHeights.forEach(size => {
       context.append(`${numberToName(size)}p`, `height: ${size}%;`);
+    });
+
+    percentageHeights.forEach(size => {
+      context.append(`${numberToName(size)}vh`, `height: ${size}vh;`);
     });
 
     context.append('-auto', `height: auto;`);
