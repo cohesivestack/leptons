@@ -6,7 +6,6 @@ describe("Config", () => {
   test("should parse the scheme correctly without errors", () => {
 
     const plainConfig = {
-      package: "default",
       breakpoints: {"a": 12, "b": 10, "c": 34},
       modules: [
         { "a": "default" },
@@ -22,7 +21,7 @@ describe("Config", () => {
     const config = parse(plainConfig) as Config;
     const modules = config.modules as ConfigModule[];
 
-    expect(config.package).toBe('default');
+    expect(config.breakpoints?.a).toBe(12);
 
     expect(modules[0].name).toBe('a');
     expect(modules[0].value).toBe('default');
@@ -35,7 +34,7 @@ describe("Config", () => {
   test("should return yaml content with the Init function", () => {
     const output = getInitConfig(defaultPkg);
 
-    expect((new RegExp(/^package: default\n/)).test(output)).toBe(true);
+    expect((new RegExp(/^breakpoints:\n/)).test(output)).toBe(true);
   });
 
 });

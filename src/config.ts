@@ -137,7 +137,6 @@ export function parse(plainConfig: any): (Config | ConfigError[]) {
 
 export function getInitConfig(pkg: Package): string {
   const config = {
-    package: pkg.name,
     breakpoints: pkg.breakpoints,
     modules: pkg.modules.filter(m => m.initExplicit).map(m => {
       const om: any = {};

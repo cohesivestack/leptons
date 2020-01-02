@@ -5,7 +5,6 @@ describe('FlexBox module', () => {
   test('shoud generate css', () => {
 
     const plainConfig = {
-      package: 'default',
       breakpoints: {m: 48},
       includeAll: false,
       modules: [ { 'flex-box': 'default' } ]

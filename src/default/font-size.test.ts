@@ -5,7 +5,6 @@ describe("FontSize module", () => {
   test("FontSize shoud generate css", () => {
 
     const plainConfig = {
-      package: "default",
       breakpoints: {m: 48},
       includeAll: false,
       modules: [

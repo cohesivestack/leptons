@@ -18,7 +18,7 @@ describe("Builder", () => {
 
     const yamlOutput = fs.readFileSync(filePath, 'utf8');
 
-    expect((new RegExp(/^package: default/)).test(yamlOutput)).toBe(true);
+    expect((new RegExp(/^breakpoints:/)).test(yamlOutput)).toBe(true);
 
   });
 

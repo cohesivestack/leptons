@@ -6,7 +6,6 @@ describe('Default Pkg', () => {
     const output = getInitConfig(defaultPkg);
 
     const expectedOutput = `
-package: default
 breakpoints:
   m: 48
   l: 64
