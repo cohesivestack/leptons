@@ -4,6 +4,8 @@ import childProcess from 'child_process';
 
 const cli = path.join(__dirname, './cli.ts');
 
+const testTimeout = 10000;
+
 describe("Cli", () => {
 
   test("should return help", (done) => {
@@ -13,7 +15,7 @@ describe("Cli", () => {
       done();
     });
 
-  });
+  }, testTimeout);
 
   test("should init the configuration file", (done) => {
     const configPath = './tmp/leptons.yaml'
@@ -28,7 +30,7 @@ describe("Cli", () => {
       expect(fs.existsSync(configPath)).toBe(true);
     });
 
-  });
+  }, testTimeout);
 
   test("should build the configuration file", (done) => {
     const configPath = './tmp/leptons.yaml'
@@ -47,6 +49,6 @@ describe("Cli", () => {
       expect(fs.existsSync(cssPath)).toBe(true);
     });
 
-  });
+  }, testTimeout);
 
 });
