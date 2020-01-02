@@ -1,4 +1,4 @@
-# WARNING: This package is in an alpha phase. Don't use yet!
+# WARNING: This package is in alpha phase. Don't use yet!
 
 # Leptons
 
