@@ -17,7 +17,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "github.com/cohesivestack/atomic-styles"
+    "url": "github.com/cohesivestack/leptons"
   },
   "keywords": [
     "css",
