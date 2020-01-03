@@ -18,7 +18,8 @@ export class BuildContext {
     public readonly mod: Module,
     configModule?: ConfigModule) {
 
-    this.prefix = configModule?.prefix || mod.prefix;
+    this.prefix = config.prefix ? `${config.prefix}-` : '';
+    this.prefix += configModule?.prefix || mod.prefix;
     this.breakpoints = configModule?.breakpoints || mod.breakpoints || config.breakpoints;
     this.custom = configModule?.custom;
     if (mod.value === 'default' && configModule && configModule.value !== 'default') {
