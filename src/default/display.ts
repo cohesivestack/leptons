@@ -12,6 +12,7 @@ export const display: Module = {
       .appendWithShort('none', 'n', 'display: none;')
       .appendWithShort('inline', 'i', 'display: inline;')
       .appendWithShort('block', 'b', 'display: block;')
+      .appendWithShort('flex', 'f', 'display: flex;')
       .appendWithShort('inline-block', 'ib', 'display: inline-block;')
       .appendWithShort('inline-table', 'it', 'display: inline-table;')
       .appendWithShort('table', 't', 'display: table;')

@@ -18,6 +18,7 @@ describe('Display module', () => {
 .dn { display: none; }
 .di { display: inline; }
 .db { display: block; }
+.df { display: flex; }
 .dib { display: inline-block; }
 .dit { display: inline-table; }
 .dt { display: table; }
@@ -34,6 +35,7 @@ describe('Display module', () => {
   .dn-m { display: none; }
   .di-m { display: inline; }
   .db-m { display: block; }
+  .df-m { display: flex; }
   .dib-m { display: inline-block; }
   .dit-m { display: inline-table; }
   .dt-m { display: table; }
