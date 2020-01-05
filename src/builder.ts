@@ -62,13 +62,16 @@ export class Builder {
     this.writeToFile(outputFilePath, this.buildFromJson(jsonConfig));
   }
 
-  build(plainConfig: any): string {
+  buildFromPlainConfig(plainConfig: any): string {
+    return this.build(parse(plainConfig));
+  }
+
+  private build(plainConfig: any): string {
 
     const pkg = defaultPkg;
 
-    const configOutput = parse(plainConfig);
-    if (isConfigErrors(configOutput)) {
-      const errors = configOutput as ConfigError[];
+    if (isConfigErrors(plainConfig)) {
+      const errors = plainConfig as ConfigError[];
 
       let reportErrors = '';
       errors.forEach(e => {
@@ -78,10 +81,10 @@ export class Builder {
       throw Error("Errors parsing plain object:\n" + reportErrors);
     }
 
-    this.config = configOutput;
+    this.config = plainConfig;
     const config = this.config as Config;
 
-    const breakpoints = this.config.breakpoints || pkg.breakpoints;
+    const breakpoints = config.breakpoints || pkg.breakpoints;
 
 
     this.medias.push(new Media());
@@ -95,7 +98,7 @@ export class Builder {
     }
 
     // undefined or true is true
-    const includeAll = this.config.includeAll !== false;
+    const includeAll = config.includeAll !== false;
 
     if (includeAll) {
       pkg.modules.forEach(mod => {
@@ -121,10 +124,6 @@ export class Builder {
     })
 
     return output
-  }
-
-  buildToFile(plainConfig: any, outputFilePath: string) {
-    this.writeToFile(outputFilePath, this.build(plainConfig));
   }
 
   private writeToFile(outputFilePath: string, cssContent: string) {

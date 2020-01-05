@@ -13,7 +13,7 @@ describe("Widths module", () => {
     }
 
     const builder = new Builder();
-    let output = builder.build(plainConfig);
+    let output = builder.buildFromPlainConfig(plainConfig);
 
     const expectedOutput = `
 /* Module: widths */
