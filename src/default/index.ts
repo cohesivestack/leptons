@@ -3,6 +3,7 @@ import { colors } from './colors';
 import { backgroundColors } from './background-colors';
 import { display } from './display';
 import { borderWidths } from './border-widths';
+import { borderRadius } from './border-radius';
 import { borderColors } from './border-colors';
 import { fontSize } from './font-size';
 import { fontWeights } from './font-weights';
@@ -27,6 +28,7 @@ export const pkg: Package = {
     display,
     flexBox,
     borderWidths,
+    borderRadius,
     borderColors,
     fontSize,
     fontWeights,
