@@ -19,13 +19,20 @@ export type ConfigModule = {
   value: ModuleValue
 }
 
+export type ConfigClass = {
+  name: string,
+  value: string,
+  breakpoints?: boolean | string[]
+}
+
 export type Config = {
   package: string,
   prefix?: string,
   useShortName?: boolean,
   includeAll?: boolean,
   breakpoints?: Breakpoints,
-  modules?: ConfigModule[]
+  modules?: ConfigModule[],
+  classes?: ConfigClass[]
 }
 
 export function isConfig(config: Config | ConfigError[]): config is Config {
@@ -75,6 +82,28 @@ const schema = {
           custom: { type: ["object", "string", "number", "integer", "array"] }
         }
       }
+    },
+    classes: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          ".+": { type: "string" },
+          breakpoints: {
+            oneOf: [
+              {
+                type: "boolean"
+              },
+              {
+                type: "array",
+                items: {
+                  type: "string"
+                }
+              }
+            ]
+          },
+        }
+      }
     }
   },
   additionalProperties: false
@@ -116,7 +145,7 @@ export function parse(plainConfig: any): (Config | ConfigError[]) {
     return errors;
   }
 
-  const config = {...plainConfig, modules: []}
+  const config = {...plainConfig, modules: [], classes: []}
 
   for (let i = 0; i < plainConfig.modules.length; i++) {
 
@@ -130,6 +159,20 @@ export function parse(plainConfig: any): (Config | ConfigError[]) {
     newModule.value = _module[moduleName];
 
     config.modules.push(newModule);
+  }
+
+  for (let i = 0; i < plainConfig.classes?.length; i++) {
+
+    const _class = plainConfig.classes[i];
+    const newClass = {..._class};
+    const className = Object.keys(_class)[0];
+
+    delete newClass[className];
+
+    newClass.name = className;
+    newClass.value = _class[className];
+
+    config.classes.push(newClass);
   }
 
   return config as Config;

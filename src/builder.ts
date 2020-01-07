@@ -118,6 +118,16 @@ export class Builder {
       });
     }
 
+    config.classes?.forEach(c => {
+      const className = config.prefix ? `.${config.prefix}-${c.name}` : `.${c.name}`;
+
+      if (c.breakpoints === undefined || c.breakpoints === true) {
+        this.medias.forEach(m => m.appendClass(className, c.value));
+      } else {
+        this.medias[0].appendClass(className, c.value);
+      }
+    });
+
     let output = '';
     this.medias.forEach(m => {
       output += m.output + '\n'

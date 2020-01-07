@@ -2,6 +2,7 @@ import { Module } from './module';
 
 export class Media {
   private modules = new Map<Module, string>();
+  private classes = "";
 
   constructor(
     private name?: string,
@@ -27,6 +28,21 @@ export class Media {
     this.modules.set(mod, output);
   }
 
+  public appendClass(className: string, body: string): void {
+    let indent = '';
+    if (this.name) indent = '  ';
+
+    if (!this.classes)
+      this.classes = indent +  Media.wrapDescription(
+        'Custom Classes' + (this.name ? ' - breakpoint: ' + this.name : ''));
+
+    this.classes += indent + className;
+
+    if (this.name) this.classes += '-' + this.name;
+
+    this.classes +=  ' { ' + body + ' }\n';
+  }
+
   public get output() {
     let output = ''
 
@@ -37,6 +53,8 @@ export class Media {
       output += '@media screen and (min-width: ' + this.breakpoint + 'rem) {\n\n';
 
     this.modules.forEach(o => output += o);
+
+    output += this.classes;
 
     if (this.name) output += '\n}\n';
 
