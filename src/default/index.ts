@@ -14,6 +14,7 @@ import { heights } from './heights';
 import { maxWidths } from './max-widths';
 import { margin } from './margin';
 import { flexBox } from './flex-box';
+import { textDecoration } from './text-decoration';
 
 export const pkg: Package = {
   name: 'default',
@@ -38,6 +39,7 @@ export const pkg: Package = {
     margin,
     widths,
     heights,
-    maxWidths
+    maxWidths,
+    textDecoration
   ]
 }
