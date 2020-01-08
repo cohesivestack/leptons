@@ -11,6 +11,7 @@ import { fontFamilies } from './font-families';
 import { padding } from './padding';
 import { widths } from './widths';
 import { heights } from './heights';
+import { maxWidths } from './max-widths';
 import { margin } from './margin';
 import { flexBox } from './flex-box';
 
@@ -36,6 +37,7 @@ export const pkg: Package = {
     padding,
     margin,
     widths,
-    heights
+    heights,
+    maxWidths
   ]
 }
