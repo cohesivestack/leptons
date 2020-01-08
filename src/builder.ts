@@ -133,6 +133,11 @@ export class Builder {
       output += m.output + '\n'
     })
 
+    if (config.css) {
+      output += '/* Custom CSS */\n';
+      output += config.css;
+    }
+
     return output
   }
 

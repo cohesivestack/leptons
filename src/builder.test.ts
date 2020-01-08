@@ -129,4 +129,41 @@ describe("Builder", () => {
 
     expect(output.trim()).toBe(expectedOutput.trim());
   });
+
+
+  test("shoud create an output with custom css", () => {
+
+    const plainConfig = {
+      package: "default",
+      breakpoints: {m: 48},
+      includeAll: false,
+      modules: [
+        { "font-size": [0.5, 1] }
+      ],
+      css: 'body { padding: 0 }'
+    }
+
+    const builder = new Builder();
+    let output = builder.buildFromPlainConfig(plainConfig);
+
+    const expectedOutput = `
+/* Module: font-size */
+.f0_5 { font-size: 0.5rem; }
+.f1 { font-size: 1rem; }
+
+/* Breakpoint: m */
+@media screen and (min-width: 48rem) {
+
+  /* Module: font-size - breakpoint: m */
+  .f0_5-m { font-size: 0.5rem; }
+  .f1-m { font-size: 1rem; }
+
+}
+
+/* Custom CSS */
+body { padding: 0 }
+`
+
+    expect(output.trim()).toBe(expectedOutput.trim());
+  });
 });
