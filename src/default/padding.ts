@@ -15,8 +15,8 @@ export const padding: Module = {
 
     [
       ['all', 'a', (s: number) => `padding: ${s}rem;`],
-      ['vertical', 'v', (s: number) => `padding-top: ${s}; padding-bottom: ${s}rem;`],
-      ['horizontal', 'h', (s: number) => `padding-left: ${s}; padding-right: ${s}rem;`],
+      ['vertical', 'v', (s: number) => `padding-top: ${s}rem; padding-bottom: ${s}rem;`],
+      ['horizontal', 'h', (s: number) => `padding-left: ${s}rem; padding-right: ${s}rem;`],
       ['top', 't', (s: number) => `padding-top: ${s}rem;`],
       ['bottom', 'b', (s: number) => `padding-bottom: ${s}rem;`],
       ['left', 'l', (s: number) => `padding-left: ${s}rem;`],

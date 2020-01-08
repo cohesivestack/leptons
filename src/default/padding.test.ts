@@ -19,10 +19,10 @@ describe("Padding module", () => {
 /* Module: padding */
 .pa0_5 { padding: 0.5rem; }
 .pa1 { padding: 1rem; }
-.pv0_5 { padding-top: 0.5; padding-bottom: 0.5rem; }
-.pv1 { padding-top: 1; padding-bottom: 1rem; }
-.ph0_5 { padding-left: 0.5; padding-right: 0.5rem; }
-.ph1 { padding-left: 1; padding-right: 1rem; }
+.pv0_5 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.pv1 { padding-top: 1rem; padding-bottom: 1rem; }
+.ph0_5 { padding-left: 0.5rem; padding-right: 0.5rem; }
+.ph1 { padding-left: 1rem; padding-right: 1rem; }
 .pt0_5 { padding-top: 0.5rem; }
 .pt1 { padding-top: 1rem; }
 .pb0_5 { padding-bottom: 0.5rem; }
@@ -38,10 +38,10 @@ describe("Padding module", () => {
   /* Module: padding - breakpoint: m */
   .pa0_5-m { padding: 0.5rem; }
   .pa1-m { padding: 1rem; }
-  .pv0_5-m { padding-top: 0.5; padding-bottom: 0.5rem; }
-  .pv1-m { padding-top: 1; padding-bottom: 1rem; }
-  .ph0_5-m { padding-left: 0.5; padding-right: 0.5rem; }
-  .ph1-m { padding-left: 1; padding-right: 1rem; }
+  .pv0_5-m { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+  .pv1-m { padding-top: 1rem; padding-bottom: 1rem; }
+  .ph0_5-m { padding-left: 0.5rem; padding-right: 0.5rem; }
+  .ph1-m { padding-left: 1rem; padding-right: 1rem; }
   .pt0_5-m { padding-top: 0.5rem; }
   .pt1-m { padding-top: 1rem; }
   .pb0_5-m { padding-bottom: 0.5rem; }
