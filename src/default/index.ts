@@ -18,6 +18,7 @@ import { textDecoration } from './text-decoration';
 import { positions } from './positions';
 import { cursors } from './cursors';
 import { opacity } from './opacity';
+import { visibility } from './visibility';
 
 export const pkg: Package = {
   name: 'default',
@@ -46,6 +47,7 @@ export const pkg: Package = {
     textDecoration,
     positions,
     cursors,
-    opacity
+    opacity,
+    visibility
   ]
 }
