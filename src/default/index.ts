@@ -16,6 +16,8 @@ import { margin } from './margin';
 import { flexBox } from './flex-box';
 import { textDecoration } from './text-decoration';
 import { positions } from './positions';
+import { cursors } from './cursors';
+import { opacity } from './opacity';
 
 export const pkg: Package = {
   name: 'default',
@@ -42,6 +44,8 @@ export const pkg: Package = {
     heights,
     maxWidths,
     textDecoration,
-    positions
+    positions,
+    cursors,
+    opacity
   ]
 }
