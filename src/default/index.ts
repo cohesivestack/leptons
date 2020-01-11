@@ -19,6 +19,7 @@ import { positions } from './positions';
 import { cursors } from './cursors';
 import { opacity } from './opacity';
 import { visibility } from './visibility';
+import { zIndex } from './z-index';
 
 export const pkg: Package = {
   name: 'default',
@@ -48,6 +49,7 @@ export const pkg: Package = {
     positions,
     cursors,
     opacity,
-    visibility
+    visibility,
+    zIndex
   ]
 }
