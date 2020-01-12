@@ -17,6 +17,7 @@ import { flexBox } from './flex-box';
 import { textDecoration } from './text-decoration';
 import { positions } from './positions';
 import { cursors } from './cursors';
+import { objectFit } from './object-fit';
 import { opacity } from './opacity';
 import { visibility } from './visibility';
 import { zIndex } from './z-index';
@@ -48,6 +49,7 @@ export const pkg: Package = {
     textDecoration,
     positions,
     cursors,
+    objectFit,
     opacity,
     visibility,
     zIndex
