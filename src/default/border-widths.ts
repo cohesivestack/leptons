@@ -1,13 +1,16 @@
 import { Module } from '../module';
 import { BuildContext } from '../build-context';
-import { numberToName } from '../builder-helper';
+import { a, v, s, numberToName } from '../builder-helper';
 
 export const borderWidths: Module = {
   name: 'border-widths',
-  prefix: 'bw',
-  useShortName: true,
-  value: [0.0625, 0.125, 0.25, 0.5, 1],
+  prefix: 'border-width',
+  shortPrefix: 'bw',
+  useShortPrefix: true,
+  useShortAttribute: true,
+  useShortValue: 'inapplicable',
   initExplicit: true,
+  value: [0.0625, 0.125, 0.25, 0.5, 1],
 
   build: (context: BuildContext) => {
     
@@ -19,12 +22,12 @@ export const borderWidths: Module = {
       ['bottom', 'b', 'border-bottom-width'],
       ['left', 'l', 'border-left-width'],
       ['right', 'r', 'border-right-width']
-    ].forEach(([name, shortName, style]) => {
+    ].forEach(([attribute, shortAttribute, style]) => {
       widths.forEach(width => {
-        const suffix = numberToName(width);
+        const value = numberToName(width);
 
-        context.appendWithShort(
-          `${name}-${suffix}`, `${shortName}${suffix}`, `${style}: ${width}rem;`);
+        context.append(
+          a(attribute, shortAttribute), v(value), s(`${style}: ${width}rem;`));
       });
     })
 

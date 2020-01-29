@@ -1,16 +1,18 @@
 import { Module } from '../module';
 import { BuildContext } from '../build-context';
-import { numberToName } from '../builder-helper';
+import { a, v, s, numberToName } from '../builder-helper';
 
 export const padding: Module = {
   name: 'padding',
-  prefix: 'p',
-  useShortName: true,
-  value: [0.25, 0.50, 0.75, 1, 1.5, 2, 3, 4, 6, 8, 12],
+  prefix: 'padding',
+  shortPrefix: 'p',
+  useShortPrefix: true,
+  useShortAttribute: true,
+  useShortValue: 'inapplicable',
   initExplicit: true,
+  value: [0.25, 0.50, 0.75, 1, 1.5, 2, 3, 4, 6, 8, 12],
 
   build: (context: BuildContext) => {
-
     const sizes = context.value as number[];
 
     [
@@ -22,17 +24,16 @@ export const padding: Module = {
       ['left', 'l', (s: number) => `padding-left: ${s}rem;`],
       ['right', 'r', (s: number) => `padding-right: ${s}rem;`]
     ].forEach(values => {
-      const name = values[0] as string;
-      const shortName = values[1] as string;
+      const attribute = values[0] as string;
+      const shortAttribute = values[1] as string;
       const style = values[2] as (s: number) => string;
-      sizes.forEach(size => {
-        const suffix = numberToName(size);
 
-        context.appendWithShort(
-          `${name}-${suffix}`, `${shortName}${suffix}`, style(size))
+      sizes.forEach(size => {
+        const sizeName = numberToName(size);
+        context.append(
+          a(attribute, shortAttribute), v(sizeName), s(style(size)));
       });
     })
-
   }
 
 }

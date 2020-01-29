@@ -1,11 +1,14 @@
 import { Module } from '../module';
 import { BuildContext } from '../build-context';
+import { v, s } from '../builder-helper';
 
 
 export const colors: Module = {
   name: 'colors',
   prefix: '',
-  useShortName: 'inapplicable',
+  useShortPrefix: 'inapplicable',
+  useShortAttribute: 'inapplicable',
+  useShortValue: 'inapplicable',
   initExplicit: true,
   value: {
     'lightest-red': '#ffebee',
@@ -61,7 +64,7 @@ export const colors: Module = {
     const colors = context.value;
 
     Object.keys(colors).forEach(name => {
-      context.append(name, `color: ${colors[name]};`);
+      context.append(v(name), s(`color: ${colors[name]};`))
     });
   }
 

@@ -5,7 +5,10 @@ import { Dependency } from './dependency';
 export type Module = {
   name: string,
   prefix: string,
-  useShortName: 'inapplicable' | boolean,
+  shortPrefix?: string,
+  useShortPrefix: 'inapplicable' | boolean,
+  useShortAttribute: 'inapplicable' | boolean,
+  useShortValue: 'inapplicable' | boolean,
   breakpoints?: Breakpoints,
   dependencies?: Dependency[],
   initExplicit?: boolean,

@@ -1,39 +1,42 @@
 import { Module } from '../module';
 import { BuildContext } from '../build-context';
-import { numberToName } from '../builder-helper';
+import { a, v, s, numberToName } from '../builder-helper';
 
 export const positions: Module = {
   name: 'positions',
-  prefix: '',
-  useShortName: 'inapplicable',
-  value: [0.5, 1, 1.5, 2, 3, 4],
+  prefix: 'position',
+  shortPrefix: 'pos',
+  useShortPrefix: true,
+  useShortAttribute: true,
+  useShortValue: 'inapplicable',
   initExplicit: true,
+  value: [0.5, 1, 1.5, 2, 3, 4],
 
   build: (context: BuildContext) => {
 
     const positions = context.value as number[];
 
     [
-      ['top', (s: number) => `top: ${s}rem;`],
-      ['bottom', (s: number) => `bottom: ${s}rem;`],
-      ['left', (s: number) => `left: ${s}rem;`],
-      ['right', (s: number) => `right: ${s}rem;`]
+      ['top', 't', (s: number) => `top: ${s}rem;`],
+      ['bottom', 'b', (s: number) => `bottom: ${s}rem;`],
+      ['left', 'l', (s: number) => `left: ${s}rem;`],
+      ['right', 'r', (s: number) => `right: ${s}rem;`]
     ].forEach(values => {
-      const name = values[0] as string;
-      const style = values[1] as (s: number) => string;
+      const attribute = values[0] as string;
+      const shortAttribute = values[1] as string;
+      const style = values[2] as (s: number) => string;
       positions.forEach(position => {
-        const suffix = numberToName(position);
+        const positionName = numberToName(position);
 
-        context.append(
-          `${name}-${suffix}`, style(position))
+        context.append(a(attribute, shortAttribute), v(positionName), s(style(position)));
       });
     })
 
     context
-      .append('absolute', 'position: absolute;')
-      .append('fixed', 'position: fixed;')
-      .append('relative', 'position: relative;')
-      .append('static', 'position: static;');
+      .append(v('absolute'), s('position: absolute;'))
+      .append(v('fixed'), s('position: fixed;'))
+      .append(v('relative'), s('position: relative;'))
+      .append(v('static'), s('position: static;'));
 
   }
 

@@ -1,26 +1,31 @@
 import { Module } from '../module';
 import { BuildContext } from '../build-context';
+import { a, v, s } from '../builder-helper';
 
 export const display: Module = {
   name: 'display',
-  prefix: 'd',
-  useShortName: true,
+  prefix: 'display',
+  shortPrefix: 'd',
+  useShortPrefix: true,
+  useShortAttribute: 'inapplicable',
+  useShortValue: true,
   value: 'default',
+
   build: (context: BuildContext) => {
 
     context
-      .appendWithShort('none', 'n', 'display: none;')
-      .appendWithShort('inline', 'i', 'display: inline;')
-      .appendWithShort('block', 'b', 'display: block;')
-      .appendWithShort('flex', 'f', 'display: flex;')
-      .appendWithShort('inline-block', 'ib', 'display: inline-block;')
-      .appendWithShort('inline-table', 'it', 'display: inline-table;')
-      .appendWithShort('table', 't', 'display: table;')
-      .appendWithShort('table-row', 'tr', 'display: table-row;')
-      .appendWithShort('table-row-group', 'trg', 'display: table-row-group;')
-      .appendWithShort('table-column', 'tc', 'display: table-column;')
-      .appendWithShort('table-column-group', 'tcg', 'display: table-column-group;')
-      .appendWithShort('table-cell', 't-cell', 'display: table-cell;');
+      .append(v('none', 'n'), s('display: none;'))
+      .append(v('inline', 'i'), s('display: inline;'))
+      .append(v('block', 'b'), s('display: block;'))
+      .append(v('flex', 'f'), s('display: flex;'))
+      .append(v('inline-block', 'ib'), s('display: inline-block;'))
+      .append(v('inline-table', 'it'), s('display: inline-table;'))
+      .append(v('table', 't'), s('display: table;'))
+      .append(v('table-row', 'tr'), s('display: table-row;'))
+      .append(v('table-row-group', 'trg'), s('display: table-row-group;'))
+      .append(v('table-column', 'tc'), s('display: table-column;'))
+      .append(v('table-column-group', 'tcg'), s('display: table-column-group;'))
+      .append(v('table-cell', 't-cell'), s('display: table-cell;'));
 
   }
 }

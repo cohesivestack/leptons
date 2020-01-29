@@ -13,7 +13,10 @@ export type ConfigError = {
 export type ConfigModule = {
   name: string,
   prefix?: string,
-  useShortName?: boolean,
+  shortPrefix?: string,
+  useShortPrefix?: boolean,
+  useShortAttribute?: boolean,
+  useShortValue?: boolean,
   breakpoints?: Breakpoints,
   custom?: any,
   value: ModuleValue
@@ -28,7 +31,9 @@ export type ConfigClass = {
 export type Config = {
   package: string,
   prefix?: string,
-  useShortName?: boolean,
+  useShortModulePrefix?: boolean,
+  useShortAttribute?: boolean,
+  useShortValue?: boolean,
   includeAll?: boolean,
   breakpoints?: Breakpoints,
   modules?: ConfigModule[],
