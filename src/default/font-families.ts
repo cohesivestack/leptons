@@ -1,11 +1,13 @@
 import { Module } from '../module';
 import { BuildContext } from '../build-context';
-
+import { v, s } from '../builder-helper';
 
 export const fontFamilies: Module = {
   name: 'font-families',
   prefix: '',
-  useShortName: 'inapplicable',
+  useShortPrefix: 'inapplicable',
+  useShortAttribute: 'inapplicable',
+  useShortValue: 'inapplicable',
   initExplicit: true,
   value: {
     'sans-serif': 'roboto, "helvetica neue", helvetica, tahoma, geneva, verdana, arial',
@@ -19,7 +21,7 @@ export const fontFamilies: Module = {
     const fontFamilies = context.value;
 
     Object.keys(fontFamilies).forEach(name => {
-      context.append(name, `font-family: ${fontFamilies[name]};`);
+      context.append(v(name), s(`font-family: ${fontFamilies[name]};`));
     });
   }
 

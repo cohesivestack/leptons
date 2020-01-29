@@ -1,13 +1,14 @@
 import { Breakpoints } from './breakpoints';
 import { Module, ModuleValue } from './module';
 import { Config, ConfigModule } from './config';
-import { Builder } from "./builder";
+import { Builder, AttributePayload, ValuePayload, StylePayload, Value } from "./builder";
 
 export class BuildContext {
   private moduleDependencies = new Map<Module, BuildContext | undefined>();
 
   readonly prefix?: string;
-  readonly useShortName?: boolean;
+  readonly useShortAttribute?: boolean;
+  readonly useShortValue?: boolean;
   readonly breakpoints?: Breakpoints;
   readonly custom?: any;
   readonly value: ModuleValue;
@@ -18,20 +19,42 @@ export class BuildContext {
     public readonly mod: Module,
     configModule?: ConfigModule) {
 
-    this.prefix = config.prefix ? `${config.prefix}-` : '';
-    this.prefix += configModule?.prefix || mod.prefix;
-    this.breakpoints = configModule?.breakpoints || mod.breakpoints || config.breakpoints;
+    if (mod.useShortPrefix === 'inapplicable' && configModule?.useShortPrefix !== undefined) {
+      throw Error('Setting useShortPrefix is innaplicable for the module ' + mod.name);
+    }
+    
+    if (mod.useShortAttribute === 'inapplicable' && configModule?.useShortAttribute !== undefined) {
+      throw Error('Setting useShortAttribute is innaplicable for the module ' + mod.name);
+    }
+    this.useShortAttribute = (
+      configModule?.useShortAttribute ||
+      config.useShortAttribute ||
+      mod.useShortAttribute) as boolean;
+
+    if (mod.useShortValue === 'inapplicable' && configModule?.useShortValue !== undefined) {
+      throw Error('Setting useShortValue is innaplicable for the module ' + mod.name);
+    }
+    this.useShortValue = (
+      configModule?.useShortValue ||
+      config.useShortValue ||
+      mod.useShortValue) as boolean;
+
+    this.prefix = config.prefix ? `${config.prefix}` : '';
+
+    if (configModule?.prefix) {
+      if (this.prefix !== '') this.prefix += '-';
+      this.prefix += `${configModule.useShortPrefix ? configModule.shortPrefix : configModule.prefix}`
+    } else if (mod.prefix) {
+      if (this.prefix !== '') this.prefix += '-';
+      this.prefix += `${mod.useShortPrefix ? mod.shortPrefix : mod.prefix}`
+    }
+
+    this.breakpoints = configModule?.breakpoints || config.breakpoints || mod.breakpoints;
     this.custom = configModule?.custom;
     if (mod.value === 'default' && configModule && configModule.value !== 'default') {
       throw Error('Module ' + mod.name + ' only accept "default" value');
     } else {
       this.value = configModule?.value || mod.value;
-    }
-
-    if (mod.useShortName === 'inapplicable' && configModule?.useShortName !== undefined) {
-      throw Error('Setting useShortName is innaplicable for the module ' + mod.name);
-    } else {
-      this.useShortName = configModule?.useShortName || config.useShortName;
     }
 
     if (mod.dependencies) {
@@ -57,13 +80,35 @@ export class BuildContext {
     return buildContext;
   }
 
-  append(name: string, body: string): BuildContext {
-    this.builder.append(this, name, body);
-    return this;
-  }
+  append(...options: (AttributePayload|ValuePayload|StylePayload)[]): BuildContext {
 
-  appendWithShort(name: string, shortName: string, body: string): BuildContext {
-    this.builder.appendWithShort(this, name, shortName, body);
+    let a: AttributePayload = {};
+    let v: ValuePayload = {};
+    let s: StylePayload = {};
+
+    options.forEach(o => {
+      if ((o as AttributePayload).attribute) {
+        const _a = o as AttributePayload;
+        if (a.attribute || a.shortAttribute) {
+          throw Error(`Multiple attribute parts is not allowed: ${a.attribute}, ${_a.attribute}. Module: ${this.mod.name}`)
+        }
+        a = _a;
+      } else if ((o as ValuePayload).value) {
+        const _v = o as ValuePayload;
+        if (v.value || v.shortValue) {
+          throw Error(`Multiple value parts is not allowed: ${v.value}, ${_v.value}. Module: ${this.mod.name}`)
+        }
+        v = _v;
+      } else if ((o as StylePayload).style) {
+        const _s = o as StylePayload;
+        if (s.style) {
+          throw Error(`Multiple style parts is not allowed: ${s.style}, ${_s.style}. Module: ${this.mod.name}`)
+        }
+        s = _s;
+      }
+    });
+
+    this.builder.append(this, a, v, s);
     return this;
   }
 }

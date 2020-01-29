@@ -15,17 +15,17 @@ describe('Visibility module', () => {
 
     const expectedOutput = `
 /* Module: visibility */
-.vv { visibility: visible; }
-.vh { visibility: hidden; }
-.vc { visibility: collapse; }
+.v-v { visibility: visible; }
+.v-h { visibility: hidden; }
+.v-c { visibility: collapse; }
 
 /* Breakpoint: m */
 @media screen and (min-width: 48rem) {
 
   /* Module: visibility - breakpoint: m */
-  .vv-m { visibility: visible; }
-  .vh-m { visibility: hidden; }
-  .vc-m { visibility: collapse; }
+  .v-v-m { visibility: visible; }
+  .v-h-m { visibility: hidden; }
+  .v-c-m { visibility: collapse; }
 
 }
 `

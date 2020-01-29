@@ -12,6 +12,60 @@ import { Config,
   parseFromJson } from './config';
 import { pkg as defaultPkg } from './default';
 
+export type AttributePayload = {
+  attribute?: string,
+  shortAttribute?: string
+}
+
+export type ValuePayload = {
+  value?: string,
+  shortValue?: string
+}
+
+export type StylePayload = {
+  style?: string
+}
+
+export type Attribute = (attribute: string, shortAttribute?: string) => AttributePayload;
+export type Value = (value: string, shortValue?: string) => ValuePayload;
+export type Style = (style: string) => StylePayload;
+
+export class AppendOptions {
+  attribute?: string;
+  shortAttribute?: string;
+  value?: string;
+  shortValue?: string;
+  style?: string;
+  shortStyle?: string;
+
+  hasAttribute(): boolean {
+    return this.has(this.attribute);
+  }
+
+  hasShortAttribute(): boolean {
+    return this.has(this.shortAttribute);
+  }
+
+  hasValue(): boolean {
+    return this.has(this.value);
+  }
+
+  hasShortValue(): boolean {
+    return this.has(this.shortValue);
+  }
+
+  hasStyle(): boolean {
+    return this.has(this.style);
+  }
+
+  hasShortStyle(): boolean {
+    return this.has(this.shortStyle);
+  }
+
+  private has(v?: string): boolean {
+    return v !== undefined && v.trim().length > 0;
+  }
+}
 
 export class Builder {
 
@@ -148,12 +202,29 @@ export class Builder {
   appendWithShort(context: BuildContext, name: string, shortName: string, body: string) {
     const className = '.' + context.prefix + shortName;
     this.medias.forEach(m => m.append(context.mod, className, body));
+
     return this;
   }
 
-  append(context: BuildContext, name: string, body: string) {
-    const className = '.' + context.prefix + name;
-    this.medias.forEach(m => m.append(context.mod, className, body));
+  append(c: BuildContext, a: AttributePayload, v: ValuePayload, s: StylePayload) : Builder {
+    if (!s.style) {
+      throw Error(`Style is required for ${c.mod.name} ${a?.attribute} ${v?.value}`);
+    }
+
+    let className = '.';
+    if (c.prefix) className += c.prefix;
+
+    if (a.attribute) {
+      if (className !== '.') className += '-';
+      className += `${c.useShortAttribute && a.shortAttribute ? a.shortAttribute : a.attribute}`;
+    }
+
+    if (v.value) {
+      if (className !== '.') className += '-';
+      className += `${c.useShortValue && v.shortValue ? v.shortValue : v.value}`;
+    }
+
+    this.medias.forEach(m => m.append(c.mod, className, s?.style as string));
     return this;
   }
 

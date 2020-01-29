@@ -15,35 +15,35 @@ describe('Display module', () => {
 
     const expectedOutput = `
 /* Module: display */
-.dn { display: none; }
-.di { display: inline; }
-.db { display: block; }
-.df { display: flex; }
-.dib { display: inline-block; }
-.dit { display: inline-table; }
-.dt { display: table; }
-.dtr { display: table-row; }
-.dtrg { display: table-row-group; }
-.dtc { display: table-column; }
-.dtcg { display: table-column-group; }
-.dt-cell { display: table-cell; }
+.d-n { display: none; }
+.d-i { display: inline; }
+.d-b { display: block; }
+.d-f { display: flex; }
+.d-ib { display: inline-block; }
+.d-it { display: inline-table; }
+.d-t { display: table; }
+.d-tr { display: table-row; }
+.d-trg { display: table-row-group; }
+.d-tc { display: table-column; }
+.d-tcg { display: table-column-group; }
+.d-t-cell { display: table-cell; }
 
 /* Breakpoint: m */
 @media screen and (min-width: 48rem) {
 
   /* Module: display - breakpoint: m */
-  .dn-m { display: none; }
-  .di-m { display: inline; }
-  .db-m { display: block; }
-  .df-m { display: flex; }
-  .dib-m { display: inline-block; }
-  .dit-m { display: inline-table; }
-  .dt-m { display: table; }
-  .dtr-m { display: table-row; }
-  .dtrg-m { display: table-row-group; }
-  .dtc-m { display: table-column; }
-  .dtcg-m { display: table-column-group; }
-  .dt-cell-m { display: table-cell; }
+  .d-n-m { display: none; }
+  .d-i-m { display: inline; }
+  .d-b-m { display: block; }
+  .d-f-m { display: flex; }
+  .d-ib-m { display: inline-block; }
+  .d-it-m { display: inline-table; }
+  .d-t-m { display: table; }
+  .d-tr-m { display: table-row; }
+  .d-trg-m { display: table-row-group; }
+  .d-tc-m { display: table-column; }
+  .d-tcg-m { display: table-column-group; }
+  .d-t-cell-m { display: table-cell; }
 
 }
 `

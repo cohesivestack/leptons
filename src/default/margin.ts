@@ -1,13 +1,16 @@
 import { Module } from '../module';
 import { BuildContext } from '../build-context';
-import { numberToName } from '../builder-helper';
+import { a, v, s, numberToName } from '../builder-helper';
 
 export const margin: Module = {
   name: 'margin',
-  prefix: 'm',
-  useShortName: true,
-  value: [0.25, 0.50, 0.75, 1, 1.5, 2, 3, 4, 6, 8, 12],
+  prefix: 'margin',
+  shortPrefix: 'm',
+  useShortPrefix: true,
+  useShortAttribute: true,
+  useShortValue: 'inapplicable',
   initExplicit: true,
+  value: [0.25, 0.50, 0.75, 1, 1.5, 2, 3, 4, 6, 8, 12],
 
   build: (context: BuildContext) => {
 
@@ -22,20 +25,20 @@ export const margin: Module = {
       ['left', 'l', (s: string) => `margin-left: ${s};`],
       ['right', 'r', (s: string) => `margin-right: ${s};`]
     ].forEach(values => {
-      const name = values[0] as string;
-      const shortName = values[1] as string;
+      const attribute = values[0] as string;
+      const shortAttribute = values[1] as string;
       const style = values[2] as (s: string) => string;
 
-      context.appendWithShort(
-        `${name}-auto`, `${shortName}-auto`, style('auto'))
+      context.append(
+        a(attribute, shortAttribute), v('auto'), s(style('auto')))
 
       sizes.forEach(size => {
-        const suffix = numberToName(size);
+        const nameSize = numberToName(size);
 
-        context.appendWithShort(
-          `${name}-${suffix}`, `${shortName}${suffix}`, style(size + 'rem'))
+        context.append(
+          a(attribute, shortAttribute), v(nameSize), s(style(size + 'rem')))
       });
-    })
+    });
 
   }
 

@@ -17,15 +17,15 @@ describe("FontWeights module", () => {
 
     const expectedOutput = `
 /* Module: font-weights */
-.fw3 { font-weight: 300; }
-.fw7 { font-weight: 700; }
+.fw-3 { font-weight: 300; }
+.fw-7 { font-weight: 700; }
 
 /* Breakpoint: m */
 @media screen and (min-width: 48rem) {
 
   /* Module: font-weights - breakpoint: m */
-  .fw3-m { font-weight: 300; }
-  .fw7-m { font-weight: 700; }
+  .fw-3-m { font-weight: 300; }
+  .fw-7-m { font-weight: 700; }
 
 }
 `

@@ -1,47 +1,52 @@
 import { Module } from '../module';
 import { BuildContext } from '../build-context';
+import { a, v, s } from '../builder-helper';
 
 export const flexBox: Module = {
   name: 'flex-box',
-  prefix: 'fb',
-  useShortName: true,
+  prefix: 'flex-box',
+  shortPrefix: 'fb',
+  useShortPrefix: true,
+  useShortAttribute: true,
+  useShortValue: true,
   value: 'default',
+
   build: (context: BuildContext) => {
 
     context
-      .appendWithShort('-auto', 'a', 'flex: 1 1 auto; min-width:0; min-height:0;')
-      .appendWithShort('-none', 'n', 'flex: none;')
-      .appendWithShort('-column', 'c', 'flex-direction: column;')
-      .appendWithShort('-row', 'r', 'flex-direction: row;')
-      .appendWithShort('-wrap', 'w', 'flex-wrap: wrap;')
+      .append(v('auto', 'a'), s('flex: 1 1 auto; min-width:0; min-height:0;'))
+      .append(v('none', 'n'), s('flex: none;'))
+      .append(v('column', 'c'), s('flex-direction: column;'))
+      .append(v('row', 'r'), s('flex-direction: row;'))
+      .append(v('wrap', 'w'), s('flex-wrap: wrap;'))
 
-      .appendWithShort('-justify-start', 'j-start', 'justify-content: flex-start;')
-      .appendWithShort('-justify-end', 'j-end', 'justify-content: flex-end;')
-      .appendWithShort('-justify-center', 'j-center', 'justify-content: center;')
-      .appendWithShort('-justify-stretch', 'j-stretch', 'justify-content: stretch;')
-      .appendWithShort('-justify-space-between', 'j-space-between', 'justify-content: space-between;')
-      .appendWithShort('-justify-space-around', 'j-space-around', 'justify-content: space-around;')
-      .appendWithShort('-justify-space-evenly', 'j-space-evenly', 'justify-content: space-evenly;')
+      .append(a('justify', 'j'), v('start', 's'), s('justify-content: flex-start;'))
+      .append(a('justify', 'j'), v('end', 'e'), s('justify-content: flex-end;'))
+      .append(a('justify', 'j'), v('center', 'c'), s('justify-content: center;'))
+      .append(a('justify', 'j'), v('stretch', 'stretch'), s('justify-content: stretch;'))
+      .append(a('justify', 'j'), v('space-between', 'sb'), s('justify-content: space-between;'))
+      .append(a('justify', 'j'), v('space-around', 'sa'), s('justify-content: space-around;'))
+      .append(a('justify', 'j'), v('space-evenly', 'se'), s('justify-content: space-evenly;'))
 
-      .appendWithShort('-items-start', 'i-start', 'align-items: flex-start;')
-      .appendWithShort('-items-end', 'i-end', 'align-items: flex-end;')
-      .appendWithShort('-items-center', 'i-center', 'align-items: center;')
-      .appendWithShort('-items-stretch', 'i-stretch', 'align-items: stretch;')
-      .appendWithShort('-items-baseline', 'i-baseline', 'align-items: baseline;')
+      .append(a('items', 'i'), v('start', 's'), s('align-items: flex-start;'))
+      .append(a('items', 'i'), v('end', 'e'), s('align-items: flex-end;'))
+      .append(a('items', 'i'), v('center', 'c'), s('align-items: center;'))
+      .append(a('items', 'i'), v('stretch', 'stretch'), s('align-items: stretch;'))
+      .append(a('items', 'i'), v('baseline', 'b'), s('align-items: baseline;'))
 
-      .appendWithShort('-self-start', 's-start', 'align-self: flex-start;')
-      .appendWithShort('-self-end', 's-end', 'align-self: flex-end;')
-      .appendWithShort('-self-center', 's-center', 'align-self: center;')
-      .appendWithShort('-self-stretch', 's-stretch', 'align-self: stretch;')
-      .appendWithShort('-self-baseline', 's-baseline', 'align-self: baseline;')
+      .append(a('self', 's'), v('start', 's'), s('align-self: flex-start;'))
+      .append(a('self', 's'), v('end', 'e'), s('align-self: flex-end;'))
+      .append(a('self', 's'), v('center', 'c'), s('align-self: center;'))
+      .append(a('self', 's'), v('stretch', 'stretch'), s('align-self: stretch;'))
+      .append(a('self', 's'), v('baseline', 'b'), s('align-self: baseline;'))
 
-      .appendWithShort('-content-start', 'c-start', 'align-content: flex-start;')
-      .appendWithShort('-content-end', 'c-end', 'align-content: flex-end;')
-      .appendWithShort('-content-center', 'c-center', 'align-content: center;')
-      .appendWithShort('-content-stretch', 'c-stretch', 'align-content: stretch;')
-      .appendWithShort('-content-space-between', 'c-space-between', 'align-content: space-between;')
-      .appendWithShort('-content-space-around', 'c-space-around', 'align-content: space-around;')
-      .appendWithShort('-content-space-evenly', 'c-space-evenly', 'align-content: space-evenly;')
+      .append(a('content', 'c'), v('start', 's'), s('align-content: flex-start;'))
+      .append(a('content', 'c'), v('end', 'e'), s('align-content: flex-end;'))
+      .append(a('content', 'c'), v('center', 'c'), s('align-content: center;'))
+      .append(a('content', 'c'), v('stretch', 'stretch'), s('align-content: stretch;'))
+      .append(a('content', 'c'), v('space-between', 'sb'), s('align-content: space-between;'))
+      .append(a('content', 'c'), v('space-around', 'sa'), s('align-content: space-around;'))
+      .append(a('content', 'c'), v('space-evenly', 'se'), s('align-content: space-evenly;'))
 
   }
 }
