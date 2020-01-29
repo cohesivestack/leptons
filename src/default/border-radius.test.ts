@@ -17,16 +17,16 @@ describe("BorderRadius module", () => {
 
     const expectedOutput = `
 /* Module: border-radius */
-.br0_5 { border-radius: 0.5rem; }
-.br1 { border-radius: 1rem; }
+.br-0_5 { border-radius: 0.5rem; }
+.br-1 { border-radius: 1rem; }
 .br-circle { border-radius: 100%; }
 
 /* Breakpoint: m */
 @media screen and (min-width: 48rem) {
 
   /* Module: border-radius - breakpoint: m */
-  .br0_5-m { border-radius: 0.5rem; }
-  .br1-m { border-radius: 1rem; }
+  .br-0_5-m { border-radius: 0.5rem; }
+  .br-1-m { border-radius: 1rem; }
   .br-circle-m { border-radius: 100%; }
 
 }

@@ -15,19 +15,19 @@ describe('TextDecoration module', () => {
 
     const expectedOutput = `
 /* Module: text-decoration */
-.tdu { text-decoration: underline; }
-.tds { text-decoration: line-through; }
-.tdo { text-decoration: overline; }
-.tdn { text-decoration: none; }
+.td-u { text-decoration: underline; }
+.td-s { text-decoration: line-through; }
+.td-o { text-decoration: overline; }
+.td-n { text-decoration: none; }
 
 /* Breakpoint: m */
 @media screen and (min-width: 48rem) {
 
   /* Module: text-decoration - breakpoint: m */
-  .tdu-m { text-decoration: underline; }
-  .tds-m { text-decoration: line-through; }
-  .tdo-m { text-decoration: overline; }
-  .tdn-m { text-decoration: none; }
+  .td-u-m { text-decoration: underline; }
+  .td-s-m { text-decoration: line-through; }
+  .td-o-m { text-decoration: overline; }
+  .td-n-m { text-decoration: none; }
 
 }
 `

@@ -17,16 +17,16 @@ describe("ZIndex module", () => {
 
     const expectedOutput = `
 /* Module: z-index */
-.z0_5 { z-index: 0.5; }
-.z1 { z-index: 1; }
+.z-0_5 { z-index: 0.5; }
+.z-1 { z-index: 1; }
 .z-max { z-index: 2147483647; }
 
 /* Breakpoint: m */
 @media screen and (min-width: 48rem) {
 
   /* Module: z-index - breakpoint: m */
-  .z0_5-m { z-index: 0.5; }
-  .z1-m { z-index: 1; }
+  .z-0_5-m { z-index: 0.5; }
+  .z-1-m { z-index: 1; }
   .z-max-m { z-index: 2147483647; }
 
 }

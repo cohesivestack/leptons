@@ -62,8 +62,8 @@ describe("Builder", () => {
 
     const expectedOutput = `
 /* Module: font-size */
-.f0_5 { font-size: 0.5rem; }
-.f1 { font-size: 1rem; }
+.fs-0_5 { font-size: 0.5rem; }
+.fs-1 { font-size: 1rem; }
 /* Custom Classes */
 .myclass-black { font-weight: bold; color: black; }
 .myclass-white { font-weight: bold; color: white; }
@@ -72,8 +72,8 @@ describe("Builder", () => {
 @media screen and (min-width: 48rem) {
 
   /* Module: font-size - breakpoint: m */
-  .f0_5-m { font-size: 0.5rem; }
-  .f1-m { font-size: 1rem; }
+  .fs-0_5-m { font-size: 0.5rem; }
+  .fs-1-m { font-size: 1rem; }
   /* Custom Classes - breakpoint: m */
   .myclass-black-m { font-weight: bold; color: black; }
   .myclass-white-m { font-weight: bold; color: white; }
@@ -109,8 +109,8 @@ describe("Builder", () => {
 
     const expectedOutput = `
 /* Module: font-size */
-.f0_5 { font-size: 0.5rem; }
-.f1 { font-size: 1rem; }
+.fs-0_5 { font-size: 0.5rem; }
+.fs-1 { font-size: 1rem; }
 /* Custom Classes */
 .myclass-black { font-weight: bold; color: black; }
 .myclass-white { font-weight: bold; color: white; }
@@ -119,8 +119,8 @@ describe("Builder", () => {
 @media screen and (min-width: 48rem) {
 
   /* Module: font-size - breakpoint: m */
-  .f0_5-m { font-size: 0.5rem; }
-  .f1-m { font-size: 1rem; }
+  .fs-0_5-m { font-size: 0.5rem; }
+  .fs-1-m { font-size: 1rem; }
   /* Custom Classes - breakpoint: m */
   .myclass-white-m { font-weight: bold; color: white; }
 
@@ -148,15 +148,15 @@ describe("Builder", () => {
 
     const expectedOutput = `
 /* Module: font-size */
-.f0_5 { font-size: 0.5rem; }
-.f1 { font-size: 1rem; }
+.fs-0_5 { font-size: 0.5rem; }
+.fs-1 { font-size: 1rem; }
 
 /* Breakpoint: m */
 @media screen and (min-width: 48rem) {
 
   /* Module: font-size - breakpoint: m */
-  .f0_5-m { font-size: 0.5rem; }
-  .f1-m { font-size: 1rem; }
+  .fs-0_5-m { font-size: 0.5rem; }
+  .fs-1-m { font-size: 1rem; }
 
 }
 

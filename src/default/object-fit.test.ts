@@ -15,21 +15,21 @@ describe('objectFit module', () => {
 
     const expectedOutput = `
 /* Module: object-fit */
-.off { object-fit: fill; }
-.ofc { object-fit: contain; }
+.of-f { object-fit: fill; }
+.of-c { object-fit: contain; }
 .of-cover { object-fit: cover; }
-.ofs { object-fit: scale-down; }
-.ofn { object-fit: none; }
+.of-sd { object-fit: scale-down; }
+.of-n { object-fit: none; }
 
 /* Breakpoint: m */
 @media screen and (min-width: 48rem) {
 
   /* Module: object-fit - breakpoint: m */
-  .off-m { object-fit: fill; }
-  .ofc-m { object-fit: contain; }
+  .of-f-m { object-fit: fill; }
+  .of-c-m { object-fit: contain; }
   .of-cover-m { object-fit: cover; }
-  .ofs-m { object-fit: scale-down; }
-  .ofn-m { object-fit: none; }
+  .of-sd-m { object-fit: scale-down; }
+  .of-n-m { object-fit: none; }
 
 }
 `

@@ -17,15 +17,15 @@ describe("Opacity module", () => {
 
     const expectedOutput = `
 /* Module: opacity */
-.o0_5 { opacity: 0.5; }
-.o1 { opacity: 1; }
+.o-0_5 { opacity: 0.5; }
+.o-1 { opacity: 1; }
 
 /* Breakpoint: m */
 @media screen and (min-width: 48rem) {
 
   /* Module: opacity - breakpoint: m */
-  .o0_5-m { opacity: 0.5; }
-  .o1-m { opacity: 1; }
+  .o-0_5-m { opacity: 0.5; }
+  .o-1-m { opacity: 1; }
 
 }
 `
