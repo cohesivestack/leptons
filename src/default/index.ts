@@ -14,7 +14,7 @@ import { heights } from './heights';
 import { maxWidths } from './max-widths';
 import { margin } from './margin';
 import { flexBox } from './flex-box';
-import { textDecoration } from './text-decoration';
+import { text } from './text';
 import { positions } from './positions';
 import { cursors } from './cursors';
 import { objectFit } from './object-fit';
@@ -46,7 +46,7 @@ export const pkg: Package = {
     widths,
     heights,
     maxWidths,
-    textDecoration,
+    text,
     positions,
     cursors,
     objectFit,
