@@ -24,7 +24,7 @@ export const heights: Module = {
   build: (context: BuildContext) => {
     const remHeights = context.value.rem as number[];
     const percentageHeights = context.value.percentage as number[];
-    const viewportHeights = context.value.percentage as number[];
+    const viewportHeights = context.value.viewport as number[];
 
     if (remHeights) {
       remHeights.forEach(size => {

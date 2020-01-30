@@ -8,7 +8,7 @@ describe("Heights module", () => {
       breakpoints: {m: 48},
       includeAll: false,
       modules: [
-        { heights: { rem: [16, 64], percentage: [10,100] } }
+        { heights: { rem: [16, 64], percentage: [10,100], viewport: [10,100] } }
       ]
     }
 
