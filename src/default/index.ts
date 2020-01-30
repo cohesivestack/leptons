@@ -8,6 +8,7 @@ import { borderColors } from './border-colors';
 import { fontSize } from './font-size';
 import { fontWeights } from './font-weights';
 import { fontFamilies } from './font-families';
+import { lineHeight } from './line-height';
 import { padding } from './padding';
 import { widths } from './widths';
 import { heights } from './heights';
@@ -41,6 +42,7 @@ export const pkg: Package = {
     fontSize,
     fontWeights,
     fontFamilies,
+    lineHeight,
     padding,
     margin,
     widths,

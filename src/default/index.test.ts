@@ -16,6 +16,7 @@ modules:
   - font-size: [0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 8]
   - font-weights: [1, 2, 3, 4, 5, 6, 7, 8, 9]
   - font-families: {sans-serif: 'roboto, "helvetica neue", helvetica, tahoma, geneva, verdana, arial', serif: 'georgia, baskerville, palatino,times, "times new roman"', mono: '"robot slab", "roboto mono", monaco, courier, "courier new"', condensed: '"roboto condensed", "arial narrow"', script: '"brush script mt", "apple chancery", "comic sans ms"'}
+  - line-height: [1, 1.125, 1.25, 1.5, 1.75, 2]
   - padding: [0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 8, 12]
   - margin: [0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 8, 12]
   - widths: {rem: [1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 80], percentage: [8.33, 10, 16.66, 20, 25, 30, 33.33, 40, 50, 60, 66.66, 70, 75, 80, 83.33, 90, 91.66, 100]}
@@ -46,6 +47,7 @@ modules:
   - font-size: []
   - font-weights: []
   - font-families: {}
+  - line-height: []
   - padding: []
   - margin: []
   - widths: {rem: [], percentage: []}
