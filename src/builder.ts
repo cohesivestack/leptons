@@ -9,22 +9,11 @@ import { Config,
   isConfigErrors,
   parse,
   parseFromYaml,
-  parseFromJson } from './config';
+  parseFromJson,
+  ConfigModule} from './config';
 import { pkg as defaultPkg } from './default';
-
-export type AttributePayload = {
-  attribute?: string,
-  shortAttribute?: string
-}
-
-export type ValuePayload = {
-  value?: string,
-  shortValue?: string
-}
-
-export type StylePayload = {
-  style?: string
-}
+import { AttributePayload, ValuePayload, StylePayload } from './atom';
+import { Module } from './module';
 
 export type Attribute = (attribute: string, shortAttribute?: string) => AttributePayload;
 export type Value = (value: string, shortValue?: string) => ValuePayload;
@@ -70,8 +59,8 @@ export class AppendOptions {
 export class Builder {
 
   private config?: Config;
-
   private medias: Media[] = [];
+  private moduleEntries = new Map<string, {module: Module, context: BuildContext | undefined} >();
 
   init(filePath: string, minimum = false) {
     if (fs.existsSync(filePath)) {
@@ -120,10 +109,35 @@ export class Builder {
     return this.build(parse(plainConfig));
   }
 
+  public getModuleContextOf(moduleName: string): BuildContext {
+    const moduleEntry = this.moduleEntries.get(moduleName);
+    if (!moduleEntry) {
+      throw Error(`The module ${moduleName} doesn't exist in the package ${this.config?.package}`);
+    }
+
+    var cm = this.config?.modules?.find(cm => cm.name == moduleName);
+    return this.getOrBuildModuleContext(moduleEntry.module, cm);
+  }
+
+  private getOrBuildModuleContext(m: Module, cm: ConfigModule | undefined): BuildContext {
+    const config = this.config as Config;
+    let moduleEntry = this.moduleEntries.get(m.name);
+
+    if (!moduleEntry || !moduleEntry.context) {
+      moduleEntry = {module: m, context: new BuildContext(this, config, m, cm)};
+
+      this.moduleEntries.set(m.name, moduleEntry)
+      m.build(moduleEntry?.context as BuildContext);
+    }
+
+    return moduleEntry?.context as BuildContext;
+  }
+
   private build(plainConfig: any): string {
 
     const pkg = defaultPkg;
 
+    // Validate config
     if (isConfigErrors(plainConfig)) {
       const errors = plainConfig as ConfigError[];
 
@@ -135,11 +149,33 @@ export class Builder {
       throw Error("Errors parsing plain object:\n" + reportErrors);
     }
 
+    // Validate modules
     this.config = plainConfig;
     const config = this.config as Config;
 
-    const breakpoints = config.breakpoints || pkg.breakpoints;
+    config.modules?.forEach(cm => {
+      const m = pkg.modules.find(m => m.name == cm.name);
+      if (!m)
+        throw Error('The package ' + pkg.name + " doesn't provide a module " + cm.name);
+    });
 
+    // Set module contexts
+    const includeAll = config.includeAll !== false;
+
+    if (includeAll) {
+      pkg.modules.forEach(m => {
+        const cm = this.config?.modules?.find(cm => cm.name == m.name);
+        this.getOrBuildModuleContext(m, cm);
+      });
+    } else {
+      config.modules?.forEach(cm => {
+        const m = pkg.modules.find(m => m.name == cm.name) as Module;
+        this.getOrBuildModuleContext(m, cm);
+      });
+    }
+
+    // Set media breakpoints
+    const breakpoints = config.breakpoints || pkg.breakpoints;
 
     this.medias.push(new Media());
 
@@ -151,27 +187,17 @@ export class Builder {
       });
     }
 
-    // undefined or true is true
-    const includeAll = config.includeAll !== false;
-
-    if (includeAll) {
-      pkg.modules.forEach(mod => {
-        const configModule = config.modules?.find(cm => cm.name == mod.name);
-        const buildContext = new BuildContext(this, config, mod, configModule)
-
-        mod.build(buildContext);
+    // Add modules to medias
+    this.moduleEntries.forEach(me => {
+      me.context?.atoms.forEach(atom => {
+        const className = config.prefix ?
+          `.${config.prefix}-${atom.className}` :
+          `.${atom.className}`;
+        this.medias.forEach(m => m.append(me.module, className, atom.style))
       });
-    } else {
-      config.modules?.forEach(cm => {
-        const m = pkg.modules.find(m => m.name == cm.name);
-        if (!m)
-          throw Error('The package ' + pkg.name + " doesn't provide a module " + cm.name);
-        const buildContext = new BuildContext(this, config, m, cm);
+    });
 
-        m.build(buildContext);
-      });
-    }
-
+    // Add classes to medias
     config.classes?.forEach(c => {
       const className = config.prefix ? `.${config.prefix}-${c.name}` : `.${c.name}`;
 
@@ -197,13 +223,6 @@ export class Builder {
 
   private writeToFile(outputFilePath: string, cssContent: string) {
     fs.writeFileSync(outputFilePath, cssContent);
-  }
-
-  appendWithShort(context: BuildContext, name: string, shortName: string, body: string) {
-    const className = '.' + context.prefix + shortName;
-    this.medias.forEach(m => m.append(context.mod, className, body));
-
-    return this;
   }
 
   append(c: BuildContext, a: AttributePayload, v: ValuePayload, s: StylePayload) : Builder {

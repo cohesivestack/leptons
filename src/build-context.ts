@@ -1,7 +1,8 @@
 import { Breakpoints } from './breakpoints';
 import { Module, ModuleValue } from './module';
 import { Config, ConfigModule } from './config';
-import { Builder, AttributePayload, ValuePayload, StylePayload, Value } from "./builder";
+import { Atom, AttributePayload, ValuePayload, StylePayload } from './atom';
+import { Builder } from "./builder";
 
 export class BuildContext {
   private moduleDependencies = new Map<Module, BuildContext | undefined>();
@@ -10,6 +11,7 @@ export class BuildContext {
   readonly useShortAttribute?: boolean;
   readonly useShortValue?: boolean;
   readonly breakpoints?: Breakpoints;
+  readonly atoms: Atom[] = [];
   readonly custom?: any;
   readonly value: ModuleValue;
 
@@ -64,51 +66,13 @@ export class BuildContext {
     }
   }
 
-  getDependencyContext(mod: Module): BuildContext {
-    if (!this.moduleDependencies.has(mod)) {
-      throw Error('The module ' + mod.name + ' is not a dependency valid for ' + this.mod);
-    }
-
-    let buildContext = this.moduleDependencies.get(mod);
-
-    if (!buildContext) {
-      const configModule = this.config.modules?.find(cm => cm.name == mod.name);
-      buildContext = new BuildContext(this.builder, this.config, mod, configModule);
-      this.moduleDependencies.set(mod, buildContext);
-    }
-
-    return buildContext;
+  getDependencyContext(modName: string): BuildContext {
+    return this.builder.getModuleContextOf(modName);
   }
 
-  append(...options: (AttributePayload|ValuePayload|StylePayload)[]): BuildContext {
+  append(...payloads: (AttributePayload|ValuePayload|StylePayload)[]): BuildContext {
+    this.atoms.push(new Atom(this, payloads));
 
-    let a: AttributePayload = {};
-    let v: ValuePayload = {};
-    let s: StylePayload = {};
-
-    options.forEach(o => {
-      if ((o as AttributePayload).attribute) {
-        const _a = o as AttributePayload;
-        if (a.attribute || a.shortAttribute) {
-          throw Error(`Multiple attribute parts is not allowed: ${a.attribute}, ${_a.attribute}. Module: ${this.mod.name}`)
-        }
-        a = _a;
-      } else if ((o as ValuePayload).value) {
-        const _v = o as ValuePayload;
-        if (v.value || v.shortValue) {
-          throw Error(`Multiple value parts is not allowed: ${v.value}, ${_v.value}. Module: ${this.mod.name}`)
-        }
-        v = _v;
-      } else if ((o as StylePayload).style) {
-        const _s = o as StylePayload;
-        if (s.style) {
-          throw Error(`Multiple style parts is not allowed: ${s.style}, ${_s.style}. Module: ${this.mod.name}`)
-        }
-        s = _s;
-      }
-    });
-
-    this.builder.append(this, a, v, s);
     return this;
   }
 }
