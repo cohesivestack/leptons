@@ -21,7 +21,7 @@ export const backgroundColors: Module = {
   value: 'default',
 
   build: (context: BuildContext) => {
-    const colorsContext = context.getDependencyContext(colors);
+    const colorsContext = context.getDependencyContext(colors.name);
 
     Object.keys(colorsContext.value).forEach(name => {
       context.append(v(name), s(`background-color: ${colorsContext.value[name]};`));

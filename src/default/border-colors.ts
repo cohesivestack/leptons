@@ -20,7 +20,7 @@ export const borderColors: Module = {
   value: 'default',
 
   build: (context: BuildContext) => {
-    const colorsContext = context.getDependencyContext(colors);
+    const colorsContext = context.getDependencyContext(colors.name);
 
     Object.keys(colorsContext.value).forEach(name => {
       context.append(v(name), s(`border-color: ${colorsContext.value[name]};`));
