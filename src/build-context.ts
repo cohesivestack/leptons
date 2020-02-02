@@ -8,8 +8,9 @@ export class BuildContext {
   private moduleDependencies = new Map<Module, BuildContext | undefined>();
 
   readonly prefix?: string;
-  readonly useShortAttribute?: boolean;
-  readonly useShortValue?: boolean;
+  readonly useShortModulePrefix: boolean;
+  readonly useShortAttribute: boolean;
+  readonly useShortValue: boolean;
   readonly breakpoints?: Breakpoints;
   readonly atoms: Atom[] = [];
   readonly custom?: any;
@@ -24,6 +25,10 @@ export class BuildContext {
     if (mod.useShortPrefix === 'inapplicable' && configModule?.useShortPrefix !== undefined) {
       throw Error('Setting useShortPrefix is innaplicable for the module ' + mod.name);
     }
+    this.useShortModulePrefix = (
+      configModule?.useShortPrefix ||
+      config.useShortModulePrefix ||
+      (mod.useShortPrefix && mod.useShortPrefix !== 'inapplicable')) as boolean;
     
     if (mod.useShortAttribute === 'inapplicable' && configModule?.useShortAttribute !== undefined) {
       throw Error('Setting useShortAttribute is innaplicable for the module ' + mod.name);
@@ -31,7 +36,7 @@ export class BuildContext {
     this.useShortAttribute = (
       configModule?.useShortAttribute ||
       config.useShortAttribute ||
-      mod.useShortAttribute) as boolean;
+      (mod.useShortAttribute && mod.useShortAttribute !== 'inapplicable')) as boolean;
 
     if (mod.useShortValue === 'inapplicable' && configModule?.useShortValue !== undefined) {
       throw Error('Setting useShortValue is innaplicable for the module ' + mod.name);
@@ -39,16 +44,16 @@ export class BuildContext {
     this.useShortValue = (
       configModule?.useShortValue ||
       config.useShortValue ||
-      mod.useShortValue) as boolean;
+      (mod.useShortValue && mod.useShortValue !== 'inapplicable')) as boolean;
 
     this.prefix = config.prefix ? `${config.prefix}` : '';
 
     if (configModule?.prefix) {
       if (this.prefix !== '') this.prefix += '-';
-      this.prefix += `${configModule.useShortPrefix ? configModule.shortPrefix : configModule.prefix}`
+      this.prefix += configModule.prefix;
     } else if (mod.prefix) {
       if (this.prefix !== '') this.prefix += '-';
-      this.prefix += `${mod.useShortPrefix ? mod.shortPrefix : mod.prefix}`
+      this.prefix += this.useShortModulePrefix ? mod.shortPrefix : mod.prefix;
     }
 
     this.breakpoints = configModule?.breakpoints || config.breakpoints || mod.breakpoints;

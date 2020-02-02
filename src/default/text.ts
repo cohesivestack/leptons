@@ -7,7 +7,7 @@ export const text: Module = {
   prefix: 'text',
   shortPrefix: 't',
   useShortPrefix: true,
-  useShortAttribute: 'inapplicable',
+  useShortAttribute: true,
   useShortValue: true,
   value: 'default',
 
