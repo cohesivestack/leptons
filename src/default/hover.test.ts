@@ -25,8 +25,8 @@ describe('Hover module', () => {
 .bgc-black { background-color: #000000; }
 .bgc-white { background-color: #ffffff; }
 /* Module: hover */
-.hover-bgc-black:hover { background-color: #000000; }
-.hover-bgc-white:hover { background-color: #ffffff; }
+.hover-bgc-black:hover { background-color: #000000; transition: .25s ease-in-out; }
+.hover-bgc-white:hover { background-color: #ffffff; transition: .25s ease-in-out; }
 
 /* Breakpoint: m */
 @media screen and (min-width: 48rem) {
@@ -38,8 +38,8 @@ describe('Hover module', () => {
   .bgc-black-m { background-color: #000000; }
   .bgc-white-m { background-color: #ffffff; }
   /* Module: hover - breakpoint: m */
-  .hover-bgc-black-m:hover { background-color: #000000; }
-  .hover-bgc-white-m:hover { background-color: #ffffff; }
+  .hover-bgc-black-m:hover { background-color: #000000; transition: .25s ease-in-out; }
+  .hover-bgc-white-m:hover { background-color: #ffffff; transition: .25s ease-in-out; }
 
 }
 `

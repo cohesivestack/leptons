@@ -18,7 +18,7 @@ export const hover: Module = {
       const moduleContext = context.getDependencyContext(mn);
 
       moduleContext.atoms.forEach(atom => {
-        context.append(v(`${atom.className}:hover`), s(atom.style));
+        context.append(v(`${atom.className}:hover`), s(`${atom.style} transition: .25s ease-in-out;`));
       });
     })
   }
