@@ -15,15 +15,11 @@ export class Media {
     let indent = '';
     if (this.name) indent = '  ';
 
-    if (!output)
+    if (!output) {
       output = indent +  Media.wrapDescription(
         'Module: ' + mod.name + (this.name ? ' - breakpoint: ' + this.name : ''));
-
-    output += indent + className;
-
-    if (this.name) output += '-' + this.name;
-
-    output +=  ' { ' + body + ' }\n';
+    }
+    output += this.buildAtomStyle(indent, className, body);
 
     this.modules.set(mod, output);
   }
@@ -32,15 +28,26 @@ export class Media {
     let indent = '';
     if (this.name) indent = '  ';
 
-    if (!this.classes)
+    if (!this.classes) {
       this.classes = indent +  Media.wrapDescription(
         'Custom Classes' + (this.name ? ' - breakpoint: ' + this.name : ''));
+    }
 
-    this.classes += indent + className;
+    this.classes += this.buildAtomStyle(indent, className, body);
+  }
 
-    if (this.name) this.classes += '-' + this.name;
+  private buildAtomStyle(indent: string, className: string, body: string): string {
+    // Split to get state (:active, :hover, etc)
+    const classNameParts = className.split(':');
 
-    this.classes +=  ' { ' + body + ' }\n';
+    let output = indent + classNameParts[0];
+
+    if (this.name) output += '-' + this.name;
+
+    // Join state if has one
+    if (classNameParts.length > 1) output += ':' + classNameParts[1];
+
+    return output + ' { ' + body + ' }\n';
   }
 
   public get output() {
