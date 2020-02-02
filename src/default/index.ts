@@ -23,6 +23,7 @@ import { objectFit } from './object-fit';
 import { opacity } from './opacity';
 import { visibility } from './visibility';
 import { zIndex } from './z-index';
+import { hover } from './hover';
 
 export const pkg: Package = {
   name: 'default',
@@ -56,6 +57,7 @@ export const pkg: Package = {
     objectFit,
     opacity,
     visibility,
-    zIndex
+    zIndex,
+    hover
   ]
 }
