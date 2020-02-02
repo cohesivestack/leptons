@@ -225,26 +225,4 @@ export class Builder {
     fs.writeFileSync(outputFilePath, cssContent);
   }
 
-  append(c: BuildContext, a: AttributePayload, v: ValuePayload, s: StylePayload) : Builder {
-    if (!s.style) {
-      throw Error(`Style is required for ${c.mod.name} ${a?.attribute} ${v?.value}`);
-    }
-
-    let className = '.';
-    if (c.prefix) className += c.prefix;
-
-    if (a.attribute) {
-      if (className !== '.') className += '-';
-      className += `${c.useShortAttribute && a.shortAttribute ? a.shortAttribute : a.attribute}`;
-    }
-
-    if (v.value) {
-      if (className !== '.') className += '-';
-      className += `${c.useShortValue && v.shortValue ? v.shortValue : v.value}`;
-    }
-
-    this.medias.forEach(m => m.append(c.mod, className, s?.style as string));
-    return this;
-  }
-
 }
