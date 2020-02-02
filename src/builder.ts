@@ -60,7 +60,7 @@ export class Builder {
 
   private config?: Config;
   private medias: Media[] = [];
-  private moduleEntries = new Map<string, {module: Module, context: BuildContext | undefined} >();
+  private moduleRecords = new Map<string, {module: Module, context: BuildContext | undefined} >();
 
   init(filePath: string, minimum = false) {
     if (fs.existsSync(filePath)) {
@@ -110,27 +110,27 @@ export class Builder {
   }
 
   public getModuleContextOf(moduleName: string): BuildContext {
-    const moduleEntry = this.moduleEntries.get(moduleName);
-    if (!moduleEntry) {
+    const moduleRecord = this.moduleRecords.get(moduleName);
+    if (!moduleRecord) {
       throw Error(`The module ${moduleName} doesn't exist in the package ${this.config?.package}`);
     }
 
     var cm = this.config?.modules?.find(cm => cm.name == moduleName);
-    return this.getOrBuildModuleContext(moduleEntry.module, cm);
+    return this.getOrBuildModuleContext(moduleRecord.module, cm);
   }
 
   private getOrBuildModuleContext(m: Module, cm: ConfigModule | undefined): BuildContext {
     const config = this.config as Config;
-    let moduleEntry = this.moduleEntries.get(m.name);
+    let moduleRecord = this.moduleRecords.get(m.name);
 
-    if (!moduleEntry || !moduleEntry.context) {
-      moduleEntry = {module: m, context: new BuildContext(this, config, m, cm)};
+    if (!moduleRecord || !moduleRecord.context) {
+      moduleRecord = {module: m, context: new BuildContext(this, config, m, cm)};
 
-      this.moduleEntries.set(m.name, moduleEntry)
-      m.build(moduleEntry?.context as BuildContext);
+      this.moduleRecords.set(m.name, moduleRecord)
+      m.build(moduleRecord?.context as BuildContext);
     }
 
-    return moduleEntry?.context as BuildContext;
+    return moduleRecord?.context as BuildContext;
   }
 
   private build(plainConfig: any): string {
@@ -188,12 +188,12 @@ export class Builder {
     }
 
     // Add modules to medias
-    this.moduleEntries.forEach(me => {
-      me.context?.atoms.forEach(atom => {
+    this.moduleRecords.forEach(mr => {
+      mr.context?.atoms.forEach(atom => {
         const className = config.prefix ?
           `.${config.prefix}-${atom.className}` :
           `.${atom.className}`;
-        this.medias.forEach(m => m.append(me.module, className, atom.style))
+        this.medias.forEach(m => m.append(mr.module, className, atom.style))
       });
     });
 
