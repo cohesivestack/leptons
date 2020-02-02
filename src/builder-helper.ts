@@ -21,5 +21,5 @@ export const s: Style = (style: string) => {
 }
 
 export function numberToName(n: number) {
-  return n.toString().replace(new RegExp('\\.', 'g'), '_')
+  return n.toString().replace(new RegExp('\\.', 'g'), '_').replace(new RegExp('\\-', 'g'), 'n');
 }
