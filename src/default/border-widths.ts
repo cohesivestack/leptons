@@ -17,17 +17,17 @@ export const borderWidths: Module = {
     const widths = context.value as number[];
 
     [
-      ['all', 'a', 'border-width'],
-      ['top', 't', 'border-top-width'],
-      ['bottom', 'b', 'border-bottom-width'],
-      ['left', 'l', 'border-left-width'],
-      ['right', 'r', 'border-right-width']
-    ].forEach(([attribute, shortAttribute, style]) => {
+      ['all', 'a', 'border'],
+      ['top', 't', 'border-top'],
+      ['bottom', 'b', 'border-bottom'],
+      ['left', 'l', 'border-left'],
+      ['right', 'r', 'border-right']
+    ].forEach(([attribute, shortAttribute, styleAttribute]) => {
       widths.forEach(width => {
         const value = numberToName(width);
 
         context.append(
-          a(attribute, shortAttribute), v(value), s(`${style}: ${width}rem;`));
+          a(attribute, shortAttribute), v(value), s(`${styleAttribute}-style: solid; ${styleAttribute}-width: ${width}rem;`));
       });
     })
 
