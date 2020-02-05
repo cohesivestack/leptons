@@ -13,7 +13,9 @@ import { padding } from './padding';
 import { widths } from './widths';
 import { heights } from './heights';
 import { maxWidths } from './max-widths';
+import { minWidths } from './min-widths';
 import { minHeight } from './min-height';
+import { maxHeight } from './max-height';
 import { margin } from './margin';
 import { flexBox } from './flex-box';
 import { text } from './text';
@@ -49,8 +51,10 @@ export const pkg: Package = {
     margin,
     widths,
     heights,
+    maxHeight,
     minHeight,
     maxWidths,
+    minWidths,
     text,
     positions,
     cursors,
