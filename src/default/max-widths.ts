@@ -5,7 +5,7 @@ import { v, s, numberToName } from '../builder-helper';
 export const maxWidths: Module = {
   name: 'max-widths',
   prefix: 'max-width',
-  shortPrefix: 'mw',
+  shortPrefix: 'maxw',
   useShortPrefix: true,
   useShortAttribute: true,
   useShortValue: 'inapplicable',

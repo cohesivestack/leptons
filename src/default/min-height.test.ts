@@ -17,15 +17,15 @@ describe("MinHeight module", () => {
 
     const expectedOutput = `
 /* Module: min-height */
-.mh-16 { min-height: 16rem; }
-.mh-64 { min-height: 64rem; }
+.minh-16 { min-height: 16rem; }
+.minh-64 { min-height: 64rem; }
 
 /* Breakpoint: m */
 @media screen and (min-width: 48rem) {
 
   /* Module: min-height - breakpoint: m */
-  .mh-16-m { min-height: 16rem; }
-  .mh-64-m { min-height: 64rem; }
+  .minh-16-m { min-height: 16rem; }
+  .minh-64-m { min-height: 64rem; }
 
 }
 `

@@ -5,7 +5,7 @@ import { v, s, numberToName } from '../builder-helper';
 export const minHeight: Module = {
   name: 'min-height',
   prefix: 'min-height',
-  shortPrefix: 'mh',
+  shortPrefix: 'minh',
   useShortPrefix: true,
   useShortAttribute: true,
   useShortValue: 'inapplicable',
