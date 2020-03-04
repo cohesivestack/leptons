@@ -1,169 +1,22 @@
 import { Builder } from "./builder";
-import fs from "fs";
 
 describe("Builder", () => {
 
-  test("shoud init a default config file", () => {
-    const filePath = './tmp/leptons.yaml';
-    if (fs.existsSync(filePath)) {
-      fs.unlinkSync(filePath);
-    }
+  test("should extract class", () => {
+    const html1 = `
+      Some text <a class="p-l-1 {{program_variable}} m-r-1_1  custom _custom">some link</a>
+      <span class=" w-3p "/>`
 
-    expect(fs.existsSync(filePath)).toBe(false);
-
-    const builder = new Builder();
-    builder.init(filePath);
-
-    expect(fs.existsSync(filePath)).toBe(true);
-
-    const yamlOutput = fs.readFileSync(filePath, 'utf8');
-
-    expect((new RegExp(/^breakpoints:/)).test(yamlOutput)).toBe(true);
-
-  });
-
-  test("shoud create an output", () => {
-
-    const plainConfig = {
-      package: "default",
-      breakpoints: {m: 48, l: 64, xl: 128},
-      modules: [
-        { "font-size": [0.5, 1, 1.5] }
-      ]
-    }
-
-    const builder = new Builder();
-    let output = builder.buildFromPlainConfig(plainConfig);
-
-    expect(output.trim().length).toBeGreaterThan(0);
-  });
-
-  test("shoud create an output with classes", () => {
-
-    const plainConfig = {
-      package: "default",
-      breakpoints: {m: 48},
-      includeAll: false,
-      modules: [
-        { "font-size": [0.5, 1] }
-      ],
-      classes: [
-        {
-          "myclass-black": "font-weight: bold; color: black;"
-        },
-        {
-          "myclass-white": "font-weight: bold; color: white;"
-        }
-      ]
-    }
-
-    const builder = new Builder();
-    let output = builder.buildFromPlainConfig(plainConfig);
-
-    const expectedOutput = `
-/* Module: font-size */
-.fs-0_5 { font-size: 0.5rem; }
-.fs-1 { font-size: 1rem; }
-/* Custom Classes */
-.myclass-black { font-weight: bold; color: black; }
-.myclass-white { font-weight: bold; color: white; }
-
-/* Breakpoint: m */
-@media screen and (min-width: 48rem) {
-
-  /* Module: font-size - breakpoint: m */
-  .fs-0_5-m { font-size: 0.5rem; }
-  .fs-1-m { font-size: 1rem; }
-  /* Custom Classes - breakpoint: m */
-  .myclass-black-m { font-weight: bold; color: black; }
-  .myclass-white-m { font-weight: bold; color: white; }
-
-}
-`
-
-    expect(output.trim()).toBe(expectedOutput.trim());
-  });
-
-  test("shoud create an output with classes without breakpoints", () => {
-
-    const plainConfig = {
-      package: "default",
-      breakpoints: {m: 48},
-      includeAll: false,
-      modules: [
-        { "font-size": [0.5, 1] }
-      ],
-      classes: [
-        {
-          "myclass-black": "font-weight: bold; color: black;",
-          breakpoints: false
-        },
-        {
-          "myclass-white": "font-weight: bold; color: white;"
-        }
-      ]
-    }
-
-    const builder = new Builder();
-    let output = builder.buildFromPlainConfig(plainConfig);
-
-    const expectedOutput = `
-/* Module: font-size */
-.fs-0_5 { font-size: 0.5rem; }
-.fs-1 { font-size: 1rem; }
-/* Custom Classes */
-.myclass-black { font-weight: bold; color: black; }
-.myclass-white { font-weight: bold; color: white; }
-
-/* Breakpoint: m */
-@media screen and (min-width: 48rem) {
-
-  /* Module: font-size - breakpoint: m */
-  .fs-0_5-m { font-size: 0.5rem; }
-  .fs-1-m { font-size: 1rem; }
-  /* Custom Classes - breakpoint: m */
-  .myclass-white-m { font-weight: bold; color: white; }
-
-}
-`
-
-    expect(output.trim()).toBe(expectedOutput.trim());
-  });
+    const classNames = Builder.extractClasses(html1);
 
 
-  test("shoud create an output with custom css", () => {
+    console.log(classNames);
 
-    const plainConfig = {
-      package: "default",
-      breakpoints: {m: 48},
-      includeAll: false,
-      modules: [
-        { "font-size": [0.5, 1] }
-      ],
-      css: 'body { padding: 0 }'
-    }
-
-    const builder = new Builder();
-    let output = builder.buildFromPlainConfig(plainConfig);
-
-    const expectedOutput = `
-/* Module: font-size */
-.fs-0_5 { font-size: 0.5rem; }
-.fs-1 { font-size: 1rem; }
-
-/* Breakpoint: m */
-@media screen and (min-width: 48rem) {
-
-  /* Module: font-size - breakpoint: m */
-  .fs-0_5-m { font-size: 0.5rem; }
-  .fs-1-m { font-size: 1rem; }
-
-}
-
-/* Custom CSS */
-body { padding: 0 }
-`
-
-    expect(output.trim()).toBe(expectedOutput.trim());
+    expect(classNames.length).toBe(5);
+    expect(classNames[0]).toBe('p-l-1');
+    expect(classNames[1]).toBe('m-r-1_1');
+    expect(classNames[2]).toBe('custom');
+    expect(classNames[3]).toBe('_custom');
+    expect(classNames[4]).toBe('w-3p');
   });
 });
