@@ -9,9 +9,6 @@ describe("Builder", () => {
 
     const classNames = Builder.extractClasses(html1);
 
-
-    console.log(classNames);
-
     expect(classNames.length).toBe(5);
     expect(classNames[0]).toBe('p-l-1');
     expect(classNames[1]).toBe('m-r-1_1');
