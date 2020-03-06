@@ -43,6 +43,7 @@
     "ajv": "^6.10.2",
     "class-transformer": "^0.2.3",
     "commander": "^4.0.1",
+    "globby": "^11.0.0",
     "js-yaml": "^3.13.1",
     "typescript-json-schema": "^0.40.0"
   }
