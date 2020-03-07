@@ -43,4 +43,16 @@ describe("Builder Helper", () => {
     expect(classNames[3]).toBe('p-l-1');
     expect(classNames[4]).toBe('w-3p');
   });
+
+  test("should get distinct classes", () => {
+    let classes = ['p-1', 'p-1', 'p-2', 'p-4', 'p-1', 'p-3', 'p-2'];
+    classes = Helper.distinctClasses(classes);
+
+    expect(classes.length).toBe(4);
+
+    expect(classes[0]).toBe('p-1');
+    expect(classes[1]).toBe('p-2');
+    expect(classes[2]).toBe('p-4');
+    expect(classes[3]).toBe('p-3');
+  });
 });

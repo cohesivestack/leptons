@@ -2,9 +2,10 @@ import * as Helper from "./builder-helper";
 import { isConfigErrors, ConfigError, Config } from "./config";
 
 export class Builder {
+
   private config?: Config;
 
-  private build(plainConfig: any): string {
+  build(plainConfig: any): string {
 
     // Validate config
     if (isConfigErrors(plainConfig)) {
@@ -20,7 +21,7 @@ export class Builder {
 
     const config = this.config as Config;
 
-    Helper.extractClassesFromSource(config.source);
+    const classes = Helper.distinctClasses(Helper.extractClassesFromSource(config.source));
 
     return ""
   }

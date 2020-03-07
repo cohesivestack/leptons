@@ -1,6 +1,10 @@
 import * as globby from "globby";
 import * as fs from "fs";
 
+export const distinctClasses = (classes: string[]): string[] => {
+  return [...new Set(classes)];
+}
+
 export const extractClassesFromSource = (source: string[]): string[] => {
   const classes: string[] = [];
 
