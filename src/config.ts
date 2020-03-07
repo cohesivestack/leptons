@@ -1,7 +1,6 @@
 import Ajv from 'ajv';
 import yaml from 'js-yaml';
 
-import { ModuleValue } from './module';
 import { Breakpoints } from './breakpoints';
 import { UnitType } from './unit-type';
 
@@ -12,7 +11,7 @@ export type ConfigError = {
 
 export type ConfigModule = {
   name: string,
-  value: ModuleValue
+  value: 'default' | any
 }
 
 export type Config = {
