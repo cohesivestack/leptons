@@ -30,3 +30,17 @@ const regexpUnitValid = new RegExp(regexString + regexTail + ")*$");
 export const isUnitValid = (unit: string): boolean => {
   return regexpUnitValid.test(unit);
 }
+
+export const convertUnitToCss = (unit: string, defaultType: UnitType = UnitType.Rem): string => {
+  if (!isUnitValid(unit)) {
+    throw new Error(`The value ${unit} is not valid`);
+  }
+
+  let value = unit.replace("_", ".");
+
+  if (/^[0-9_]*\d$/.test(unit)) {
+    value += defaultType;
+  }
+
+  return value;
+}

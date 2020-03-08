@@ -1,4 +1,4 @@
-import { isUnitValid } from "./unit-type";
+import { isUnitValid, convertUnitToCss, UnitType } from "./unit-type";
 
 describe("Unit Type", () => {
   test("should validate unit type", () => {
@@ -27,5 +27,25 @@ describe("Unit Type", () => {
     expect(isUnitValid("1y")).toBe(false);
     expect(isUnitValid("1_2y")).toBe(false);
     expect(isUnitValid("12_34y")).toBe(false);
+  });
+});
+
+describe("Unit Type", () => {
+  test("should convert unit value to css value", () => {
+
+    expect(convertUnitToCss("1pt")).toBe("1pt");
+    expect(convertUnitToCss("10pt")).toBe("10pt");
+    expect(convertUnitToCss("10pt")).toBe("10pt");
+    expect(convertUnitToCss("1_1pt")).toBe("1.1pt");
+    expect(convertUnitToCss("10_19pt")).toBe("10.19pt");
+
+    // Default values
+    expect(convertUnitToCss("10")).toBe("10rem");
+    expect(convertUnitToCss("10_19")).toBe("10.19rem");
+    expect(convertUnitToCss("10", UnitType.Mm)).toBe("10mm");
+    expect(convertUnitToCss("10_19", UnitType.Mm)).toBe("10.19mm");
+    expect(convertUnitToCss("10mm", UnitType.Px)).toBe("10mm");
+    expect(convertUnitToCss("10_19mm", UnitType.Px)).toBe("10.19mm");
+
   });
 });
