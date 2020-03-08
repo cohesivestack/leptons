@@ -15,3 +15,18 @@ export enum UnitType {
   Vmax = 'vmax', // Relative to 1% of viewport's larger dimension
   P = 'p', // Percent %'
 }
+
+let regexString = "^[0-9]+([_][0-9]+)*(";
+let regexTail: string = ""
+const utKeys: string[] = Object.keys(UnitType);
+
+utKeys.forEach(ut =>
+  regexTail += regexTail.length == 0 ?
+    ut.toLowerCase() :
+    "|" + ut.toLowerCase());
+
+const regexpUnitValid = new RegExp(regexString + regexTail + ")*$");
+
+export const isUnitValid = (unit: string): boolean => {
+  return regexpUnitValid.test(unit);
+}
