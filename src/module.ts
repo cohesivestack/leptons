@@ -1,3 +1,5 @@
+import { Atom } from "./atom";
+
 export interface Module {
-  getClass(className: string): string
+  getAtom(classParts: string[]): Atom | null
 }
