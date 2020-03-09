@@ -4,6 +4,7 @@ import { Atom } from "./atom";
 
 export interface Package {
   readonly name: string
+  readonly breakpoints: Breakpoints
 
   getAtom(classParts: string[]): Atom | null
 }

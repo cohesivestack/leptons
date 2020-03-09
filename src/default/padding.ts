@@ -4,7 +4,7 @@ import { isUnitValid, convertUnitToCss } from "../unit-type";
 import { getPackage } from ".";
 
 const style: string = "padding";
-const prefix: string = "p";
+const symbol: string = "p";
 
 const top = (v: string) => `${style}-top: ${v};`;
 const right = (v: string) => `${style}-right: ${v};`;
@@ -28,12 +28,32 @@ const attributes: any = {
 export class Padding implements Module {
 
   getAtom(classParts: string[]): Atom | null {
-    if (classParts.length == 1 || classParts[0] !== prefix) {
+
+    if (classParts.length <= 1  || classParts[0] !== symbol) {
       return null;
     }
 
-    let attribute: string | null = null;
-    let value: string | null = null;
+    const pgk = getPackage();
+    const cssClass = classParts.join("-");
+
+    classParts = [...classParts];
+
+    let breakpoint: string | undefined;
+
+    if (/^[A-Z]+$/.test(classParts[classParts.length - 1])) {
+      if (classParts.length == 2) {
+        return null;
+      }
+
+      breakpoint = classParts.pop();
+
+      if (!pgk.breakpoints[breakpoint as string]) {
+        throw new Error(`The breakpoint ${breakpoint} used in the class ${cssClass} doesn't exists`);
+      }
+    }
+
+    let attribute: string | undefined;
+    let value: string | undefined;
     let cssValue: string;
 
     if (classParts.length == 2) {
@@ -65,14 +85,13 @@ export class Padding implements Module {
       }
     }
 
-    const cssClass = classParts.join("-");
-
     return new Atom(
-      getPackage(),
+      pgk,
       this, 
       cssClass,
       cssValue,
       attribute,
-      value);
+      value,
+      breakpoint);
   }
 }

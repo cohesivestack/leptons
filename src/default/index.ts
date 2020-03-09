@@ -32,7 +32,10 @@ export class DefaultPackage implements Package {
   }
 
   constructor(
-    private breakpoints: Breakpoints,
+    public readonly breakpoints: Breakpoints = {
+      M: 48,
+      L: 64
+    },
     private prefix?: string,
     private configModules?: ConfigModule[]) {
 
@@ -44,7 +47,7 @@ export class DefaultPackage implements Package {
 let defaultPackage: DefaultPackage | null = null;
 
 export function initPackage(
-  breakpoints: Breakpoints,
+  breakpoints?: Breakpoints,
   prefix?: string,
   modules?: ConfigModule[]): Package {
 

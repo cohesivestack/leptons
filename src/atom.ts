@@ -9,8 +9,9 @@ export class Atom {
     public readonly module: Module,
     public readonly cssClass: string,
     public readonly cssValue: string,
-    public readonly attribute: string | null,
-    public readonly value: string | null) {
+    public readonly attribute?: string,
+    public readonly value?: string,
+    public readonly breakpoint?: string) {
 
     this.package = _package;
   }
