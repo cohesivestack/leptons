@@ -6,7 +6,9 @@ export interface Package {
   readonly name: string
   readonly breakpoints: Breakpoints
 
-  getAtom(classParts: string[]): Atom | null
+  getAtom(classParts: string[]): Atom | undefined
+
+  getBreakpoint(symbol: string): number | undefined
 }
 
 export interface InitPackage

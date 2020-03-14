@@ -57,24 +57,24 @@ describe("Padding", () => {
   });
 
 
-  test("should return null atoms", () => {
+  test("should return undeinfed atoms", () => {
     const pgk = initPackage({ M: 64 });
 
     // Invalid value
-    expect(pgk.getAtom(["p", "t", "px"])).toBeNull();
-    expect(pgk.getAtom(["p", "px"])).toBeNull();
+    expect(pgk.getAtom(["p", "t", "px"])).toBeUndefined();
+    expect(pgk.getAtom(["p", "px"])).toBeUndefined();
 
     // Invalid attribute
-    expect(pgk.getAtom(["p", "a", "10px"])).toBeNull();
+    expect(pgk.getAtom(["p", "a", "10px"])).toBeUndefined();
 
     // Missing parts
-    expect(pgk.getAtom(["p"])).toBeNull();
+    expect(pgk.getAtom(["p"])).toBeUndefined();
 
     // Invalid breakpoint
-    expect(pgk.getAtom(["M"])).toBeNull();
-    expect(pgk.getAtom(["p", "M"])).toBeNull();
-    expect(pgk.getAtom(["p", "t", "10px", "m"])).toBeNull();
-    expect(pgk.getAtom(["p", "10px", "m"])).toBeNull();
+    expect(pgk.getAtom(["M"])).toBeUndefined();
+    expect(pgk.getAtom(["p", "M"])).toBeUndefined();
+    expect(pgk.getAtom(["p", "t", "10px", "m"])).toBeUndefined();
+    expect(pgk.getAtom(["p", "10px", "m"])).toBeUndefined();
     expect(() => pgk.getAtom(["p", "t", "10px", "Z"])).toThrowError();
 
   })

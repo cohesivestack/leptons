@@ -4,7 +4,6 @@ import { isUnitValid, convertUnitToCss } from "../unit-type";
 import { getPackage } from ".";
 
 const style: string = "padding";
-const symbol: string = "p";
 
 const top = (v: string) => `${style}-top: ${v};`;
 const right = (v: string) => `${style}-right: ${v};`;
@@ -26,11 +25,12 @@ const attributes: any = {
 } 
 
 export class Padding implements Module {
+  readonly symbol: string = "p";
 
-  getAtom(classParts: string[]): Atom | null {
+  getAtom(classParts: string[]): Atom | undefined {
 
-    if (classParts.length <= 1  || classParts[0] !== symbol) {
-      return null;
+    if (classParts.length <= 1  || classParts[0] !== this.symbol) {
+      return undefined;
     }
 
     const pgk = getPackage();
@@ -42,7 +42,7 @@ export class Padding implements Module {
 
     if (/^[A-Z]+$/.test(classParts[classParts.length - 1])) {
       if (classParts.length == 2) {
-        return null;
+        return undefined;
       }
 
       breakpoint = classParts.pop();
@@ -62,18 +62,18 @@ export class Padding implements Module {
       try {
         cssValue = all(convertUnitToCss(value));
       } catch {
-        return null;
+        return undefined;
       }
 
     } else {
       if (classParts.length > 3) {
-        return null;
+        return undefined;
       }
 
       attribute = classParts[1];
       const attrFunction = attributes[attribute];
       if (!attrFunction) {
-        return null;
+        return undefined;
       }
 
       value = classParts[2];
@@ -81,7 +81,7 @@ export class Padding implements Module {
       try {
         cssValue = attrFunction(convertUnitToCss(value));
       } catch {
-        return null;
+        return undefined;
       }
     }
 
