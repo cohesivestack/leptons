@@ -1,8 +1,11 @@
+import fs from 'fs';
 import Ajv from 'ajv';
 import yaml from 'js-yaml';
 
 import { Breakpoints } from './breakpoints';
 import { UnitType } from './unit-type';
+import { initPackage } from './default';
+import { Package } from './package';
 
 export type ConfigError = {
   path: string,
@@ -126,21 +129,26 @@ export function parse(plainConfig: any): (Config | ConfigError[]) {
     return errors;
   }
 
-  const config = {...plainConfig, modules: []}
-
-  for (let i = 0; i < plainConfig.modules.length; i++) {
-
-    const _module = plainConfig.modules[i];
-    const newModule = {..._module};
-    const moduleName = Object.keys(_module)[0];
-
-    delete newModule[moduleName];
-
-    newModule.name = moduleName;
-    newModule.value = _module[moduleName];
-
-    config.modules.push(newModule);
-  }
+  const config = {...plainConfig}
 
   return config as Config;
+}
+
+export function init(filePath: string, source?: string[]) {
+  const defaultPackage = initPackage();
+
+  if (fs.existsSync(filePath)) {
+    throw Error("Error: a file '" + filePath + "' already exists");
+  } else {
+    fs.writeFileSync(filePath, getInitConfig(defaultPackage, source));
+  }
+}
+
+export function getInitConfig(pkg: Package, source?: string[]): string {
+  const config = {
+    source: source || ["*.htm", "*.html"],
+    unit: "em",
+    breakpoints: pkg.breakpoints
+  };
+  return yaml.dump(config, {flowLevel: 3});
 }
