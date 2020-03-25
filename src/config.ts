@@ -24,6 +24,7 @@ export type Config = {
   unit?: UnitType,
   breakpoints?: Breakpoints,
   modules?: ConfigModule[],
+  css?: string
 }
 
 export function isConfig(config: Config | ConfigError[]): config is Config {
@@ -88,7 +89,8 @@ const schema = {
           }
         }
       }
-    }
+    },
+    css: { type: "string" }
   },
   additionalProperties: false
 };

@@ -63,7 +63,14 @@ export function build(plainConfig: any): string {
 
   // Using only defaultPackage for now. Support for third packages is in the Roadmap
 
-  return buildFromPackagesAndClasses([defaultPackage], classes);
+  let output = buildFromPackagesAndClasses([defaultPackage], classes);
+
+  if (config.css) {
+    output += '/* Custom CSS */\n';
+    output += config.css;
+  }
+
+  return output;
 }
 
 export function buildFromPackagesAndClasses(packages: Package[], classes: string[]): string {

@@ -9,7 +9,8 @@ describe("Config", () => {
     const plainConfig = {
       unit: "em",
       breakpoints: {"a": 12, "b": 10, "c": 34},
-      source: ['a/*.html', '/b/*.md']
+      source: ['a/*.html', '/b/*.md'],
+      css: "body { padding: 0; }"
     }
 
     expect(schemaErrors(plainConfig)).toBeFalsy();
@@ -23,6 +24,7 @@ describe("Config", () => {
 
     expect(source[0]).toBe('a/*.html');
     expect(source[1]).toBe('/b/*.md');
+    expect(config.css).toBe("body { padding: 0; }");
 
   });
 
