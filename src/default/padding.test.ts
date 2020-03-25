@@ -57,7 +57,7 @@ describe("Padding", () => {
   });
 
 
-  test("should return undeinfed atoms", () => {
+  test("should return undefined atoms", () => {
     const pgk = initPackage({ M: 64 });
 
     // Invalid value
@@ -76,6 +76,6 @@ describe("Padding", () => {
     expect(pgk.getAtom(["p", "t", "10px", "m"])).toBeUndefined();
     expect(pgk.getAtom(["p", "10px", "m"])).toBeUndefined();
     expect(() => pgk.getAtom(["p", "t", "10px", "Z"])).toThrowError();
+  });
 
-  })
 });

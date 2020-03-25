@@ -2,8 +2,9 @@ import { Package } from "../package";
 import { Module } from "../module";
 import { Breakpoints } from "../breakpoints";
 import { ConfigModule } from "../config";
-import { Padding } from "./padding";
 import { Atom } from "../atom";
+import { Padding } from "./padding";
+import { Margin } from "./margin";
 
 export class DefaultPackage implements Package {
   name: string = "default";
@@ -28,7 +29,25 @@ export class DefaultPackage implements Package {
       return undefined;
     }
 
-    return mod.getAtom(classParts);
+    if (classParts[0] !== mod.symbol) {
+      return undefined;
+    }
+
+    const cssClass = classParts.join("-");
+
+    classParts = [...classParts];
+
+    let breakpoint: string | undefined;
+
+    if (/^[A-Z]+$/.test(classParts[classParts.length - 1])) {
+      breakpoint = classParts.pop();
+
+      if (!this.breakpoints[breakpoint as string]) {
+        throw new Error(`The breakpoint ${breakpoint} used in the class ${cssClass} doesn't exists`);
+      }
+    }
+
+    return mod.getAtom(classParts, cssClass, breakpoint);
   }
 
   getBreakpoint(symbol: string): number | undefined {
@@ -44,6 +63,7 @@ export class DefaultPackage implements Package {
     private configModules?: ConfigModule[]) {
 
     this.modules
-      .set('p', new Padding());
+      .set('p', new Padding())
+      .set('m', new Margin());
   }
 }

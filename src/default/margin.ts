@@ -3,7 +3,7 @@ import { Atom } from "../atom";
 import { getPackage } from ".";
 import { getAtomPartsForAxisCss, CommonCss } from "../module-helper";
 
-const cssAttribute: string = "padding";
+const cssAttribute: string = "margin";
 
 const attributes: any = {
   t: CommonCss.top,
@@ -14,8 +14,8 @@ const attributes: any = {
   h: CommonCss.horizontal
 } 
 
-export class Padding implements Module {
-  readonly symbol: string = "p";
+export class Margin implements Module {
+  readonly symbol: string = "m";
 
   getAtom(classParts: string[], cssClass: string, breakpoint?: string): Atom | undefined {
 
