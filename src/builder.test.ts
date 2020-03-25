@@ -1,4 +1,4 @@
-import { buildFromPackagesAndClasses } from "./builder";
+import { buildFromPackagesAndClasses, appendCss } from "./builder";
 import { initPackage } from "./default";
 
 describe("Builder", () => {
@@ -24,5 +24,20 @@ describe("Builder", () => {
   .p-v-8px-L { padding-top: 8px; padding-bottom: 8px; }
 }`);
 
+  });
+
+  test("should append css", () => {
+
+    let output = "";
+    output = appendCss(output, "Generated classes", ".a { padding: 1px; }");
+    output = appendCss(output, "Custom classes", ".b { padding: 2px; }");
+
+    expect(output).toBe(
+`/* Generated classes */
+.a { padding: 1px; }
+
+/* Custom classes */
+.b { padding: 2px; }`
+    )
   });
 });

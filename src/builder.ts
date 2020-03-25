@@ -63,12 +63,31 @@ export function build(plainConfig: any): string {
 
   // Using only defaultPackage for now. Support for third packages is in the Roadmap
 
-  let output = buildFromPackagesAndClasses([defaultPackage], classes);
+  let output = "";
+  
+  output = appendCss(
+    output,
+    "Generated classes",
+    buildFromPackagesAndClasses([defaultPackage], classes));
 
   if (config.css) {
-    output += '/* Custom CSS */\n';
-    output += config.css;
+    output = appendCss(output, "Custom CSS", config.css);
   }
+
+  return output;
+}
+
+export function appendCss(output: string, title: string, css: string): string {
+  if (!output) {
+    output = "";
+  }
+
+  if (output.length > 0) {
+    output += "\n\n";
+  }
+
+  output += `/* ${title} */\n`;
+  output += css;
 
   return output;
 }
