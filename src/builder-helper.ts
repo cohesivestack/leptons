@@ -1,11 +1,11 @@
 import * as globby from "globby";
 import * as fs from "fs";
 
-export const distinctClasses = (classes: string[]): string[] => {
+export function distinctClasses(classes: string[]): string[] {
   return [...new Set(classes)];
 }
 
-export const extractClassesFromSource = (source: string[]): string[] => {
+export function extractClassesFromSource(source: string[]): string[] {
   const classes: string[] = [];
 
   globby
@@ -15,11 +15,11 @@ export const extractClassesFromSource = (source: string[]): string[] => {
   return classes;
 }
 
-export const extractClassesFromFile = (file: string): string[] => {
+export function extractClassesFromFile(file: string): string[] {
   return extractClassesFromContent(fs.readFileSync(file, "utf8"));
 }
 
-export const extractClassesFromContent = (content: string): string[] => {
+export function extractClassesFromContent(content: string): string[] {
   const regexAttribute = /class\=(?:\"(.+?)\"|'.+?')/g;
   let attributeMatches: RegExpExecArray | null;
   const classNames: string[] = [];
