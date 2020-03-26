@@ -5,6 +5,7 @@ import { ConfigModule } from "../config";
 import { Atom } from "../atom";
 import { Padding } from "./padding";
 import { Margin } from "./margin";
+import { FlexBox } from "./flex-box";
 
 export class DefaultPackage implements Package {
   name: string = "default";
@@ -64,6 +65,7 @@ export class DefaultPackage implements Package {
 
     this.modules
       .set('p', new Padding())
-      .set('m', new Margin());
+      .set('m', new Margin())
+      .set('fb', new FlexBox());
   }
 }

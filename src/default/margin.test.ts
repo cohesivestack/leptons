@@ -77,5 +77,5 @@ describe("Margin", () => {
     expect(pgk.getAtom(["m", "10px", "m"])).toBeUndefined();
     expect(() => pgk.getAtom(["m", "t", "10px", "Z"])).toThrowError();
 
-  })
+  });
 });
