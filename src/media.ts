@@ -39,7 +39,11 @@ export class Media {
 
     modules.forEach((atoms, moduleName) => {
       atoms.sort((a,b) => a.cssClass > b.cssClass ? 1 : -1 ).forEach(atom => {
-        cssString += `${tabSpace}.${atom.cssClass} { ${atom.cssValue} }\n`
+        let cssClass = atom.cssClass;
+        if (this.pkg.prefix) {
+          cssClass = this.pkg.prefix + "-" + cssClass;
+        }
+        cssString += `${tabSpace}.${cssClass} { ${atom.cssValue} }\n`
       });
     });
 

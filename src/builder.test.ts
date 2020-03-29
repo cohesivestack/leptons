@@ -40,4 +40,29 @@ describe("Builder", () => {
 .b { padding: 2px; }`
     )
   });
+
+  test("should create css output with prefix", () => {
+
+    const classes = [
+      "x-p-h-1",
+      "x-p-v-2px",
+      "x-p-v-4px-M",
+      "x-p-v-8px-L",
+    ];
+
+    const pkg = initPackage({M: 32, L: 64}, "x");
+    const css = buildFromPackagesAndClasses([pkg], classes);
+
+    expect(css.trim()).toBe(
+`.x-p-h-1 { padding-left: 1rem; padding-right: 1rem; }
+.x-p-v-2px { padding-top: 2px; padding-bottom: 2px; }
+@media screen and (min-width: 32rem) {
+  .x-p-v-4px-M { padding-top: 4px; padding-bottom: 4px; }
+}
+@media screen and (min-width: 64rem) {
+  .x-p-v-8px-L { padding-top: 8px; padding-bottom: 8px; }
+}`);
+
+  });
+
 });

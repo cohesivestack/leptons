@@ -48,4 +48,16 @@ describe("Media", () => {
     expect(() => media.addAtom(pkg.getAtom(["p", "v", "10px"]) as Atom))
       .toThrowError(`The "p-v-10px" atom doesn't belong to any breakpoint, but this is being added to "M" breakpoint`);
   });
+
+  test("should build with preifx", () => {
+
+    const pkg = initPackage({ M: 25 }, "x");
+
+    const media = new Media(pkg);
+    media.addAtom(pkg.getAtom(["x", "p", "v", "10px"]) as Atom);
+    const cssString = media.build();
+
+    expect(cssString.trim()).toBe(`
+.x-p-v-10px { padding-top: 10px; padding-bottom: 10px; }`.trim());
+  });
 });

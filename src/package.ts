@@ -3,8 +3,9 @@ import { ConfigModule } from "./config";
 import { Atom } from "./atom";
 
 export interface Package {
-  readonly name: string
-  readonly breakpoints: Breakpoints
+  readonly name: string;
+  readonly breakpoints: Breakpoints;
+  readonly prefix?: string;
 
   getAtom(classParts: string[]): Atom | undefined
 

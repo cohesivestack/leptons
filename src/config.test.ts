@@ -10,6 +10,7 @@ describe("Config", () => {
       unit: "em",
       breakpoints: {"a": 12, "b": 10, "c": 34},
       source: ['a/*.html', '/b/*.md'],
+      prefix: "x",
       css: "body { padding: 0; }"
     }
 
@@ -21,6 +22,7 @@ describe("Config", () => {
 
     expect(unit).toBe(UnitType.Em);
     expect(config.breakpoints?.a).toBe(12);
+    expect(config.prefix).toBe("x");
 
     expect(source[0]).toBe('a/*.html');
     expect(source[1]).toBe('/b/*.md');
@@ -35,6 +37,7 @@ source:
   - a/*.html
   - /b/*.md
 unit: em
+prefix: x
 breakpoints:
   A: 12
   B: 10
@@ -47,6 +50,7 @@ breakpoints:
 
     expect(unit).toBe(UnitType.Em);
     expect(config.breakpoints?.A).toBe(12);
+    expect(config.prefix).toBe("x");
 
     expect(source[0]).toBe('a/*.html');
     expect(source[1]).toBe('/b/*.md');

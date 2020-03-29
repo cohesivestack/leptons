@@ -60,7 +60,7 @@ export class DefaultPackage implements Package {
       M: 48,
       L: 64
     },
-    private prefix?: string,
+    readonly prefix?: string,
     private configModules?: ConfigModule[]) {
 
     this.modules

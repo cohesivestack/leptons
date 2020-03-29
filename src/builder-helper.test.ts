@@ -6,17 +6,18 @@ describe("Builder Helper", () => {
 
   test("should extract class", () => {
     const html1 = `
-      Some text <a class="p-l-1 {{program_variable}} m-r-1_1  custom _custom">some link</a>
+      Some text <a class="p-l-1 x-p-r-1 {{program_variable}} m-r-1_1  custom _custom">some link</a>
       <span class=" w-3p "/>`
 
     const classNames = Helper.extractClassesFromContent(html1);
 
-    expect(classNames.length).toBe(5);
+    expect(classNames.length).toBe(6);
     expect(classNames[0]).toBe('p-l-1');
-    expect(classNames[1]).toBe('m-r-1_1');
-    expect(classNames[2]).toBe('custom');
-    expect(classNames[3]).toBe('_custom');
-    expect(classNames[4]).toBe('w-3p');
+    expect(classNames[1]).toBe('x-p-r-1');
+    expect(classNames[2]).toBe('m-r-1_1');
+    expect(classNames[3]).toBe('custom');
+    expect(classNames[4]).toBe('_custom');
+    expect(classNames[5]).toBe('w-3p');
   });
 
   test("should extract class from source files", () => {
