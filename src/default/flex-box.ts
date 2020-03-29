@@ -79,30 +79,17 @@ const styles: any = {
   "ac-spaceEvenly":  "align-content: space-evenly;"
 }
 
-export class FlexBox implements Module {
-  readonly symbol: string = "fb";
+export class FlexBox extends Module {
+
+  constructor() { super(getPackage(), "fb"); }
 
   getAtom(classParts: string[], cssClass: string, breakpoint?: string): Atom | undefined {
-
-    if (classParts.length == 1) {
-      return undefined;
-    }
-
-    const cssValue = styles[classParts.slice(1).join("-")];
-    if (!cssValue) {
-      return undefined;
-    }
-
-    const attribute = classParts.length == 3 ? classParts[1] : undefined;
-    const value = classParts[classParts.length - 1];
-
-    return new Atom(
-      getPackage(),
-      this,
+    return this.buildAtom(
+      1,
+      classParts,
       cssClass,
-      cssValue,
-      attribute,
-      value,
-      breakpoint);
+      styles,
+      breakpoint
+    )
   }
 }

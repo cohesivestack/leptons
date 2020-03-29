@@ -50,7 +50,7 @@ describe("Margin", () => {
 
     a = pgk.getAtom(["m", "10px", "M"]) as Atom;
     expect(a.cssClass).toBe("m-10px-M");
-    expect(a.cssValue).toBe("margin-top: 10px; margin-bottom: 10px; margin-left: 10px; margin-right: 10px;");
+    expect(a.cssValue).toBe("margin: 10px;");
     expect(a.attribute).toBe(undefined);
     expect(a.value).toBe("10px");
     expect(a.breakpoint).toBe("M");
@@ -61,8 +61,8 @@ describe("Margin", () => {
     const pgk = initPackage({ M: 64 });
 
     // Invalid value
-    expect(pgk.getAtom(["m", "t", "px"])).toBeUndefined();
-    expect(pgk.getAtom(["m", "px"])).toBeUndefined();
+    expect(() => pgk.getAtom(["m", "t", "px"])).toThrowError("The value px is not valid");
+    expect(() => pgk.getAtom(["m", "px"])).toThrowError("The value px is not valid");
 
     // Invalid attribute
     expect(pgk.getAtom(["m", "a", "10px"])).toBeUndefined();
@@ -73,9 +73,9 @@ describe("Margin", () => {
     // Invalid breakpoint
     expect(pgk.getAtom(["M"])).toBeUndefined();
     expect(pgk.getAtom(["m", "M"])).toBeUndefined();
-    expect(pgk.getAtom(["m", "t", "10px", "m"])).toBeUndefined();
+    expect(() => pgk.getAtom(["m", "t", "10px", "m"])).toThrowError("The value m is not valid");
     expect(pgk.getAtom(["m", "10px", "m"])).toBeUndefined();
-    expect(() => pgk.getAtom(["m", "t", "10px", "Z"])).toThrowError();
+    expect(() => pgk.getAtom(["m", "t", "10px", "Z"])).toThrowError("The breakpoint Z used in the class m-t-10px-Z doesn't exists");
 
   });
 });

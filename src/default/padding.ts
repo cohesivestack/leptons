@@ -1,31 +1,29 @@
 import { Module } from "../module";
 import { Atom } from "../atom";
 import { getPackage } from ".";
-import { getAtomPartsForAxisCss, CommonCss } from "../module-helper";
+import { convertUnitToCss } from "../unit-type";
 
-const cssAttribute: string = "padding";
-
-const attributes: any = {
-  t: CommonCss.top,
-  r: CommonCss.right,
-  b: CommonCss.bottom,
-  l: CommonCss.left,
-  v: CommonCss.vertical,
-  h: CommonCss.horizontal
+const functions: any = {
+  "no-attribute": (v: string) => `padding: ${convertUnitToCss(v)};`,
+  t: (v: string) => `padding-top: ${convertUnitToCss(v)};`,
+  r: (v: string) => `padding-right: ${convertUnitToCss(v)};`,
+  b: (v: string) => `padding-bottom: ${convertUnitToCss(v)};`,
+  l: (v: string) => `padding-left: ${convertUnitToCss(v)};`,
+  v: (v: string) => `padding-top: ${convertUnitToCss(v)}; padding-bottom: ${convertUnitToCss(v)};`,
+  h: (v: string) => `padding-left: ${convertUnitToCss(v)}; padding-right: ${convertUnitToCss(v)};`,
 } 
 
-export class Padding implements Module {
-  readonly symbol: string = "p";
+export class Padding extends Module {
+  constructor() { super(getPackage(), "p"); }
 
   getAtom(classParts: string[], cssClass: string, breakpoint?: string): Atom | undefined {
 
-    return getAtomPartsForAxisCss(
-      getPackage(),
-      this,
+    return this.buildAtomWithFunction(
+      1,
       classParts,
       cssClass,
-      attributes,
-      cssAttribute,
-      breakpoint);
+      functions,
+      breakpoint
+    );
   }
 }
