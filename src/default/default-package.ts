@@ -8,6 +8,7 @@ import { Margin } from "./margin";
 import { FlexBox } from "./flex-box";
 import { Display } from "./display";
 import { Position } from "./position";
+import { Width } from "./width";
 
 export class DefaultPackage implements Package {
   name: string = "default";
@@ -67,9 +68,10 @@ export class DefaultPackage implements Package {
 
     this.modules
       .set('d', new Display())
-      .set('p', new Padding())
-      .set('m', new Margin())
       .set('fb', new FlexBox())
-      .set('pos', new Position());
+      .set('m', new Margin())
+      .set('p', new Padding())
+      .set('pos', new Position())
+      .set('w', new Width());
   }
 }
