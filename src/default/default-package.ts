@@ -7,6 +7,7 @@ import { Padding } from "./padding";
 import { Margin } from "./margin";
 import { FlexBox } from "./flex-box";
 import { Display } from "./display";
+import { Position } from "./position";
 
 export class DefaultPackage implements Package {
   name: string = "default";
@@ -68,6 +69,7 @@ export class DefaultPackage implements Package {
       .set('d', new Display())
       .set('p', new Padding())
       .set('m', new Margin())
-      .set('fb', new FlexBox());
+      .set('fb', new FlexBox())
+      .set('pos', new Position());
   }
 }
