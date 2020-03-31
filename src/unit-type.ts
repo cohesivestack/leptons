@@ -44,3 +44,24 @@ export const convertUnitToCss = (unit: string, defaultType: UnitType = UnitType.
 
   return value;
 }
+
+export const convertUnitsToCss = (units: string, defaultType?: UnitType, lengths?: number[]): string => {
+  defaultType = defaultType || UnitType.Rem;
+  lengths = lengths || [4];
+
+  const _units = units.split("X");
+
+  if (lengths.indexOf(_units.length) < 0) {
+    throw new Error(`The quantities of values in ${units} is not valid`);
+  }
+
+  let output = "";
+  _units.forEach(u => {
+    if (output.length > 0) {
+      output += " ";
+    }
+    output += convertUnitToCss(u, defaultType);
+  })
+
+  return output;
+}

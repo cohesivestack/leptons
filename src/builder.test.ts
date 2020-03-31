@@ -50,7 +50,7 @@ describe("Builder", () => {
       "x-p-v-8px-L",
     ];
 
-    const pkg = initPackage({M: 32, L: 64}, "x");
+    const pkg = initPackage({M: 32, L: 64}, {}, "x");
     const css = buildFromPackagesAndClasses([pkg], classes);
 
     expect(css.trim()).toBe(

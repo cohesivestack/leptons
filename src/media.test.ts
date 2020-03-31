@@ -51,7 +51,7 @@ describe("Media", () => {
 
   test("should build with preifx", () => {
 
-    const pkg = initPackage({ M: 25 }, "x");
+    const pkg = initPackage({ M: 25 }, {}, "x");
 
     const media = new Media(pkg);
     media.addAtom(pkg.getAtom(["x", "p", "v", "10px"]) as Atom);

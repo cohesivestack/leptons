@@ -3,6 +3,7 @@ import Ajv from 'ajv';
 import yaml from 'js-yaml';
 
 import { Breakpoints } from './breakpoints';
+import { Colors } from './colors';
 import { UnitType } from './unit-type';
 import { initPackage } from './default';
 import { Package } from './package';
@@ -23,6 +24,7 @@ export type Config = {
   prefix?: string,
   unit?: UnitType,
   breakpoints?: Breakpoints,
+  colors?: Colors,
   modules?: ConfigModule[],
   css?: string
 }
@@ -69,6 +71,12 @@ const schema = {
       type: "object",
       patternProperties: {
         ".+": { type: "number" }
+      }
+    },
+    colors: {
+      type: "object",
+      patternProperties: {
+        ".+": { type: "string" }
       }
     },
     modules: {
