@@ -2,6 +2,7 @@ import { Package, ConfigOptions } from "../package";
 import { DefaultPackage } from "./default-package";
 import { Breakpoints } from "../breakpoints";
 import { Colors } from "../colors";
+import { Fonts } from "../fonts";
 
 let defaultPackage: DefaultPackage | null = null;
 
@@ -60,10 +61,19 @@ const _colors: Colors = {
   'black': '#000000'
 };
 
+const _fonts: Fonts = {
+  'sans-serif': 'roboto, "helvetica neue", helvetica, tahoma, geneva, verdana, arial',
+  'serif': 'georgia, baskerville, palatino,times, "times new roman"',
+  'mono': '"robot slab", "roboto mono", monaco, courier, "courier new"',
+  'condensed': '"roboto condensed", "arial narrow"',
+  'script': '"brush script mt", "apple chancery", "comic sans ms"' 
+}
+
 export function initPackage(config?: ConfigOptions): Package {
   config = config || {}
   config.breakpoints = config.breakpoints || _breakpoints;
   config.colors = config.colors || _colors;
+  config.fonts = config.fonts || _fonts;
 
   return defaultPackage = new DefaultPackage(config);
 }

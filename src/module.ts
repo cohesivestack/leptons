@@ -91,4 +91,11 @@ export abstract class Module {
     }
     return this.pkg.colors[color];
   }
+
+  protected getFontFamily(font: string): string {
+    if (!this.pkg.fonts[font]) {
+      throw new Error(`The font family ${font} is not valid`);
+    }
+    return this.pkg.fonts[font];
+  }
 }

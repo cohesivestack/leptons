@@ -4,6 +4,7 @@ import yaml from 'js-yaml';
 
 import { Breakpoints } from './breakpoints';
 import { Colors } from './colors';
+import { Fonts } from './fonts';
 import { UnitType } from './unit-type';
 import { initPackage } from './default';
 import { Package } from './package';
@@ -25,6 +26,7 @@ export type Config = {
   unit?: UnitType,
   breakpoints?: Breakpoints,
   colors?: Colors,
+  fonts?: Fonts,
   modules?: ConfigModule[],
   css?: string
 }
@@ -74,6 +76,12 @@ const schema = {
       }
     },
     colors: {
+      type: "object",
+      patternProperties: {
+        ".+": { type: "string" }
+      }
+    },
+    fonts: {
       type: "object",
       patternProperties: {
         ".+": { type: "string" }

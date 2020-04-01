@@ -11,6 +11,7 @@ import { Background } from "./background";
 import { Height } from "./height";
 import { _Object } from "./object";
 import { Max } from "./max";
+import { Font } from "./font";
 
 export class DefaultPackage extends Package {
   name: string = "default";
@@ -66,6 +67,7 @@ export class DefaultPackage extends Package {
     this.modules
       .set('bg', new Background(this))
       .set('d', new Display(this))
+      .set('f', new Font(this))
       .set('fb', new FlexBox(this))
       .set('h', new Height(this))
       .set('m', new Margin(this))

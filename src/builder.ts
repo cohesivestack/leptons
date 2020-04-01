@@ -62,6 +62,7 @@ export function build(plainConfig: any): string {
   const defaultPackage = initPackage({
     breakpoints: config.breakpoints,
     colors: config.colors,
+    fonts: config.fonts,
     prefix: config.prefix,
     unit: config.unit
   });

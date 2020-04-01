@@ -1,0 +1,1 @@
+export type Fonts = { [index: string]: string };
