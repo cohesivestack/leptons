@@ -8,6 +8,7 @@ import { Display } from "./display";
 import { Position } from "./position";
 import { Width } from "./width";
 import { Background } from "./background";
+import { Height } from "./height";
 
 export class DefaultPackage extends Package {
   name: string = "default";
@@ -64,6 +65,7 @@ export class DefaultPackage extends Package {
       .set('bg', new Background(this))
       .set('d', new Display(this))
       .set('fb', new FlexBox(this))
+      .set('h', new Height(this))
       .set('m', new Margin(this))
       .set('p', new Padding(this))
       .set('pos', new Position(this))
