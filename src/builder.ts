@@ -59,7 +59,12 @@ export function build(plainConfig: any): string {
 
   const config = plainConfig as Config;
   const classes = Helper.distinctClasses(Helper.extractClassesFromSource(config.source));
-  const defaultPackage = initPackage(config.breakpoints, config.colors, config.prefix, config.modules);
+  const defaultPackage = initPackage({
+    breakpoints: config.breakpoints,
+    colors: config.colors,
+    prefix: config.prefix,
+    unit: config.unit
+  });
 
   // Using only defaultPackage for now. Support for third packages is in the Roadmap
 

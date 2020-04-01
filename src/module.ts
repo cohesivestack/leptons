@@ -1,5 +1,6 @@
 import { Atom } from "./atom";
 import { Package } from "./package";
+import { convertUnitToCss, convertUnitsToCss } from "./unit-type";
 
 export const NoAttribute = "no-attribute";
 
@@ -74,5 +75,20 @@ export abstract class Module {
       attribute,
       value,
       breakpoint);
+  }
+
+  protected convertUnitToCss(unit: string): string {
+    return convertUnitToCss(unit, this.pkg.unit);
+  }
+
+  protected convertUnitsToCss(units: string, lengths?: number[]): string {
+    return convertUnitsToCss(units, this.pkg.unit, lengths);
+  }
+
+  protected getColor(color: string): string {
+    if (!this.pkg.colors[color]) {
+      throw new Error(`The color ${color} is not valid`);
+    }
+    return this.pkg.colors[color];
   }
 }

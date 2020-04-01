@@ -1,7 +1,6 @@
 import { Module } from "../module";
 import { Atom } from "../atom";
-import { getPackage } from ".";
-import { convertUnitToCss } from "../unit-type";
+import { DefaultPackage } from "./default-package";
 
 const styles: any = {
   a: "position: absolute;",
@@ -14,19 +13,19 @@ const styles: any = {
   static: "position: static;'",
 }
 
-const functions: any = {
-  t: (v: string) => `top: ${convertUnitToCss(v)};`,
-  top: (v: string) => `top: ${convertUnitToCss(v)};`,
-  b: (v: string) => `bottom: ${convertUnitToCss(v)};`,
-  bottom: (v: string) => `bottom: ${convertUnitToCss(v)};`,
-  l: (v: string) => `left: ${convertUnitToCss(v)};`,
-  left: (v: string) => `left: ${convertUnitToCss(v)};`,
-  r: (v: string) => `right: ${convertUnitToCss(v)};`,
-  right: (v: string) => `right: ${convertUnitToCss(v)};`
-}
-
 export class Position extends Module {
-  constructor() { super(getPackage(), "pos"); }
+  constructor(pkg: DefaultPackage) { super(pkg, "pos"); }
+
+  private readonly functions: any = {
+    t: (v: string) => `top: ${this.convertUnitToCss(v)};`,
+    top: (v: string) => `top: ${this.convertUnitToCss(v)};`,
+    b: (v: string) => `bottom: ${this.convertUnitToCss(v)};`,
+    bottom: (v: string) => `bottom: ${this.convertUnitToCss(v)};`,
+    l: (v: string) => `left: ${this.convertUnitToCss(v)};`,
+    left: (v: string) => `left: ${this.convertUnitToCss(v)};`,
+    r: (v: string) => `right: ${this.convertUnitToCss(v)};`,
+    right: (v: string) => `right: ${this.convertUnitToCss(v)};`
+  }
 
   getAtom(classParts: string[], cssClass: string, breakpoint?: string): Atom | undefined {
 
@@ -43,7 +42,7 @@ export class Position extends Module {
         2,
         classParts,
         cssClass,
-        functions,
+        this.functions,
         breakpoint
       );
     }

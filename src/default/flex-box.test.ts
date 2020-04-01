@@ -4,7 +4,7 @@ import { Atom } from "../atom";
 describe("FlexBox", () => {
 
   test("should get atoms", () => {
-    const pgk = initPackage({ M: 64 });
+    const pgk = initPackage({breakpoints: { M: 64 }});
 
     let a = pgk.getAtom(["fb", "a"]) as Atom;
     expect(a.cssClass).toBe("fb-a");
@@ -50,7 +50,7 @@ describe("FlexBox", () => {
   });
 
   test("should return undefined atoms", () => {
-    const pgk = initPackage({ M: 64 });
+    const pgk = initPackage({breakpoints: { M: 64 }});
 
     // Invalid value
     expect(pgk.getAtom(["fb", "d", "x"])).toBeUndefined();

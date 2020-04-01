@@ -1,6 +1,6 @@
 import { Module } from "../module";
 import { Atom } from "../atom";
-import { getPackage } from ".";
+import { DefaultPackage } from "./default-package";
 
 const styles: any = {
   // Type
@@ -81,7 +81,7 @@ const styles: any = {
 
 export class FlexBox extends Module {
 
-  constructor() { super(getPackage(), "fb"); }
+  constructor(pkg: DefaultPackage) { super(pkg, "fb"); }
 
   getAtom(classParts: string[], cssClass: string, breakpoint?: string): Atom | undefined {
     return this.buildAtom(

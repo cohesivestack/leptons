@@ -1,6 +1,6 @@
 import { Module } from "../module";
 import { Atom } from "../atom";
-import { getPackage } from ".";
+import { DefaultPackage } from "./default-package";
 
 const styles: any = {
   n: "display: none;",
@@ -31,7 +31,7 @@ const styles: any = {
 
 export class Display extends Module {
 
-  constructor() { super(getPackage(), "d"); }
+  constructor(pkg: DefaultPackage) { super(pkg, "d"); }
 
   getAtom(classParts: string[], cssClass: string, breakpoint?: string): Atom | undefined {
     return this.buildAtom(

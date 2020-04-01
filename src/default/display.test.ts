@@ -4,7 +4,7 @@ import { Atom } from "../atom";
 describe("Display", () => {
 
   test("should get atoms", () => {
-    const pgk = initPackage();
+    const pgk = initPackage({});
 
     let a = pgk.getAtom(["d", "it"]) as Atom;
     expect(a.cssClass).toBe("d-it");

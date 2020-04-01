@@ -1,15 +1,14 @@
 import { Module } from "../module";
 import { Atom } from "../atom";
-import { getPackage } from ".";
-import { convertUnitToCss } from "../unit-type";
-
-const functions: any = {
-  "no-attribute": (v: string) => `width: ${convertUnitToCss(v)};`,
-} 
+import { DefaultPackage } from "./default-package";
 
 export class Width extends Module {
 
-  constructor() { super(getPackage(), "w"); }
+  constructor(pkg: DefaultPackage) { super(pkg, "w"); }
+
+  private readonly functions: any = {
+    "no-attribute": (v: string) => `width: ${this.convertUnitToCss(v)};`,
+  } 
 
   getAtom(classParts: string[], cssClass: string, breakpoint?: string): Atom | undefined {
 
@@ -17,7 +16,7 @@ export class Width extends Module {
       1,
       classParts,
       cssClass,
-      functions,
+      this.functions,
       breakpoint
     );
   }

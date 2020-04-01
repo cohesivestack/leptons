@@ -4,7 +4,7 @@ import { Atom } from "../atom";
 describe("Background", () => {
 
   test("should get atoms", () => {
-    const pgk = initPackage({}, {green: "#00FF00"}, undefined);
+    const pgk = initPackage({colors: {green: "#00FF00"}});
 
     let a = pgk.getAtom(["bg", "c", "green"]) as Atom;
     expect(a.cssClass).toBe("bg-c-green");
@@ -27,4 +27,12 @@ describe("Background", () => {
     expect(a.value).toBe("lt");
     expect(a.breakpoint).toBe(undefined);
   });
+
+  test("should return undefined atoms", () => {
+    const pgk = initPackage({colors: {green: "#00FF00"}});
+
+    // Invalid value
+    expect(() => pgk.getAtom(["bg", "c", "blue"])).toThrowError("The color blue is not valid");
+    expect(() => pgk.getAtom(["bg", "p", "1px"])).toThrowError("The quantities of values in 1px is not valid");
+  })
 });

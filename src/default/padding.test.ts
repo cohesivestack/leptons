@@ -4,7 +4,7 @@ import { Atom } from "../atom";
 describe("Padding", () => {
 
   test("should get atoms", () => {
-    const pgk = initPackage({ M: 64 });
+    const pgk = initPackage({breakpoints: { M: 64 }});
 
     let a = pgk.getAtom(["p", "t", "10px"]) as Atom;
     expect(a.cssClass).toBe("p-t-10px");
@@ -58,7 +58,7 @@ describe("Padding", () => {
 
 
   test("should return undefined atoms", () => {
-    const pgk = initPackage({ M: 64 });
+    const pgk = initPackage({breakpoints: { M: 64 }});
 
     // Invalid value
     expect(() => pgk.getAtom(["p", "t", "px"])).toThrowError("The value px is not valid");

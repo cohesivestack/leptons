@@ -11,7 +11,7 @@ describe("Builder", () => {
       "p-v-8px-L",
     ];
 
-    const pkg = initPackage({M: 32, L: 64});
+    const pkg = initPackage({breakpoints: { M: 32, L: 64 }});
     const css = buildFromPackagesAndClasses([pkg], classes);
 
     expect(css.trim()).toBe(
@@ -50,7 +50,7 @@ describe("Builder", () => {
       "x-p-v-8px-L",
     ];
 
-    const pkg = initPackage({M: 32, L: 64}, {}, "x");
+    const pkg = initPackage({breakpoints: {M: 32, L: 64}, prefix: "x" });
     const css = buildFromPackagesAndClasses([pkg], classes);
 
     expect(css.trim()).toBe(

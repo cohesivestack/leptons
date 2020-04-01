@@ -2,21 +2,36 @@ import { Breakpoints } from "./breakpoints";
 import { Colors } from "./colors";
 import { ConfigModule } from "./config";
 import { Atom } from "./atom";
+import { UnitType } from "./unit-type";
 
-export interface Package {
-  readonly name: string;
+export type ConfigOptions = {
+  prefix?: string,
+  unit?: UnitType,
+  breakpoints?: Breakpoints,
+  colors?: Colors
+}
+
+export abstract class Package {
   readonly breakpoints: Breakpoints;
   readonly colors: Colors;
+  readonly unit: UnitType;
   readonly prefix?: string;
 
-  getAtom(classParts: string[]): Atom | undefined
+  constructor(readonly name: string, config: ConfigOptions) {
+    this.prefix = config.prefix;
+    this.breakpoints = config.breakpoints || {};
+    this.unit = config.unit || UnitType.Rem;
+    this.colors = config.colors || {};
+  }
 
-  getBreakpoint(symbol: string): number | undefined
+  abstract getAtom(classParts: string[]): Atom | undefined
+
+  abstract getBreakpoint(symbol: string): number | undefined
 }
 
 export interface InitPackage
 {
-  (breakpoints: Breakpoints, colors: Colors, prefix?: string, modules?: ConfigModule[]): Package
+  (config: ConfigOptions): Package
 };
 
 export interface GetPackage

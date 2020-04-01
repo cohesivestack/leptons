@@ -1,20 +1,19 @@
 import { Module } from "../module";
 import { Atom } from "../atom";
-import { getPackage } from ".";
-import { convertUnitToCss } from "../unit-type";
-
-const functions: any = {
-  "no-attribute": (v: string) => `padding: ${convertUnitToCss(v)};`,
-  t: (v: string) => `padding-top: ${convertUnitToCss(v)};`,
-  r: (v: string) => `padding-right: ${convertUnitToCss(v)};`,
-  b: (v: string) => `padding-bottom: ${convertUnitToCss(v)};`,
-  l: (v: string) => `padding-left: ${convertUnitToCss(v)};`,
-  v: (v: string) => `padding-top: ${convertUnitToCss(v)}; padding-bottom: ${convertUnitToCss(v)};`,
-  h: (v: string) => `padding-left: ${convertUnitToCss(v)}; padding-right: ${convertUnitToCss(v)};`,
-} 
+import { DefaultPackage } from "./default-package";
 
 export class Padding extends Module {
-  constructor() { super(getPackage(), "p"); }
+  constructor(pkg: DefaultPackage) { super(pkg, "p"); }
+
+  private readonly functions: any = {
+    "no-attribute": (v: string) => `padding: ${this.convertUnitToCss(v)};`,
+    t: (v: string) => `padding-top: ${this.convertUnitToCss(v)};`,
+    r: (v: string) => `padding-right: ${this.convertUnitToCss(v)};`,
+    b: (v: string) => `padding-bottom: ${this.convertUnitToCss(v)};`,
+    l: (v: string) => `padding-left: ${this.convertUnitToCss(v)};`,
+    v: (v: string) => `padding-top: ${this.convertUnitToCss(v)}; padding-bottom: ${this.convertUnitToCss(v)};`,
+    h: (v: string) => `padding-left: ${this.convertUnitToCss(v)}; padding-right: ${this.convertUnitToCss(v)};`,
+  }   
 
   getAtom(classParts: string[], cssClass: string, breakpoint?: string): Atom | undefined {
 
@@ -22,7 +21,7 @@ export class Padding extends Module {
       1,
       classParts,
       cssClass,
-      functions,
+      this.functions,
       breakpoint
     );
   }

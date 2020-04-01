@@ -1,7 +1,7 @@
 import { Module } from "../module";
 import { Atom } from "../atom";
 import { getPackage } from ".";
-import { convertUnitsToCss } from "../unit-type";
+import { DefaultPackage } from "./default-package";
 
 const styles: any = {
   // Position
@@ -69,15 +69,15 @@ const styles: any = {
   "a-local": "background-attachment: local",
 }
 
-const functions = {
-  "c": (v: string) => `background-color: ${getPackage().colors[v]};`,
-  "p": (v: string) => `background-position: ${convertUnitsToCss(v, undefined, [2])};`,
-  "s": (v: string) => `background-size: ${convertUnitsToCss(v, undefined, [2])};`,
-};
-
 export class Background extends Module {
 
-  constructor() { super(getPackage(), "bg"); }
+  constructor(pkg: DefaultPackage) { super(pkg, "bg"); }
+
+  private readonly functions = {
+    "c": (v: string) => `background-color: ${this.getColor(v)};`,
+    "p": (v: string) => `background-position: ${this.convertUnitsToCss(v, [2])};`,
+    "s": (v: string) => `background-size: ${this.convertUnitsToCss(v, [2])};`,
+  };
 
   getAtom(classParts: string[], cssClass: string, breakpoint?: string): Atom | undefined {
     let atom = this.buildAtom(
@@ -93,7 +93,7 @@ export class Background extends Module {
         2,
         classParts,
         cssClass,
-        functions,
+        this.functions,
         breakpoint
       );
     }

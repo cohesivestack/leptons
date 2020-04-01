@@ -7,7 +7,7 @@ describe("Media", () => {
 
   test("should build with some breakpoint", () => {
 
-    const pkg = initPackage({ M: 25 });
+    const pkg = initPackage({breakpoints: { M: 25 }});
 
     const media = new Media(pkg, "M");
     media.addAtom(pkg.getAtom(["p", "v", "10px", "M"]) as Atom);
@@ -22,7 +22,7 @@ describe("Media", () => {
 
   test("should build without breakpoint", () => {
 
-    const pkg = initPackage({ M: 25 });
+    const pkg = initPackage({breakpoints: { M: 25 }});
 
     const media = new Media(pkg);
     media.addAtom(pkg.getAtom(["p", "v", "10px"]) as Atom);
@@ -34,7 +34,7 @@ describe("Media", () => {
 
   test("should validate breakpoints correctly", () => {
     
-    const pkg = initPackage({ M: 10, L: 20 });
+    const pkg = initPackage({breakpoints: { M: 10, L: 20 }});
 
     let media = new Media(pkg);
     expect(() => media.addAtom(pkg.getAtom(["p", "v", "10px", "M"]) as Atom))
@@ -51,7 +51,7 @@ describe("Media", () => {
 
   test("should build with preifx", () => {
 
-    const pkg = initPackage({ M: 25 }, {}, "x");
+    const pkg = initPackage({breakpoints: { M: 25 }, prefix: "x"});
 
     const media = new Media(pkg);
     media.addAtom(pkg.getAtom(["x", "p", "v", "10px"]) as Atom);
