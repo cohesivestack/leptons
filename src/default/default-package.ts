@@ -12,6 +12,7 @@ import { Height } from "./height";
 import { _Object } from "./object";
 import { Max } from "./max";
 import { Font } from "./font";
+import { Text } from "./text";
 
 export class DefaultPackage extends Package {
   name: string = "default";
@@ -75,6 +76,7 @@ export class DefaultPackage extends Package {
       .set('obj', new _Object(this))
       .set('p', new Padding(this))
       .set('pos', new Position(this))
+      .set('t', new Text(this))
       .set('w', new Width(this));
   }
 }
