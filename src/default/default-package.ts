@@ -13,6 +13,7 @@ import { _Object } from "./object";
 import { Max } from "./max";
 import { Font } from "./font";
 import { Text } from "./text";
+import { Border } from "./border";
 
 export class DefaultPackage extends Package {
   name: string = "default";
@@ -67,6 +68,7 @@ export class DefaultPackage extends Package {
 
     this.modules
       .set('bg', new Background(this))
+      .set('b', new Border(this))
       .set('d', new Display(this))
       .set('f', new Font(this))
       .set('fb', new FlexBox(this))
