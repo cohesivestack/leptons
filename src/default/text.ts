@@ -14,22 +14,22 @@ const styles: any = {
   "a-justify": "text-align: jusitify;",
 
   // Decoration Line
-  "dl-u":            "decoration-line: underline",
-  "dl-underline":    "decoration-line: underline",
-  "dl-o":            "decoration-line: overline",
-  "dl-overline":     "decoration-line: overline",
-  "dl-lt":           "decoration-line: line-through",
-  "dl-line-through": "decoration-line: line-through",
-  "dl-n":            "decoration-line: none",
-  "dl-none":         "decoration-line: none",
+  "dl-u":            "text-decoration-line: underline",
+  "dl-underline":    "text-decoration-line: underline",
+  "dl-o":            "text-decoration-line: overline",
+  "dl-overline":     "text-decoration-line: overline",
+  "dl-lt":           "text-decoration-line: line-through",
+  "dl-line-through": "text-decoration-line: line-through",
+  "dl-n":            "text-decoration-line: none",
+  "dl-none":         "text-decoration-line: none",
 
   // Decoration Style
-  "ds-s":      "decoration-style: solid",
-  "ds-solid":  "decoration-style: solid",
-  "ds-d":      "decoration-style: dotted",
-  "ds-dotted": "decoration-style: dotted",
-  "ds-dashed": "decoration-style: dashed",
-  "ds-w":      "decoration-style: wavy",
+  "ds-s":      "text-decoration-style: solid",
+  "ds-solid":  "text-decoration-style: solid",
+  "ds-d":      "text-decoration-style: dotted",
+  "ds-dotted": "text-decoration-style: dotted",
+  "ds-dashed": "text-decoration-style: dashed",
+  "ds-w":      "text-decoration-style: wavy",
 
   // Justify
   "j-a":              "text-justify: auto",
