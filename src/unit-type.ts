@@ -42,6 +42,10 @@ export const convertUnitToCss = (unit: string, defaultType: UnitType = UnitType.
     value += defaultType;
   }
 
+  if (/[0-9]+p$/.test(unit)) {
+    value = value.replace("p", "%");
+  }
+
   return value;
 }
 

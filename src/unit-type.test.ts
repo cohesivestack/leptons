@@ -38,6 +38,7 @@ describe("Unit Type", () => {
     expect(convertUnitToCss("10pt")).toBe("10pt");
     expect(convertUnitToCss("1_1pt")).toBe("1.1pt");
     expect(convertUnitToCss("10_19pt")).toBe("10.19pt");
+    expect(convertUnitToCss("10_19p")).toBe("10.19%");
 
     // Default values
     expect(convertUnitToCss("10")).toBe("10rem");
