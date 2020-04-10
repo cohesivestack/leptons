@@ -16,6 +16,7 @@ import { Text } from "./text";
 import { Border } from "./border";
 import { Cursor } from "./cursor";
 import { Opacity } from "./opacity";
+import { Visibility } from "./visibility";
 
 export class DefaultPackage extends Package {
   name: string = "default";
@@ -83,6 +84,7 @@ export class DefaultPackage extends Package {
       .set('p', new Padding(this))
       .set('pos', new Position(this))
       .set('t', new Text(this))
+      .set('v', new Visibility(this))
       .set('w', new Width(this));
   }
 }
