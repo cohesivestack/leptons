@@ -27,6 +27,7 @@ export type Config = {
   breakpoints?: Breakpoints,
   colors?: Colors,
   fonts?: Fonts,
+  include?: string,
   modules?: ConfigModule[],
   css?: string
 }
@@ -87,6 +88,7 @@ const schema = {
         ".+": { type: "string" }
       }
     },
+    include: { type: "string" },
     modules: {
       type: "array",
       items: {

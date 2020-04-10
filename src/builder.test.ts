@@ -1,4 +1,6 @@
-import { buildFromPackagesAndClasses, appendCss } from "./builder";
+import fs from 'fs';
+import path from 'path';
+import { buildFromPackagesAndClasses, appendCss, buildFromFile } from "./builder";
 import { initPackage } from "./default";
 
 describe("Builder", () => {
@@ -62,6 +64,41 @@ describe("Builder", () => {
 @media screen and (min-width: 64rem) {
   .x-p-v-8px-L { padding-top: 8px; padding-bottom: 8px; }
 }`);
+
+  });
+
+  test("should create css from configuration file", async (done) => {
+    const configPath = './tmp/leptons.yaml';
+    const outputPath = './tmp/index.html';
+
+    if (fs.existsSync(configPath)) fs.unlinkSync(configPath);
+    if (fs.existsSync(outputPath)) fs.unlinkSync(outputPath);
+
+    fs.writeFileSync(outputPath, '<p class="p-10 p-20-M">Text</p>');
+    fs.writeFileSync(configPath, `
+source:
+  - ./tmp/index.html
+unit: em
+breakpoints:
+  M: 48
+  L: 64
+include: p-r-20 m-l-1`);
+
+  const css = await buildFromFile(configPath);
+
+  expect(css.trim()).toBe(`
+/* Generated classes */
+.m-l-1 { margin-left: 1em; }
+.p-10 { padding: 10em; }
+.p-r-20 { padding-right: 20em; }
+@media screen and (min-width: 48rem) {
+  .p-20-M { padding: 20em; }
+}
+@media screen and (min-width: 64rem) {
+}
+`.trim());
+
+  done();
 
   });
 

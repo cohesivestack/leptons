@@ -58,7 +58,13 @@ export function build(plainConfig: any): string {
   }
 
   const config = plainConfig as Config;
-  const classes = Helper.distinctClasses(Helper.extractClassesFromSource(config.source));
+
+  let classesToExtract = Helper.extractClassesFromSource(config.source);
+  if (config.include) {
+    classesToExtract = classesToExtract.concat(config.include.split(" "));
+  }
+  
+  const classes = Helper.distinctClasses(classesToExtract);
   const defaultPackage = initPackage({
     breakpoints: config.breakpoints,
     colors: config.colors,

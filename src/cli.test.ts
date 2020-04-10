@@ -43,7 +43,7 @@ describe("Cli", () => {
 
     expect(fs.existsSync(cssPath)).toBe(false);
 
-    fs.writeFileSync("./tmp/index.html", '<p class="p-a-10 p-a-20-M">Text</p>');
+    fs.writeFileSync("./tmp/index.html", '<p class="p-10 p-20-M">Text</p>');
 
     init(configPath, ["./tmp/*.html"]);
 
