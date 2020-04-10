@@ -15,6 +15,7 @@ import { Font } from "./font";
 import { Text } from "./text";
 import { Border } from "./border";
 import { Cursor } from "./cursor";
+import { Opacity } from "./opacity";
 
 export class DefaultPackage extends Package {
   name: string = "default";
@@ -72,12 +73,13 @@ export class DefaultPackage extends Package {
       .set('b', new Border(this))
       .set('c', new Cursor(this))
       .set('d', new Display(this))
-      .set('f', new Font(this))
       .set('fb', new FlexBox(this))
+      .set('f', new Font(this))
       .set('h', new Height(this))
       .set('m', new Margin(this))
       .set('max', new Max(this))
       .set('obj', new _Object(this))
+      .set('o', new Opacity(this))
       .set('p', new Padding(this))
       .set('pos', new Position(this))
       .set('t', new Text(this))
