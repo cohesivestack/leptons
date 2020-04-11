@@ -17,6 +17,8 @@ import { Border } from "./border";
 import { Cursor } from "./cursor";
 import { Opacity } from "./opacity";
 import { Visibility } from "./visibility";
+import { ZIndex } from "./z-index";
+import { BoxSizing } from "./box-sizing";
 
 export class DefaultPackage extends Package {
   name: string = "default";
@@ -72,6 +74,7 @@ export class DefaultPackage extends Package {
     this.modules
       .set('bg', new Background(this))
       .set('b', new Border(this))
+      .set('bs', new BoxSizing(this))
       .set('c', new Cursor(this))
       .set('d', new Display(this))
       .set('fb', new FlexBox(this))
@@ -85,6 +88,7 @@ export class DefaultPackage extends Package {
       .set('pos', new Position(this))
       .set('t', new Text(this))
       .set('v', new Visibility(this))
-      .set('w', new Width(this));
+      .set('w', new Width(this))
+      .set('z', new ZIndex(this));
   }
 }
