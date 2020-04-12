@@ -60,7 +60,8 @@ export class Text extends Module {
 
   private readonly functions = {
     "dc": (v: string) => `text-decoration-color: ${this.getColor(v)};`,
-    "i": (v: string) => `text-indent: ${this.convertUnitToCss(v)};`
+    "i": (v: string) => `text-indent: ${this.convertUnitToCss(v)};`,
+    "c": (v: string) => `color: ${this.getColor(v)};`
     // TODO: Add text-shadow property
     // "s": (v: string) => `text-shadow: [h-shadow, v-shadow, blur-radius, color];`
   };
