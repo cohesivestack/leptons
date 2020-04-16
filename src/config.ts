@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import Ajv from 'ajv';
 import yaml from 'js-yaml';
 
@@ -22,6 +23,7 @@ export type ConfigModule = {
 export type Config = {
   package?: string,
   source: string[],
+  output: string,
   prefix?: string,
   unit?: UnitType,
   breakpoints?: Breakpoints,
@@ -43,13 +45,14 @@ export function isConfigErrors(configErrors: Config | ConfigError[]): configErro
 const schema = {
   properties: {
     package: { type: "string" },
+    prefix: { type: "string" },
     source: {
       type: "array",
       items: {
         type: "string"
       }
     },
-    prefix: { type: "string" },
+    output: { type: "string" },
     unit: {
       type: "string",
       enum: [
@@ -143,6 +146,21 @@ export function parseFromJson(jsonConfig: string): (Config | ConfigError[]) {
   return parse(JSON.parse(jsonConfig));
 }
 
+export function parseFromFile(configFilePath: string): (Config | ConfigError[]) {
+  const textConfig = fs.readFileSync(configFilePath, 'utf8');
+  const configExtension = path.extname(configFilePath);
+
+  switch (configExtension) {
+    case '.yaml':
+    case '.yml':
+      return parseFromYaml(textConfig);
+    case '.json':
+      return parseFromJson(textConfig);
+    default:
+      throw Error('Invalid file extension (must be any of: .yaml, .yml or .json)');
+  }
+}
+
 export function parse(plainConfig: any): (Config | ConfigError[]) {
   const errors = schemaErrors(plainConfig);
   if (errors) {
@@ -154,19 +172,20 @@ export function parse(plainConfig: any): (Config | ConfigError[]) {
   return config as Config;
 }
 
-export function init(filePath: string, source?: string[]) {
+export function init(filePath: string, source?: string[], output?: string) {
   const defaultPackage = initPackage();
 
   if (fs.existsSync(filePath)) {
     throw Error("Error: a file '" + filePath + "' already exists");
   } else {
-    fs.writeFileSync(filePath, getInitConfig(defaultPackage, source));
+    fs.writeFileSync(filePath, getInitConfig(defaultPackage, source, output));
   }
 }
 
-export function getInitConfig(pkg: Package, source?: string[]): string {
+export function getInitConfig(pkg: Package, source?: string[], output?: string): string {
   const config = {
     source: source || ["*.htm", "*.html"],
+    output: output || "./leptons.css",
     unit: "em",
     breakpoints: pkg.breakpoints
   };

@@ -1,48 +1,20 @@
 import fs from 'fs';
-import path, { parse } from 'path';
 import * as Helper from "./builder-helper";
-import { isConfigErrors, ConfigError, Config, parseFromJson, parseFromYaml } from "./config";
+import { isConfigErrors, ConfigError, Config, parseFromJson, parseFromYaml, parseFromFile } from "./config";
 import { initPackage } from "./default";
 import { Media } from "./media";
 import { Package } from "./package";
 
-export function buildFromFile(configFilePath: string): string {
-  const textConfig = fs.readFileSync(configFilePath, 'utf8');
-  const configExtension = path.extname(configFilePath);
-
-  switch (configExtension) {
-    case '.yaml':
-    case '.yml':
-      return buildFromYaml(textConfig);
-    case '.json':
-      return buildFromJson(textConfig);
-    default:
-      throw Error('Invalid file extension (must be any of: .yaml, .yml or .json)');
-  }
-}
-
-export function buildFromFileToFile(configFilePath: string, outputFilePath: string) {
-  writeToFile(outputFilePath, buildFromFile(configFilePath));
-}
-
 export function buildFromYaml(yamlConfig: string): string {
   return build(parseFromYaml(yamlConfig));
-}
-
-export function buildFromYamlToFile(yamlConfig: string, outputFilePath: string) {
-  writeToFile(outputFilePath, buildFromYaml(yamlConfig));
 }
 
 export function buildFromJson(jsonConfig: string): string {
   return build(parseFromJson(jsonConfig));
 }
 
-export function buildFromJsonToFile(jsonConfig: string, outputFilePath: string) {
-  writeToFile(outputFilePath, buildFromJson(jsonConfig));
-}
-
-export function buildFromPlainConfig(plainConfig: any): string {
-  return build(parse(plainConfig));
+export function buildFromFile(filePath: string): string {
+  return build(parseFromFile(filePath));
 }
 
 export function build(plainConfig: any): string {
@@ -136,6 +108,6 @@ export function buildFromPackagesAndClasses(packages: Package[], classes: string
   return cssString;
 }
 
-function writeToFile(outputFilePath: string, cssContent: string) {
+export function writeToFile(outputFilePath: string, cssContent: string) {
   fs.writeFileSync(outputFilePath, cssContent);
 }

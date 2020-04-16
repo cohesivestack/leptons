@@ -45,9 +45,9 @@ describe("Cli", () => {
 
     fs.writeFileSync("./tmp/index.html", '<p class="p-10 p-20-M">Text</p>');
 
-    init(configPath, ["./tmp/*.html"]);
+    init(configPath, ["./tmp/*.html"], cssPath);
 
-    childProcess.exec(`ts-node ${cli} build ${cssPath} -c ${configPath}`, function(_error: any, stdout: any, stderr: any) {
+    childProcess.exec(`ts-node ${cli} build -c ${configPath}`, function(_error: any, stdout: any, stderr: any) {
       expect((new RegExp(/The leptons css file '\.\/tmp\/leptons\.css' was created!/)).test(stdout)).toBe(true);
       done();
       expect(fs.existsSync(cssPath)).toBe(true);
