@@ -34,6 +34,13 @@ describe("Margin", () => {
     expect(a.value).toBe("10_1");
     expect(a.breakpoint).toBe(undefined);
 
+    a = pkg.getAtom(["m", "r", "a"]) as Atom;
+    expect(a.cssClass).toBe("m-r-a");
+    expect(a.cssValue).toBe("margin-right: auto;");
+    expect(a.attribute).toBe("r");
+    expect(a.value).toBe("a");
+    expect(a.breakpoint).toBe(undefined);
+
     a = pkg.getAtom(["m", "v", "10px"]) as Atom;
     expect(a.cssClass).toBe("m-v-10px");
     expect(a.cssValue).toBe("margin-top: 10px; margin-bottom: 10px;");
