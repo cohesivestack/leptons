@@ -15,7 +15,7 @@ export class Watcher {
       persistent: true
     }).on("all", (event: string, path: string) => {
       console.log(event, path);
-      writeToFile(config.output, build(config));
+      writeToFile(this.config.output, build(this.config));
     });
   
     this.configWatcher = chokidar.watch(configPath, {
