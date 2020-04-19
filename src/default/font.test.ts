@@ -26,6 +26,20 @@ describe("Font", () => {
     expect(a.attribute).toBe("style");
     expect(a.value).toBe("i");
     expect(a.breakpoint).toBe(undefined);
+
+    a = pgk.getAtom(["f", "w", "b"]) as Atom;
+    expect(a.cssClass).toBe("f-w-b");
+    expect(a.cssValue).toBe("font-weight: 700;");
+    expect(a.attribute).toBe("w");
+    expect(a.value).toBe("b");
+    expect(a.breakpoint).toBe(undefined);
+
+    a = pgk.getAtom(["f", "w", "8"]) as Atom;
+    expect(a.cssClass).toBe("f-w-8");
+    expect(a.cssValue).toBe("font-weight: 800;");
+    expect(a.attribute).toBe("w");
+    expect(a.value).toBe("8");
+    expect(a.breakpoint).toBe(undefined);
   });
 
   test("should return undefined atoms", () => {

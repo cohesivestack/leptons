@@ -34,6 +34,20 @@ const styles: any = {
   "v-normal":    "font-variant: normal;",
   "v-sm":        "font-variant: small-caps;",
   "v-smallCaps": "font-variant: small-caps;",
+
+  // Weight
+  "w-b":      "font-weight: 700;",
+  "w-bold":   "font-weight: 700;",
+  "w-n":      "font-weight: 400;",
+  "w-normal": "font-weight: 400;",
+}
+
+function convertWeightToCss(v: string) {
+  if (!/^[1-9]$/.test(v)) {
+    throw new Error(`The font-weight ${v} is not valid`);
+  }
+
+  return (parseInt(v) * 100).toString();
 }
 
 export class Font extends Module {
@@ -43,7 +57,7 @@ export class Font extends Module {
   private readonly functions = {
     "f": (v: string) => `font-family: ${this.getFontFamily(v)};`,
     "s": (v: string) => `font-size: ${this.convertUnitToCss(v)};`,
-    "w": (v: string) => `font-weight: ${this.convertUnitToCss(v)};`,
+    "w": (v: string) => `font-weight: ${convertWeightToCss(v)};`,
   };
 
   getAtom(classParts: string[], cssClass: string, breakpoint?: string): Atom | undefined {
