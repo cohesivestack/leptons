@@ -20,7 +20,7 @@ export function extractClassesFromFile(file: string): string[] {
 }
 
 export function extractClassesFromContent(content: string): string[] {
-  const regexAttribute = /class\=(?:\"(.+?)\"|'.+?')/g;
+  const regexAttribute = /(?:class|className)\=(?:\"(.+?)\"|'.+?')/g;
   let attributeMatches: RegExpExecArray | null;
   const classNames: string[] = [];
 

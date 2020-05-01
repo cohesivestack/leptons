@@ -56,4 +56,21 @@ describe("Builder Helper", () => {
     expect(classes[2]).toBe('p-4');
     expect(classes[3]).toBe('p-3');
   });
+
+  test("should extract class from React source files", () => {
+    const html1 = `
+      Some text <a className="p-l-1">some link</a><span className=" w-3p "/>`
+
+    const basePath = path.resolve(__dirname, '../tmp');
+
+    fs.writeFileSync(path.resolve(basePath, 'test1.html'), html1);
+
+    const classNames = Helper.extractClassesFromSource([
+      path.resolve(basePath, 'test1.html')
+    ]);
+
+    expect(classNames.length).toBe(2);
+    expect(classNames[0]).toBe('p-l-1');
+    expect(classNames[1]).toBe('w-3p');
+  });
 });
