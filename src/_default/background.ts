@@ -4,6 +4,7 @@ import { Style } from "../style";
 export const symbol: string = "bg";
 
 export const styles: { [key: string]: Style } = {
+
   // Position
   "p-lt":           "background-position: left top;",
   "p-leftTop":      "background-position: left top;",
@@ -72,4 +73,5 @@ export const styles: { [key: string]: Style } = {
 
   // Background Color
   "c": (b: Builder, v: string) => `background-color: ${b.getColor(v)};`,
+
 }
