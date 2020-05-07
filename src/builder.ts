@@ -111,3 +111,31 @@ export function buildFromPackagesAndClasses(packages: Package[], classes: string
 export function writeToFile(outputFilePath: string, cssContent: string) {
   fs.writeFileSync(outputFilePath, cssContent);
 }
+
+export class Builder {
+  public convertUnitToCss(unit: string): string {
+    return "";
+    //return convertUnitToCss(unit, this.pkg.unit);
+  }
+
+  public convertUnitsToCss(units: string, lengths?: number[]): string {
+    return "";
+    //return convertUnitsToCss(units, this.pkg.unit, lengths);
+  }
+
+  public getColor(color: string): string {
+    return "";
+    // if (!this.pkg.colors[color]) {
+    //   throw new Error(`The color ${color} is not valid`);
+    // }
+    // return this.pkg.colors[color];
+  }
+
+  public getFontFamily(font: string): string {
+    return "";
+    // if (!this.pkg.fonts[font]) {
+    //   throw new Error(`The font family ${font} is not valid`);
+    // }
+    // return this.pkg.fonts[font];
+  }
+}
