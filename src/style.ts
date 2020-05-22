@@ -1,3 +1,35 @@
 import { Builder } from "./builder";
 
-export type Style = string | ((b: Builder, v: string) => string)
+const regexLiteral = /^[a-z]+(-[a-z]+){0,2}$/;
+const regexItem = /^([a-z]+-){0,2}(\{[a-z]+\})$/;
+
+export type StyleFunc =
+  ((b: Builder, v: string) => string);
+
+export type StyleItemFunc =
+  [ string,  (b: Builder, v: string) => string ];
+
+export type Style =
+  string |
+  StyleFunc |
+  StyleItemFunc;
+
+export function isStyleString(style: Style): style is string {
+  return typeof style === "string";
+}
+
+export function isStyleFunc(style: Style): style is StyleFunc {
+    return typeof style === "function";
+}
+
+export function isStyleItemFunc(style: Style): style is StyleItemFunc {
+  return typeof style === "object";
+}
+
+export function isValidStyleLiteral(literal: string): boolean {
+  return regexLiteral.test(literal);
+}
+
+export function isValidStringItem(item: string): boolean {
+  return regexItem.test(item);
+}
