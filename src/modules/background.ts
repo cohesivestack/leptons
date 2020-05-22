@@ -1,9 +1,10 @@
-import { Module } from "../module";
-import { Atom } from "../atom";
-import { getPackage } from ".";
-import { DefaultPackage } from "./default-package";
+import { Builder } from "../builder";
+import { Style } from "../style";
 
-const styles: any = {
+export const symbol: string = "bg";
+
+export const styles: { [key: string]: Style } = {
+
   // Position
   "p-lt":           "background-position: left top;",
   "p-leftTop":      "background-position: left top;",
@@ -23,6 +24,7 @@ const styles: any = {
   "p-centerCenter": "background-position: center center;",
   "p-cb":           "background-position: center bottom;",
   "p-centerBottom": "background-position: center bottom;",
+  "p-{p}": [ "background-position: {p};", (b: Builder, v: string) => `background-position: ${b.convertUnitsToCss(v, [2])};` ],
 
   // Size
   "s-a":       "background-size: auto",
@@ -30,6 +32,7 @@ const styles: any = {
   "s-c":       "background-size: cover",
   "s-cover":   "background-size: cover",
   "s-contain": "background-size: contain",
+  "s": (b: Builder, v: string) => `background-size: ${b.convertUnitsToCss(v, [2])};`,
 
   // Repeat
   "r-r":        "background-repeat: repeat",
@@ -67,37 +70,8 @@ const styles: any = {
   "a-fixed": "background-attachment: fixed",
   "a-l": "background-attachment: local",
   "a-local": "background-attachment: local",
-}
 
-export class Background extends Module {
+  // Background Color
+  "c": (b: Builder, v: string) => `background-color: ${b.getColor(v)};`,
 
-  constructor(pkg: DefaultPackage) { super(pkg, "bg"); }
-
-  private readonly functions = {
-    "c": (v: string) => `background-color: ${this.getColor(v)};`,
-    "p": (v: string) => `background-position: ${this.convertUnitsToCss(v, [2])};`,
-    "s": (v: string) => `background-size: ${this.convertUnitsToCss(v, [2])};`,
-  };
-
-  getAtom(classParts: string[], cssClass: string, breakpoint?: string): Atom | undefined {
-    let atom = this.buildAtom(
-      2,
-      classParts,
-      cssClass,
-      styles,
-      breakpoint
-    )
-
-    if (!atom) {
-      atom = this.buildAtomWithFunction(
-        2,
-        classParts,
-        cssClass,
-        this.functions,
-        breakpoint
-      );
-    }
-
-    return atom;
-  }
 }
