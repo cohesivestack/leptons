@@ -9,8 +9,8 @@ const styles: any = {
   fixed: "position: fixed;",
   r: "position: relative;",
   relative: "position: relative;",
-  s: "position: static;'",
-  static: "position: static;'",
+  s: "position: static;",
+  static: "position: static;",
 }
 
 export class Position extends Module {
