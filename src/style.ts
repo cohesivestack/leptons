@@ -1,13 +1,13 @@
-import { Builder } from "./builder";
+import { BuilderContext } from "./builder-context";
 
 const regexLiteral = /^[a-z]+(-[a-z]+){0,2}$/;
 const regexItem = /^([a-z]+-){0,2}(\{[a-z]+\})$/;
 
 export type StyleFunc =
-  ((b: Builder, v: string) => string);
+  ((b: BuilderContext, v: string) => string);
 
 export type StyleItemFunc =
-  [ string,  (b: Builder, v: string) => string ];
+  [ string,  (b: BuilderContext, v: string) => string ];
 
 export type Style =
   string |

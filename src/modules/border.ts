@@ -1,4 +1,3 @@
-import { Builder } from "../builder";
 import { Style } from "../style";
 
 export const symbol: string = "b";
@@ -6,18 +5,18 @@ export const symbol: string = "b";
 export const styles: { [key: string]: Style } = {
 
   // Color
-  "c":   (b: Builder, v: string) => `border-color: ${b.getColor(v)};`,
-  "ct":  (b: Builder, v: string) => `border-top-color: ${b.getColor(v)};`,
-  "cb":  (b: Builder, v: string) => `border-bottom-color: ${b.getColor(v)};`,
-  "cl":  (b: Builder, v: string) => `border-left-color: ${b.getColor(v)};`,
-  "cr":  (b: Builder, v: string) => `border-right-color: ${b.getColor(v)};`,
+  "c-{color}":   `border-color: {color};`,
+  "ct-{color}":  `border-top-color: {color};`,
+  "cb-{color}":  `border-bottom-color: {color};`,
+  "cl-{color}":  `border-left-color: {color};`,
+  "cr-{color}":  `border-right-color: {color};`,
 
   // Radius
-  "r":   (b: Builder, v: string) => `border-radius: ${b.convertUnitToCss(v)};`,
-  "rtl": (b: Builder, v: string) => `border-top-left-radius: ${b.convertUnitToCss(v)};`,
-  "rtr": (b: Builder, v: string) => `border-rop-right-radius: ${b.convertUnitToCss(v)};`,
-  "rbl": (b: Builder, v: string) => `border-bottom-left-radius: ${b.convertUnitToCss(v)};`,
-  "rbr": (b: Builder, v: string) => `border-bottom-right-radius: ${b.convertUnitToCss(v)};`,
+  "r-{length}":   `border-radius: {length};`,
+  "rtl-{length}": `border-top-left-radius: {length};`,
+  "rtr-{length}": `border-rop-right-radius: {length};`,
+  "rbl-{length}": `border-bottom-left-radius: {length};`,
+  "rbr-{length}": `border-bottom-right-radius: {length};`,
 
   // Style
   "s-n":      "border-style: none;",
@@ -120,10 +119,10 @@ export const styles: { [key: string]: Style } = {
   "sr-outset": "border-right-style: outset;",
 
   // Width
-  "w":   (b: Builder, v: string) => `border-width: ${b.convertUnitToCss(v)};`,
-  "wt":  (b: Builder, v: string) => `border-top-width: ${b.convertUnitToCss(v)};`,
-  "wb":  (b: Builder, v: string) => `border-bottom-width: ${b.convertUnitToCss(v)};`,
-  "wl":  (b: Builder, v: string) => `border-left-width: ${b.convertUnitToCss(v)};`,
-  "wr":  (b: Builder, v: string) => `border-right-width: ${b.convertUnitToCss(v)};`,
+  "w-{length}":   `border-width: {length};`,
+  "wt-{length}":  `border-top-width: {length};`,
+  "wb-{length}":  `border-bottom-width: {length};`,
+  "wl-{length}":  `border-left-width: {length};`,
+  "wr-{length}":  `border-right-width: {length};`
 
 }

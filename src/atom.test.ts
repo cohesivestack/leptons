@@ -26,7 +26,7 @@ describe("Atom", () => {
       expect(atom.value).toBe(v[4]);
       expect(atom.pseudoClasses).toStrictEqual(v[5]);
       expect(atom.pseudoElement).toBe(v[6]);
-      expect(atom.breakpoints).toStrictEqual(v[7]);
+      expect(atom.medias).toStrictEqual(v[7]);
     });
   });
 
@@ -43,7 +43,6 @@ describe("Atom", () => {
       ["A-b-c--h-L", "Invalid Module characters \"A\""],
       ["a--a-b", "Value is empty"]
     ].forEach(v => {
-      console.log(v)
       expect(() => new Atom(<string>v[0])).toThrow(v[1]);
     });
   });

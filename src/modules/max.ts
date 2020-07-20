@@ -1,4 +1,3 @@
-import { Builder } from "../builder";
 import { Style } from "../style";
 
 export const symbol: string = "max";
@@ -6,9 +5,9 @@ export const symbol: string = "max";
 export const styles: { [key: string]: Style } = {
 
   //Width
-  "w": (b: Builder, v: string) => `max-width: ${b.convertUnitToCss(v)};`,
+  "w-{length}": "max-width: {length};",
 
   //Height
-  "h": (b: Builder, v: string) => `max-height: ${b.convertUnitToCss(v)};`,
+  "h-{length}": "max-height: {length};",
 
 }

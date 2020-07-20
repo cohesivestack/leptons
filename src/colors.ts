@@ -1,1 +1,0 @@
-export type Colors = { [index: string]: string };

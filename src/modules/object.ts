@@ -1,4 +1,3 @@
-import { Builder } from "../builder";
 import { Style } from "../style";
 
 export const symbol: string = "obj";
@@ -35,6 +34,6 @@ export const styles: { [key: string]: Style } = {
   "p-centerCenter": "object-position: center center;",
   "p-cb":           "object-position: center bottom;",
   "p-centerBottom": "object-position: center bottom;",
-  "p": (b: Builder, v: string) => `object-position: ${b.convertUnitsToCss(v, [2])};`,
+  "p-{length2}": "object-position: {length2};",
 
 }

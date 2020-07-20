@@ -6,9 +6,10 @@ export class Atom {
   public readonly attribute?: string;
   public readonly pseudoClasses?: string[];
   public readonly pseudoElement?: string;
-  public readonly breakpoints?: string[];
+  public readonly medias?: string[];
 
   constructor(className: string) {
+
     let parts = className.split('-');
 
     if (parts.length < 2) {
@@ -23,13 +24,13 @@ export class Atom {
       parts.splice(0, 1);
     }
 
-    // BREAKPOINTS
+    // MEDIAS
     part = parts[parts.length - 1];
 
     // If the last part match with Breakpoints
     // and it doesn't have a pseudo element separator
     if (part.match(/^[A-Z]+$/) && parts.length >=2 && parts[parts.length - 2] != "") {
-      this.breakpoints = part.split('');
+      this.medias = part.split('');
       parts.splice(-1, 1);
     }
 
@@ -90,6 +91,18 @@ export class Atom {
     } else if (parts.length == 1) {
       throw `This class part is invalid "${part}"`
     }
+  }
+
+  public toModuleLiteral(): string | undefined {
+    let literal = undefined;
+    if (this.attribute) literal = this.attribute;
+    if (this.value) literal = `${this.attribute}-${this.value}`;
+
+    return literal
+  }
+
+  public toModuleAttribute(): string {
+    return this.attribute ? this.attribute : "";
   }
 
 }

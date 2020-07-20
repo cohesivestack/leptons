@@ -1,4 +1,3 @@
-import { Builder } from "../builder";
 import { Style } from "../style";
 
 export const symbol: string = "va";
@@ -19,6 +18,6 @@ export const styles: { [key: string]: Style } = {
   "middle": "vertical-align: middle;",
   "b": "vertical-align: bottom;",
   "bottom": "vertical-align: bottom;",
-  "no-attribute": (b: Builder, v: string) => `vertical-align: ${b.convertUnitToCss(v)};`,
+  "{length}": "vertical-align: {length};"
 
 }

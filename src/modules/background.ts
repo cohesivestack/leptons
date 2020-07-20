@@ -1,4 +1,3 @@
-import { Builder } from "../builder";
 import { Style } from "../style";
 
 export const symbol: string = "bg";
@@ -24,15 +23,15 @@ export const styles: { [key: string]: Style } = {
   "p-centerCenter": "background-position: center center;",
   "p-cb":           "background-position: center bottom;",
   "p-centerBottom": "background-position: center bottom;",
-  "p-{p}": [ "background-position: {p};", (b: Builder, v: string) => `background-position: ${b.convertUnitsToCss(v, [2])};` ],
+  "p-{length}":     "background-position: {length};",
 
   // Size
-  "s-a":       "background-size: auto",
-  "s-auto":    "background-size: auto",
-  "s-c":       "background-size: cover",
-  "s-cover":   "background-size: cover",
-  "s-contain": "background-size: contain",
-  "s": (b: Builder, v: string) => `background-size: ${b.convertUnitsToCss(v, [2])};`,
+  "s-a":         "background-size: auto",
+  "s-auto":      "background-size: auto",
+  "s-c":         "background-size: cover",
+  "s-cover":     "background-size: cover",
+  "s-contain":   "background-size: contain",
+  "s-{length2}": "background-size: {length2}",
 
   // Repeat
   "r-r":        "background-repeat: repeat",
@@ -72,6 +71,6 @@ export const styles: { [key: string]: Style } = {
   "a-local": "background-attachment: local",
 
   // Background Color
-  "c": (b: Builder, v: string) => `background-color: ${b.getColor(v)};`,
+  "c-{color}": `background-color: {color};`
 
 }

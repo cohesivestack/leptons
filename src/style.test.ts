@@ -3,11 +3,9 @@ import {
   isStyleFunc,
   isStyleItemFunc,
   isValidStyleLiteral,
-  isValidStringItem,
-  Style
+  isValidStringItem
 } from "./style";
-import { stringify } from "querystring";
-import { Builder } from "./builder";
+import { BuilderContext } from "./builder-context";
 
 describe("Style", () => {
 
@@ -18,26 +16,26 @@ describe("Style", () => {
       "any string"
     ].forEach(v => expect(isStyleString(v)).toBe(true));
     
-    expect(isStyleString((b: Builder, v: string) => v)).toBe(false);
-    expect(isStyleString(["a", (b: Builder, v: string) => v])).toBe(false);
+    expect(isStyleString((b: BuilderContext, v: string) => v)).toBe(false);
+    expect(isStyleString(["a", (b: BuilderContext, v: string) => v])).toBe(false);
 
   });
 
   test("isStyleFunc", () => {
 
-    expect(isStyleFunc((b: Builder, v: string) => v)).toBe(true);
+    expect(isStyleFunc((b: BuilderContext, v: string) => v)).toBe(true);
 
     expect(isStyleFunc("a-b-c")).toBe(false);
-    expect(isStyleFunc(["a", (b: Builder, v: string) => v])).toBe(false);
+    expect(isStyleFunc(["a", (b: BuilderContext, v: string) => v])).toBe(false);
 
   });
 
   test("isStyleItemFunc", () => {
 
-    expect(isStyleItemFunc(["a", (b: Builder, v: string) => v])).toBe(true);
+    expect(isStyleItemFunc(["a", (b: BuilderContext, v: string) => v])).toBe(true);
     
     expect(isStyleItemFunc("a-b-c")).toBe(false);
-    expect(isStyleItemFunc((b: Builder, v: string) => v)).toBe(false);
+    expect(isStyleItemFunc((b: BuilderContext, v: string) => v)).toBe(false);
 
   });
 
