@@ -21,12 +21,13 @@ export class Module {
 
     Object.entries(styles).forEach(([key, style]) => {
       if (isStyleString(style)) {
-        if (isValidStyleLiteral(style)) {
+        if (isValidStyleLiteral(key)) {
           this.literals[key] = style;
-        } else if (isValidStringItem(style)) {
+        } else if (isValidStringItem(key)) {
           const itemNameAndAttribute = this.extractItemNameAndAttribute(key);
           this.items[itemNameAndAttribute[0]] = {
-            itemName: itemNameAndAttribute[1], style: style
+            itemName: itemNameAndAttribute[1],
+            style: style
           };
         } else {
           throw Error(`String style is invalid "{ ${key}: ${style} }"`)
