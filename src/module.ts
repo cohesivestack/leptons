@@ -39,7 +39,8 @@ export class Module {
           style: style
         };
       } else if (isStyleFunc(style)) {
-        this.functions[key] = style;
+        const itemNameAndAttribute = this.extractItemNameAndAttribute(key);
+        this.functions[itemNameAndAttribute[0]] = style;
       } else {
         throw Error(`Unknown style type "{ ${key}: ${style} }"`)
       }
