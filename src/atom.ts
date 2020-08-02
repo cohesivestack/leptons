@@ -2,7 +2,7 @@
 export class Atom {
   public readonly important?: boolean;
   public readonly module?: string;
-  public readonly value?: string;
+  public readonly value: string;
   public readonly attribute?: string;
   public readonly pseudoClasses?: string[];
   public readonly pseudoElement?: string;
@@ -92,17 +92,4 @@ export class Atom {
       throw `This class part is invalid "${part}"`
     }
   }
-
-  public toModuleLiteral(): string | undefined {
-    let literal = undefined;
-    if (this.attribute) literal = this.attribute;
-    if (this.value) literal = `${this.attribute}-${this.value}`;
-
-    return literal
-  }
-
-  public toModuleAttribute(): string {
-    return this.attribute ? this.attribute : "";
-  }
-
 }

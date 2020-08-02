@@ -14,10 +14,11 @@ export class Builder {
   private classesIndex: string[] = [];
   private medias: { [media: string]: { [className: string]: string } } = {}
   private context: BuilderContext;
-  private lengthType?: LengthType;
+  private lengthType: LengthType;
 
   constructor() {
     this.context = new BuilderContext(this);
+    this.lengthType = LengthType.Rem;
   }
 
   private addError(errorType: ErrorType, className: string, errorMessage: string) {
@@ -80,49 +81,49 @@ export class Builder {
 
   public atomToCssStyle(mod: Module, atom: Atom): string  {
 
+    let cssStyle: string | undefined
+
+    let literalValue: string | undefined;
     let item: {itemName: string, style: string } | undefined;
     let itemFunction: { itemName: string, style: StyleItemFunc } | undefined | undefined;
     let func: StyleFunc | undefined;
-    
-    
-    const moduleLiteral = atom.toModuleLiteral();
-    const attribute = atom.toModuleAttribute();
-    let value: string | undefined;
 
-    if (moduleLiteral) {
+    let keyModule = atom.attribute ? `${atom.attribute}-${atom.value}` : atom.value;
 
-      const literal = mod.getLiteral(moduleLiteral);
-      if (literal) {
-        value = literal
+    if (literalValue = mod.getLiteral(keyModule)) {
+
+      cssStyle = literalValue;
+
+    } else {
+
+      if (atom.attribute) {
+        keyModule = atom.attribute;
       }
 
-    } else if (attribute) {
-
-      if (item = mod.getItem(attribute)) {
+      if (item = mod.getItem(keyModule)) {
 
         const template = item.style;
-        value = template.replace(`{${item.itemName}}`, this.parseItemValue(item.itemName, atom));
+        cssStyle = template.replace(`{${item.itemName}}`, this.parseItemValue(item.itemName, atom));
 
-      } else if (itemFunction = mod.getItemFunction(attribute)) {
+      } else if (itemFunction = mod.getItemFunction(keyModule)) {
 
         const template = itemFunction.style[0];
         const func = itemFunction.style[1];
-        value = template.replace(
+        cssStyle = template.replace(
             `{${itemFunction.itemName}}`,
-            func(this.context, atom.value as string));
+            func(this.context, atom.value));
 
-      } else if (func = mod.getFunction(attribute)) {
-
-        value = func(this.context, atom.value as string);
+      } else if (func = mod.getFunction(keyModule)) {
+        cssStyle = func(this.context, atom.value);
 
       }
     }
 
-    if (!value) {
+    if (!cssStyle) {
       throw new Error(`Not match any key in the module "${atom.module}"`);
     }
 
-    return value;
+    return cssStyle;
   }
 
   private parseItemValue(itemName: string, atom: Atom): string {
@@ -187,7 +188,7 @@ export class Builder {
 
   getColor(color: string): string {
     if (!this.colors[color]) {
-      throw new Error(`There is not a defined color with the name ${font}`);
+      throw new Error(`There is not a defined color with the name ${color}`);
     }
     return this.colors[color];
   }
