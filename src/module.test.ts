@@ -2,7 +2,7 @@ import { Module } from "./module";
 import { Style } from "./style";
 import { BuilderContext } from "./builder-context";
 
-describe("Atom", () => {
+describe("Module", () => {
   test("Create module with all types of styles", () => {
 
     const styles: { [key: string]: Style } = {
