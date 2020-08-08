@@ -13,9 +13,9 @@ export type ConfigError = {
 
 export type Config = {
   source?: Source
-  output: string
+  output?: string
   medias?: { [index: string]: string }
-  lengthType: LengthType
+  lengthType?: LengthType
   fonts?: { [index: string]: number }
   colors?: { [index: string]: number }
   classes?: string[]
