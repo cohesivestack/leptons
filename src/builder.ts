@@ -4,21 +4,36 @@ import { Module } from "./module";
 import { ErrorType } from "./error";
 import { BuilderContext } from "./builder-context";
 import { isLengthValid, LengthType } from "./length";
+import { Config } from "./config";
+import { Media } from "./media";
 
 export class Builder {
 
+  private config: Config;
   private fonts: { [font: string]: string } = {};
   private colors: { [color: string]: string } = {};
   private modules: { [moduleName: string]: Module } = {};
   private errors: { [errorType: string]: { [className: string]: string } } = {};
   private classesIndex: string[] = [];
-  private medias: { [media: string]: { [className: string]: string } } = {}
+  private medias: { [media: string]: Media } = {}
   private context: BuilderContext;
   private lengthType: LengthType;
+  private output: string;
 
-  constructor() {
+  constructor(config?: Config) {
+    this.config = config || {};
+
     this.context = new BuilderContext(this);
-    this.lengthType = LengthType.Rem;
+    this.lengthType = this.config.lengthType || LengthType.Rem;
+    this.output = this.config.output || "leptons.css";
+
+    this.medias[""] = { rule: "", classes: {} };
+
+    if (this.config.medias) {
+      Object.entries(this.config.medias).forEach(([name, rule]) => {
+        this.medias[name] = { rule: rule, classes: {} }
+      })
+    }
   }
 
   private addError(errorType: ErrorType, className: string, errorMessage: string) {
@@ -60,7 +75,7 @@ export class Builder {
 
       if (!atom.medias) {
         // No media
-        this.medias[""][className] = cssStyle;
+        this.medias[""].classes[className] = cssStyle;
       } else {
         atom.medias.forEach(media => {
           if (!this.medias[media]) {
@@ -69,7 +84,7 @@ export class Builder {
           }
         });
         atom.medias.forEach(media => {
-          this.medias[media][className] = cssStyle;
+          this.medias[media].classes[className] = cssStyle;
         });
       }
     } catch (e) {
