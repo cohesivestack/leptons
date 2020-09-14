@@ -10,6 +10,7 @@ describe("Module", () => {
       "p-{length}":  "background-position: {length};",
       "w-{weight}": ["font-weight: {weight}", (c: BuilderContext, v: string) => c.convertNumberPerHundrerToCss(v)],
       "u-{custom}":   (c: BuilderContext, v: string) => `unknown: ${v}`,
+      "{length}":  "size: {length};",
     }
 
     const module = new Module(
@@ -28,5 +29,10 @@ describe("Module", () => {
     expect(itemFunction?.style).toBe(styles["w-{weight}"]);
 
     expect(module.getFunction("w")).toBe(styles["w"]);
+
+    const itemStandalone = module.getItem("");
+    expect(itemStandalone?.itemName).toBe("length");
+    expect(itemStandalone?.style).toBe(styles["{length}"]);
+
   });
 });
