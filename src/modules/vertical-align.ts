@@ -1,8 +1,10 @@
 import { Style } from "../style";
+import { Module } from "../module";
 
-export const symbol: string = "va";
+const name: string = "Vertical Align";
+const symbol: string = "va";
 
-export const styles: { [key: string]: Style } = {
+const styles: { [key: string]: Style } = {
 
   "baseline": "vertical-align: baseline;",
   "s": "vertical-align: super;",
@@ -19,5 +21,6 @@ export const styles: { [key: string]: Style } = {
   "b": "vertical-align: bottom;",
   "bottom": "vertical-align: bottom;",
   "{length}": "vertical-align: {length};"
-
 }
+
+export const verticalAlign = new Module(name, symbol, styles);

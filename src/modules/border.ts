@@ -1,8 +1,10 @@
 import { Style } from "../style";
+import { Module } from "../module";
 
-export const symbol: string = "b";
+const name: string = "Border";
+const symbol: string = "b";
 
-export const styles: { [key: string]: Style } = {
+const styles: { [key: string]: Style } = {
 
   // Color
   "c-{color}":   `border-color: {color};`,
@@ -126,3 +128,5 @@ export const styles: { [key: string]: Style } = {
   "wr-{length}":  `border-right-width: {length};`
 
 }
+
+export const border = new Module(name, symbol, styles);

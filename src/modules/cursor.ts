@@ -1,8 +1,10 @@
 import { Style } from "../style";
+import { Module } from "../module";
 
-export const symbol: string = "c";
+const name: string = "Cursor";
+const symbol: string = "c";
 
-export const styles: { [key: string]: Style } = {
+const styles: { [key: string]: Style } = {
 
   "a":           "cursor: auto;",
   "auto":        "cursor: auto;",
@@ -71,3 +73,5 @@ export const styles: { [key: string]: Style } = {
   "zoomOut":     "cursor: zoom-out;"
 
 }
+
+export const cursor = new Module(name, symbol, styles);

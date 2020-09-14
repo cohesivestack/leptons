@@ -1,9 +1,11 @@
 import { Style } from "../style";
 import { BuilderContext } from "../builder-context";
+import { Module } from "../module";
 
-export const symbol: string = "z";
+const name: string = "Z-Index"
+const symbol: string = "z";
 
-export const styles: { [key: string]: Style } = {
+const styles: { [key: string]: Style } = {
   "{index}": ["z-index: {index}", (c: BuilderContext, v: string) => {
     if (!/^\d+$/.test(v)) {
       throw new Error(`The z-index ${v} is not valid`);
@@ -11,3 +13,5 @@ export const styles: { [key: string]: Style } = {
     return v;
   }]
 }
+
+export const zIndex = new Module(name, symbol, styles);

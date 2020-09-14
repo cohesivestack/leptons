@@ -1,8 +1,10 @@
 import { Style } from "../style";
+import { Module } from "../module";
 
-export const symbol: string = "t";
+const name = "Text";
+const symbol: string = "t";
 
-export const styles: { [key: string]: Style } = {
+const styles: { [key: string]: Style } = {
   // Align
   "a-l":       "text-align: left;",
   "a-left":    "text-align: left;",
@@ -62,3 +64,5 @@ export const styles: { [key: string]: Style } = {
   "t-c": "text-transform: capitalize;",
   "t-n": "text-transform: none;"
 }
+
+export const text = new Module(name, symbol, styles);

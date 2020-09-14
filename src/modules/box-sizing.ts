@@ -1,11 +1,15 @@
 import { Style } from "../style";
+import { Module } from "../module";
 
-export const symbol: string = "bs";
+const name: string = "Box Sizing";
+const symbol: string = "bs";
 
-export const styles: { [key: string]: Style } = {
+const styles: { [key: string]: Style } = {
 
   // Box Sizing
   "c": "box-sizing: content-box;",
   "b": "box-sizing: border-box;"
 
 }
+
+export const boxSizing = new Module(name, symbol, styles);

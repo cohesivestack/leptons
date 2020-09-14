@@ -1,8 +1,10 @@
 import { Style } from "../style";
+import { Module } from "../module";
 
-export const symbol: string = "obj";
+const name: string = "Object";
+const symbol: string = "obj";
 
-export const styles: { [key: string]: Style } = {
+const styles: { [key: string]: Style } = {
 
   // Fit
   "f-c":         "object-fit: cover;",
@@ -37,3 +39,5 @@ export const styles: { [key: string]: Style } = {
   "p-{length2}": "object-position: {length2};",
 
 }
+
+export const object = new Module(name, symbol, styles);

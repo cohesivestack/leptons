@@ -1,8 +1,10 @@
 import { Style } from "../style";
+import { Module } from "../module";
 
-export const symbol: string = "fb";
+const name: string = "Flex Box";
+const symbol: string = "fb";
 
-export const styles: { [key: string]: Style } = {
+const styles: { [key: string]: Style } = {
 
   // Type
   "n":       "flex: none;",
@@ -80,3 +82,5 @@ export const styles: { [key: string]: Style } = {
   "ac-spaceEvenly":  "align-content: space-evenly;"
 
 }
+
+export const flexBox = new Module(name, symbol, styles);

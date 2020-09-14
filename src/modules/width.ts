@@ -1,9 +1,13 @@
 import { Style } from "../style";
+import { Module } from "../module";
 
-export const symbol: string = "w";
+const name: string = "Width";
+const symbol: string = "w";
 
-export const styles: { [key: string]: Style } = {
+const styles: { [key: string]: Style } = {
 
   "{length}": "width: {length};"
 
 }
+
+export const width = new Module(name, symbol, styles);

@@ -1,9 +1,11 @@
 import { Style } from "../style";
 import { BuilderContext } from "../builder-context";
+import { Module } from "../module";
 
-export const symbol: string = "f";
+const name: string = "Font";
+const symbol: string = "f";
 
-export const styles: { [key: string]: Style } = {
+const styles: { [key: string]: Style } = {
 
   // Family
   "f-{font}": "font-family: {font};",
@@ -50,3 +52,5 @@ export const styles: { [key: string]: Style } = {
   "w-normal":   "font-weight: 400;",
   "w-{weight}": ["font-weight: {weight}", (c: BuilderContext, v: string) => c.convertNumberPerHundrerToCss(v)],
 }
+
+export const font = new Module(name, symbol, styles);

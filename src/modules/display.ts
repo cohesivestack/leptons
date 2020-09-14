@@ -1,8 +1,10 @@
 import { Style } from "../style";
+import { Module } from "../module";
 
-export const symbol: string = "d";
+const name: string = "Display";
+const symbol: string = "d";
 
-export const styles: { [key: string]: Style } = {
+const styles: { [key: string]: Style } = {
 
   "n": "display: none;",
   "none": "display: none;",
@@ -30,3 +32,5 @@ export const styles: { [key: string]: Style } = {
   "tableCell": "display: table-cell;'"
 
 }
+
+export const display = new Module(name, symbol, styles);

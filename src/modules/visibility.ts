@@ -1,11 +1,15 @@
 import { Style } from "../style";
+import { Module } from "../module";
 
-export const symbol: string = "v";
+const name: string = "Visibility";
+const symbol: string = "v";
 
-export const styles: { [key: string]: Style } = {
+const styles: { [key: string]: Style } = {
 
   "c": "visibility: collapse;",
   "h": "visibility: hidden;",
   "v": "visibility: visible;"
 
 }
+
+export const visibility = new Module(name, symbol, styles);

@@ -1,9 +1,11 @@
 import { Style } from "../style";
 import { BuilderContext } from "../builder-context";
+import { Module } from "../module";
 
-export const symbol: string = "o";
+const name: string = "Opacity";
+const symbol: string = "o";
 
-export const styles: { [key: string]: Style } = {
+const styles: { [key: string]: Style } = {
 
   "{opacity}": ["opacity: {opacity}",
     (c: BuilderContext, v: string) => {
@@ -16,3 +18,5 @@ export const styles: { [key: string]: Style } = {
     }
   ]
 }
+
+export const opacity = new Module(name, symbol, styles);

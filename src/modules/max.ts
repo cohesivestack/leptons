@@ -1,8 +1,10 @@
 import { Style } from "../style";
+import { Module } from "../module";
 
-export const symbol: string = "max";
+const name: string = "Max";
+const symbol: string = "max";
 
-export const styles: { [key: string]: Style } = {
+const styles: { [key: string]: Style } = {
 
   //Width
   "w-{length}": "max-width: {length};",
@@ -11,3 +13,5 @@ export const styles: { [key: string]: Style } = {
   "h-{length}": "max-height: {length};",
 
 }
+
+export const max = new Module(name, symbol, styles);
