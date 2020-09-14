@@ -1,7 +1,7 @@
 import { BuilderContext } from "./builder-context";
 
-const regexLiteral = /^[a-z]+(-[a-z]+){0,2}$/;
-const regexItem = /^([a-z]+-){0,2}(\{[a-z]+\})$/;
+const regexLiteral = /^[a-z][a-zA-Z]*(-[a-z][a-zA-Z]*){0,2}$/;
+const regexItem = /^([a-z][a-zA-Z]*-){0,2}(\{[a-z][a-zA-Z0-9]*\})$/;
 
 export type StyleFunc =
   ((b: BuilderContext, v: string) => string);
