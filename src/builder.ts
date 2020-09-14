@@ -6,10 +6,13 @@ import { BuilderContext } from "./builder-context";
 import { isLengthValid, LengthType } from "./length";
 import { Config } from "./config";
 import { Media } from "./media";
+import { Source, sourceTypes, isSourceWithContent, isSourceWithRegexp, isSourceWithRegexpAndPath } from "./source";
+import globby from "globby";
+import fs from "fs";
+import * as defaultModules from "./modules";
 
 export class Builder {
 
-  private config: Config;
   private fonts: { [font: string]: string } = {};
   private colors: { [color: string]: string } = {};
   private modules: { [moduleName: string]: Module } = {};
@@ -18,22 +21,129 @@ export class Builder {
   private medias: { [media: string]: Media } = {}
   private context: BuilderContext;
   private lengthType: LengthType;
-  private output: string;
 
-  constructor(config?: Config) {
-    this.config = config || {};
+  constructor(public readonly config: Config = {}, initDefaultModules: boolean = false) {
 
     this.context = new BuilderContext(this);
     this.lengthType = this.config.lengthType || LengthType.Rem;
-    this.output = this.config.output || "leptons.css";
 
-    this.medias[""] = { rule: "", classes: {} };
+    this.medias[""] = new Media("", {});
 
     if (this.config.medias) {
       Object.entries(this.config.medias).forEach(([name, rule]) => {
-        this.medias[name] = { rule: rule, classes: {} }
+        this.medias[name] = new Media(rule, {})
       })
     }
+
+    if (initDefaultModules) {
+      Object.values(defaultModules).forEach(mod => {
+        this.addModule(mod);
+      });
+    }
+  }
+
+  public buildToString(): string {
+    let classes = Builder.extractClassesFromSource(this.config.source);
+    if (this.config.include) {
+      classes = classes.concat(this.config.include.split(" "));
+    }
+
+    // Distinct classes
+    classes = [...new Set(classes)];
+
+    classes.forEach(c => this.addClassName(c));
+
+    let output = "";
+
+    Object.values(this.medias).forEach(media => {
+      output += media.build();
+    });
+
+    return output;
+  }
+
+  public buildToFile() {
+    fs.writeFileSync(this.config.output || "leptons.css", this.buildToString());
+  }
+
+  public static extractClassesFromSource(source?: Source): string[] {
+    const _source: Source = source ? source : {"html": "**/*.html"}
+    const classes: string[] = [];
+
+    Object.keys(_source).forEach(sourceName => {
+      const sourcePaths: string[] = [];
+      let regexp: RegExp;
+
+      if (isSourceWithRegexp(_source, sourceName)) {
+        const sourceWithRegexp = (_source[sourceName] as any);
+        regexp = new RegExp(sourceWithRegexp.regexp as string, "g");
+      } else {
+        if (!sourceTypes[sourceName]) {
+          throw new Error(
+            `The source ${sourceName} is not a valid predetermined source name. Only "html" and "react" are valid predefined source names. Use a custom source rather`);
+        }
+
+        regexp = new RegExp(sourceTypes[sourceName]);
+      }
+
+      if (isSourceWithContent(_source, sourceName)) {
+
+        const sourceWithContent = (_source[sourceName] as any);
+        classes.push(...Builder.extractClassesFromContent(sourceWithContent.content, regexp));
+
+      } else {
+
+        if (isSourceWithRegexpAndPath(_source, sourceName)) {
+
+          const sourceWithRegexpAndPath = (_source[sourceName] as any);
+          if (Array.isArray(sourceWithRegexpAndPath.path)) {
+            sourcePaths.push(...sourceWithRegexpAndPath.path as string[]);
+          } else {
+            sourcePaths.push(sourceWithRegexpAndPath.path as string);
+          }
+
+        } else {
+
+          if (Array.isArray(_source[sourceName])) {
+            sourcePaths.push(..._source[sourceName] as string[]);
+          } else {
+            sourcePaths.push(_source[sourceName] as string);
+          }
+
+        }
+
+        globby
+          .sync(sourcePaths)
+          .forEach(f => classes.push(...Builder.extractClassesFromFile(f, regexp)));
+      }
+
+    });
+
+    return classes;
+  }
+
+  public static extractClassesFromContent(content: string, regexAttribute: RegExp): string[] {
+    let attributeMatches: RegExpExecArray | null;
+    const classNames: string[] = [];
+
+    const regexClass = /^[A-Za-z0-9-_]+$/;
+
+    while (attributeMatches = regexAttribute.exec(content)) {
+      const entries = attributeMatches[1].split(" ");
+
+      for (let i = 0; i < entries.length; i++) {
+        let classMatch = regexClass.exec(entries[i]);
+        if (classMatch) {
+          classNames.push(classMatch[0]);
+        }
+      }
+    }
+
+    return classNames;
+  }
+
+  public static extractClassesFromFile(file: string, regexp: RegExp): string[] {
+    return Builder.extractClassesFromContent(fs.readFileSync(file, "utf8"), regexp);
   }
 
   private addError(errorType: ErrorType, className: string, errorMessage: string) {
@@ -113,6 +223,8 @@ export class Builder {
 
       if (atom.attribute) {
         keyModule = atom.attribute;
+      } else {
+        keyModule = "";
       }
 
       if (item = mod.getItem(keyModule)) {
@@ -225,5 +337,4 @@ export class Builder {
   
     return output;
   }
-
 }
