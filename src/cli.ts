@@ -1,6 +1,7 @@
 import program from 'commander';
 import { init, parseFromFile, isConfigErrors } from './config';
 import { Builder } from './builder';
+import { Watcher } from './watcher';
 
 program.version('0.0.1');
 
@@ -36,10 +37,23 @@ program
       throw Error("Errors parsing plain object:\n" + config);
     }
 
-    const builder = new Builder(config);
+    const builder = new Builder(config, true);
     builder.buildToFile();
 
     console.log("The leptons css file '" + config.output + "' was created!");
+  });
+
+
+program
+  .command('watch')
+  .description('watch to build a leptons css file. Defaults to ./leptons.css')
+  .option("-c, --config [file_path]", "set the config file path. Defaults to ./leptons.yaml")
+  .action((options) => {
+
+    const watcher = new Watcher(options.config || './leptons.yaml')
+    watcher.watch();
+
+    console.log("Leptons is watching");
   });
 
 program.parse(process.argv)
