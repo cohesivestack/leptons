@@ -242,15 +242,15 @@ export class Builder {
       if (item = mod.getItem(keyModule)) {
 
         const template = item.style;
-        cssStyle = template.replace(`{${item.itemName}}`, this.parseItemValue(item.itemName, atom));
+        cssStyle = template.replace(new RegExp(`{${item.itemName}}`, 'g'), this.parseItemValue(item.itemName, atom));
 
       } else if (itemFunction = mod.getItemFunction(keyModule)) {
 
         const template = itemFunction.style[0];
         const func = itemFunction.style[1];
         cssStyle = template.replace(
-            `{${itemFunction.itemName}}`,
-            func(this.context, atom.value));
+          new RegExp(`{${itemFunction.itemName}}`, 'g'),
+          func(this.context, atom.value));
 
       } else if (func = mod.getFunction(keyModule)) {
         cssStyle = func(this.context, atom.value);

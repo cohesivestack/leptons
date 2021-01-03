@@ -73,6 +73,35 @@ describe("Builder", () => {
     expect((builder as any).medias[""].classes[classNameFunction]).toBe("unknown: any;")
   });
 
+  test("Class values should be globally replaced in the CSS style", () => {
+
+    const styles: { [key: string]: Style } = {
+      "v-{length}": "padding-left: {length}; padding-right: {length};",
+      "h-{length}": ["padding-horizontal: {length}; padding-vertial: {length};", (c: BuilderContext, v: string) => c.convertLengthToCss(v)],
+      "u-{custom}": (c: BuilderContext, v: string) => `unknown0: ${v}; unknown1: ${v};`,
+    }
+
+    const module = new Module(
+      "Test",
+      "t",
+      styles);
+
+    const builder = new Builder();
+    builder.addModule(module);
+
+    const classNameItem = "t-v-1";
+    const classNameItemFunction = "t-h-10px";
+    const classNameFunction = "t-u-any";
+
+    builder.addClassName(classNameItem);
+    builder.addClassName(classNameItemFunction);
+    builder.addClassName(classNameFunction);
+
+    expect((builder as any).medias[""].classes[classNameItem]).toBe("padding-left: 1rem; padding-right: 1rem;")
+    expect((builder as any).medias[""].classes[classNameItemFunction]).toBe("padding-horizontal: 10px; padding-vertial: 10px;")
+    expect((builder as any).medias[""].classes[classNameFunction]).toBe("unknown0: any; unknown1: any;")
+  });
+
   test("addClassName should add the Classname for different medias", () => {
 
     const styles: { [key: string]: Style } = {
