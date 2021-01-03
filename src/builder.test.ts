@@ -234,4 +234,40 @@ describe("Builder", () => {
 }`);
 
   });
+
+  test("include should work", () => {
+    const content = `
+      <div class="f-s-1px">Text 1</div>
+    `
+
+    const plainConfig = {
+      lengthType: "em",
+      medias: {
+        M: "screen and (min-width: 16rem)",
+        L: "screen and (min-width: 32rem)"
+      },
+      include: `
+        m-b-1
+        p-t-1
+        m-b-2-L
+        f-s-1px
+      `,
+      source: {
+        html: { content: content }
+      },
+    }
+
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
+
+    expect(result.trim()).toBe(
+`.f-s-1px { font-size: 1px; }
+.m-b-1 { margin-bottom: 1em; }
+.p-t-1 { padding-top: 1em; }
+@media screen and (min-width: 16rem) {
+}
+@media screen and (min-width: 32rem) {
+  .m-b-2-L { margin-bottom: 2em; }
+}`);
+  });
 });
