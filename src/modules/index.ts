@@ -6,6 +6,7 @@ export { display } from "./display";
 export { flexBox } from "./flex-box";
 export { font } from "./font";
 export { height } from "./height";
+export { margin } from "./margin";
 export { max } from "./max";
 export { object } from "./object";
 export { opacity } from "./opacity";
