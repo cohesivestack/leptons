@@ -16,8 +16,8 @@ export type Config = {
   output?: string
   medias?: { [index: string]: string }
   lengthType?: LengthType
-  fonts?: { [index: string]: number }
-  colors?: { [index: string]: number }
+  fonts?: { [index: string]: string }
+  colors?: { [index: string]: string }
   classes?: string[]
   aliases?: string[]
   components?: string[]

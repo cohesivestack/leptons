@@ -162,4 +162,47 @@ describe("Builder", () => {
 }`);
 
   });
+
+  test("build with colors and fonts should work", () => {
+
+    const content = `
+      <div class="bg-c-black t-c-white f-f-serif">Text 1</div>
+      <div class="bg-c-black t-c-gray f-f-sansSerif">Text 2</div>
+    `
+
+    const plainConfig = {
+      lengthType: "em",
+      medias: {
+        M: "screen and (min-width: 16rem)",
+        L: "screen and (min-width: 32rem)"
+      },
+      colors: {
+        white: "#ffeeee",
+        black: "#001111",
+        gray: "#cccccc"
+      },
+      fonts: {
+        serif: "Times New Roman",
+        sansSerif: "Roboto"
+      },
+      source: {
+        html: { content: content }
+      },
+    }
+
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
+
+    expect(result.trim()).toBe(
+`.bg-c-black { background-color: #001111; }
+.f-f-sansSerif { font-family: Roboto; }
+.f-f-serif { font-family: Times New Roman; }
+.t-c-gray { color: #cccccc; }
+.t-c-white { color: #ffeeee; }
+@media screen and (min-width: 16rem) {
+}
+@media screen and (min-width: 32rem) {
+}`);
+
+  });
 });

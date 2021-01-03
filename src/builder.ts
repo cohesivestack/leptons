@@ -35,6 +35,18 @@ export class Builder {
       })
     }
 
+    if (this.config.colors) {
+      Object.entries(this.config.colors).forEach(([name, colorValue]) => {
+        this.colors[name] = colorValue;
+      })
+    }
+
+    if (this.config.fonts) {
+      Object.entries(this.config.fonts).forEach(([name, fontFamily]) => {
+        this.fonts[name] = fontFamily;
+      })
+    }
+
     if (initDefaultModules) {
       Object.values(defaultModules).forEach(mod => {
         this.addModule(mod);
