@@ -57,7 +57,7 @@ export class Builder {
   public buildToString(): string {
     let classes = Builder.extractClassesFromSource(this.config.source);
     if (this.config.include) {
-      classes = classes.concat(this.config.include.split(" "));
+      classes = classes.concat(this.config.include.split(/\s+/));
     }
 
     // Distinct classes
