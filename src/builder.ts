@@ -67,9 +67,23 @@ export class Builder {
 
     let output = "";
 
+    if (this.config.cssBefore) {
+      const cssBefore = this.config.cssBefore.trim()
+      if (cssBefore.length > 0) {
+        output += cssBefore + "\n"
+      }
+    }
+
     Object.values(this.medias).forEach(media => {
       output += media.build();
     });
+
+    if (this.config.cssAfter) {
+      const cssAfter = this.config.cssAfter.trim()
+      if (cssAfter.length > 0) {
+        output = output.trimRight() + "\n" + cssAfter;
+      }
+    }
 
     return output;
   }

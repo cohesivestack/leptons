@@ -170,9 +170,7 @@ describe("Builder", () => {
       },
       source: {
         html: { content: content }
-      },
-      cssBefore: "body { padding: 0; }",
-      cssAfter: "a { text-decoration: none; }"
+      }
     }
 
     const builder = new Builder(plainConfig as Config, true);
@@ -270,4 +268,34 @@ describe("Builder", () => {
   .m-b-2-L { margin-bottom: 2em; }
 }`);
   });
+
+  test("Build should include cssBefore and cssAfter", () => {
+    const plainConfig = {
+      lengthType: "em",
+      medias: {
+        M: "screen and (min-width: 16rem)",
+        L: "screen and (min-width: 32rem)"
+      },
+      source: {
+        html: { content: `<div class="f-s-1">Text 1</div>` }
+      },
+      cssBefore: "body { border: 0; }",
+      cssAfter: ".f-s-1 { font-size: 1px; }"
+    }
+
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
+
+    console.log(result)
+
+    expect(result.trim()).toBe(
+`body { border: 0; }
+.f-s-1 { font-size: 1em; }
+@media screen and (min-width: 16rem) {
+}
+@media screen and (min-width: 32rem) {
+}
+.f-s-1 { font-size: 1px; }`);
+  });
+
 });
