@@ -1,101 +1,73 @@
-import { Atom } from "./atom";
-import { Package } from "./package";
-import { convertUnitToCss, convertUnitsToCss } from "./unit-type";
+import {
+  Style,
+  StyleFunc,
+  StyleItemFunc,
+  isStyleString,
+  isStyleFunc,
+  isStyleItemFunc,
+  isValidStyleLiteral,
+  isValidStringItem } from "./style";
 
-export const NoAttribute = "no-attribute";
+export class Module {
+  private literals: { [key: string]: string } = {};
+  private items: { [key: string]: {itemName: string, style: string } } = {};
+  private functions: { [key: string]: StyleFunc } = {};
+  private itemFunctions: { [key: string]: { itemName: string, style: StyleItemFunc } } = {};
 
-export abstract class Module {
   constructor (
-    protected pkg: Package,
-    readonly symbol: string) {}
-  abstract getAtom(classParts: string[], cssClass: string, breakpoint?: string): Atom | undefined
+    public readonly name: string,
+    public readonly symbol: string,
+    styles: { [key: string]: Style }) {
 
-  protected buildAtom(
-    minValuePosition: number,
-    classParts: string[],
-    cssClass: string,
-    styles: any,
-    breakpoint: string | undefined): Atom | undefined {
+    Object.entries(styles).forEach(([key, style]) => {
+      if (isStyleString(style)) {
+        if (isValidStyleLiteral(key)) {
+          this.literals[key] = style;
+        } else if (isValidStringItem(key)) {
+          const itemNameAndAttribute = this.extractItemNameAndAttribute(key);
+          this.items[itemNameAndAttribute[0]] = {
+            itemName: itemNameAndAttribute[1],
+            style: style
+          };
+        } else {
+          throw Error(`String style is invalid "{ ${key}: ${style} }"`)
+        }
+      } else if (isStyleItemFunc(style)) {
+        const itemNameAndAttribute = this.extractItemNameAndAttribute(key);
+        this.itemFunctions[itemNameAndAttribute[0]] = { 
+          itemName: itemNameAndAttribute[1],
+          style: style
+        };
+      } else if (isStyleFunc(style)) {
+        const itemNameAndAttribute = this.extractItemNameAndAttribute(key);
+        this.functions[itemNameAndAttribute[0]] = style;
+      } else {
+        throw Error(`Unknown style type "{ ${key}: ${style} }"`)
+      }
+    });
+  }
 
-    if (classParts.length === minValuePosition) {
-      return undefined;
-    }
+  private extractItemNameAndAttribute(key: string): [string, string] {
+    const keyParts = key.split('-');
+    const attribute = keyParts.length > 1 ? keyParts[0] : "";
+    // Remove brackets around - {itemName}
+    const itemName = keyParts[keyParts.length - 1].slice(1,-1);
 
-    const cssValue = styles[classParts.slice(1).join("-")];
-    if (!cssValue) {
-      return undefined;
-    }
+    return [attribute, itemName];
+  }
 
-    const attribute = classParts.length >= 3 ? classParts[1] : undefined;
-    const value = classParts[classParts.length - 1];
-
-    return new Atom(
-      this.pkg,
-      this,
-      cssClass,
-      cssValue,
-      attribute,
-      value,
-      breakpoint);
+  public getLiteral(key: string): string | undefined {
+    return this.literals[key];
+  }
+  public getItem(key: string): {itemName: string, style: string } | undefined {
+    return this.items[key];
+  }
+  public getFunction(key: string): StyleFunc | undefined {
+    return this.functions[key];
+  }
+  public getItemFunction(key: string): { itemName: string, style: StyleItemFunc } | undefined {
+    return this.itemFunctions[key];
   }
 
 
-  protected buildAtomWithFunction(
-    minValuePosition: number,
-    classParts: string[],
-    cssClass: string,
-    functions: any,
-    breakpoint: string | undefined): Atom | undefined {
-
-    if (classParts.length === minValuePosition) {
-      return undefined;
-    }
-
-    const withAttribute = classParts.length >= 3;
-
-    const func = withAttribute ?
-      functions[classParts[1]] :
-      functions[NoAttribute];
-
-    if (!func) {
-      return undefined;
-    }
-
-    const value = classParts[classParts.length - 1];
-
-    const cssValue = func(value);
-
-    const attribute = withAttribute ? classParts[1] : undefined;
-
-    return new Atom(
-      this.pkg,
-      this,
-      cssClass,
-      cssValue,
-      attribute,
-      value,
-      breakpoint);
-  }
-
-  protected convertUnitToCss(unit: string): string {
-    return convertUnitToCss(unit, this.pkg.unit);
-  }
-
-  protected convertUnitsToCss(units: string, lengths?: number[]): string {
-    return convertUnitsToCss(units, this.pkg.unit, lengths);
-  }
-
-  protected getColor(color: string): string {
-    if (!this.pkg.colors[color]) {
-      throw new Error(`The color ${color} is not valid`);
-    }
-    return this.pkg.colors[color];
-  }
-
-  protected getFontFamily(font: string): string {
-    if (!this.pkg.fonts[font]) {
-      throw new Error(`The font family ${font} is not valid`);
-    }
-    return this.pkg.fonts[font];
-  }
 }

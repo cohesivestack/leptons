@@ -1,105 +1,301 @@
-import fs from 'fs';
-import path from 'path';
-import { buildFromPackagesAndClasses, appendCss, buildFromFile } from "./builder";
-import { initPackage } from "./default";
+import { Module } from "./module";
+import { Style } from "./style";
+import { BuilderContext } from "./builder-context";
+import { Builder } from "./builder";
+import { Atom } from "./atom";
+import { sourceTypes } from "./source";
+import { Config } from "./config";
 
 describe("Builder", () => {
-  test("should create css output", () => {
+  test("atomToCssStyle should create css styles", () => {
 
-    const classes = [
-      "p-h-1",
-      "p-v-2px",
-      "p-v-4px-M",
-      "p-v-8px-L",
-    ];
+    const styles: { [key: string]: Style } = {
+      "s-a":         "background-size: auto;",
+      "p-{length}":  "background-position: {length};",
+      "w-{weight}": ["font-weight: {weight};", (c: BuilderContext, v: string) => c.convertNumberPerHundrerToCss(v)],
+      "u-{custom}":   (c: BuilderContext, v: string) => `unknown: ${v};`,
+      "{length}":  "size: {length};",
+    }
 
-    const pkg = initPackage({breakpoints: { M: 32, L: 64 }});
-    const css = buildFromPackagesAndClasses([pkg], classes);
+    const module = new Module(
+      "Test",
+      "t",
+      styles);
 
-    expect(css.trim()).toBe(
-`.p-h-1 { padding-left: 1rem; padding-right: 1rem; }
-.p-v-2px { padding-top: 2px; padding-bottom: 2px; }
-@media screen and (min-width: 32rem) {
-  .p-v-4px-M { padding-top: 4px; padding-bottom: 4px; }
+    const builder = new Builder();
+
+    const cssLiteral = builder.atomToCssStyle(module, new Atom("t-s-a"));
+    expect(cssLiteral).toBe("background-size: auto;");
+
+    const cssItem = builder.atomToCssStyle(module, new Atom("t-p-2px"));
+    expect(cssItem).toBe("background-position: 2px;");
+
+    const cssItemFunction = builder.atomToCssStyle(module, new Atom("t-w-3"));
+    expect(cssItemFunction).toBe("font-weight: 300;");
+
+    const cssItemFunc = builder.atomToCssStyle(module, new Atom("t-u-value"));
+    expect(cssItemFunc).toBe("unknown: value;");
+
+    const cssItemStandalone = builder.atomToCssStyle(module, new Atom("t-100p"));
+    expect(cssItemStandalone).toBe("size: 100%;");
+  });
+
+  test("addClassName should add the Classname for each type of style", () => {
+
+    const styles: { [key: string]: Style } = {
+      "s-a":        "background-size: auto;",
+      "p-{length}": "background-position: {length};",
+      "w-{weight}": ["font-weight: {weight};", (c: BuilderContext, v: string) => c.convertNumberPerHundrerToCss(v)],
+      "u-{custom}": (c: BuilderContext, v: string) => `unknown: ${v};`,
+    }
+
+    const module = new Module(
+      "Test",
+      "t",
+      styles);
+
+    const builder = new Builder();
+    builder.addModule(module);
+
+    const classNameLiteral = "t-s-a";
+    const classNameItem = "t-p-10px";
+    const classNameItemFunction = "t-w-3";
+    const classNameFunction = "t-u-any";
+
+    builder.addClassName(classNameLiteral);
+    builder.addClassName(classNameItem);
+    builder.addClassName(classNameItemFunction);
+    builder.addClassName(classNameFunction);
+
+    expect((builder as any).medias[""].classes[classNameLiteral]).toBe("background-size: auto;")
+    expect((builder as any).medias[""].classes[classNameItem]).toBe("background-position: 10px;")
+    expect((builder as any).medias[""].classes[classNameItemFunction]).toBe("font-weight: 300;")
+    expect((builder as any).medias[""].classes[classNameFunction]).toBe("unknown: any;")
+  });
+
+  test("Class values should be globally replaced in the CSS style", () => {
+
+    const styles: { [key: string]: Style } = {
+      "v-{length}": "padding-left: {length}; padding-right: {length};",
+      "h-{length}": ["padding-horizontal: {length}; padding-vertial: {length};", (c: BuilderContext, v: string) => c.convertLengthToCss(v)],
+      "u-{custom}": (c: BuilderContext, v: string) => `unknown0: ${v}; unknown1: ${v};`,
+    }
+
+    const module = new Module(
+      "Test",
+      "t",
+      styles);
+
+    const builder = new Builder();
+    builder.addModule(module);
+
+    const classNameItem = "t-v-1";
+    const classNameItemFunction = "t-h-10px";
+    const classNameFunction = "t-u-any";
+
+    builder.addClassName(classNameItem);
+    builder.addClassName(classNameItemFunction);
+    builder.addClassName(classNameFunction);
+
+    expect((builder as any).medias[""].classes[classNameItem]).toBe("padding-left: 1rem; padding-right: 1rem;")
+    expect((builder as any).medias[""].classes[classNameItemFunction]).toBe("padding-horizontal: 10px; padding-vertial: 10px;")
+    expect((builder as any).medias[""].classes[classNameFunction]).toBe("unknown0: any; unknown1: any;")
+  });
+
+  test("addClassName should add the Classname for different medias", () => {
+
+    const styles: { [key: string]: Style } = {
+      "w-{weight}": ["font-weight: {weight};", (c: BuilderContext, v: string) => c.convertNumberPerHundrerToCss(v)],
+    }
+
+    const module = new Module(
+      "Test",
+      "t",
+      styles);
+
+    const builder = new Builder({
+      medias: {
+        M: "only screen and (max-width: 48rem)",
+        L: "only screen and (max-width: 64rem)"
+      }
+    });
+    builder.addModule(module);
+
+    const defaultMedia = "t-w-3";
+    const mediumMedia = "t-w-3-M";
+    const largeMedia = "t-w-3-L";
+
+    builder.addClassName(defaultMedia);
+    builder.addClassName(mediumMedia);
+    builder.addClassName(largeMedia);
+
+    expect((builder as any).medias[""].classes[defaultMedia]).toBe("font-weight: 300;");
+    expect((builder as any).medias["M"].classes[defaultMedia]).toBeUndefined();
+    expect((builder as any).medias["L"].classes[defaultMedia]).toBeUndefined();
+
+    expect((builder as any).medias[""].classes[mediumMedia]).toBeUndefined();
+    expect((builder as any).medias["M"].classes[mediumMedia]).toBe("font-weight: 300;");
+    expect((builder as any).medias["L"].classes[mediumMedia]).toBeUndefined();
+
+    expect((builder as any).medias[""].classes[largeMedia]).toBeUndefined();
+    expect((builder as any).medias["M"].classes[largeMedia]).toBeUndefined();
+    expect((builder as any).medias["L"].classes[largeMedia]).toBe("font-weight: 300;");
+  });
+
+  test("extractClassesFromContent should extract class names with Html regexp", () => {
+    const content = `
+      <div class="w-100p w-100p-L f-s-1">Text 1</div>
+      <div class=" w-90p  w-100p-M  f-s-2  ">Text 2</div>
+    `
+
+    const classes = Builder.extractClassesFromContent(content, sourceTypes.html);
+
+    expect(classes.length).toBe(6);
+    expect(classes.join("; ")).toBe("w-100p; w-100p-L; f-s-1; w-90p; w-100p-M; f-s-2");
+  });
+
+
+  test("build should work", () => {
+
+    const content = `
+      <div class="w-100p w-100p-L f-s-1">Text 1</div>
+      <div class=" w-90p  w-100p-M  f-s-2  ">Text 2</div>
+    `
+
+    const plainConfig = {
+      lengthType: "em",
+      medias: {
+        M: "screen and (min-width: 16rem)",
+        L: "screen and (min-width: 32rem)"
+      },
+      source: {
+        html: { content: content }
+      }
+    }
+
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
+
+    expect(result.trim()).toBe(
+`.f-s-1 { font-size: 1em; }
+.f-s-2 { font-size: 2em; }
+.w-100p { width: 100%; }
+.w-90p { width: 90%; }
+@media screen and (min-width: 16rem) {
+  .w-100p-M { width: 100%; }
 }
-@media screen and (min-width: 64rem) {
-  .p-v-8px-L { padding-top: 8px; padding-bottom: 8px; }
+@media screen and (min-width: 32rem) {
+  .w-100p-L { width: 100%; }
 }`);
 
   });
 
-  test("should append css", () => {
+  test("build with colors and fonts should work", () => {
 
-    let output = "";
-    output = appendCss(output, "Generated classes", ".a { padding: 1px; }");
-    output = appendCss(output, "Custom classes", ".b { padding: 2px; }");
+    const content = `
+      <div class="bg-c-black t-c-white f-f-serif">Text 1</div>
+      <div class="bg-c-black t-c-gray f-f-sansSerif">Text 2</div>
+    `
 
-    expect(output).toBe(
-`/* Generated classes */
-.a { padding: 1px; }
+    const plainConfig = {
+      lengthType: "em",
+      medias: {
+        M: "screen and (min-width: 16rem)",
+        L: "screen and (min-width: 32rem)"
+      },
+      colors: {
+        white: "#ffeeee",
+        black: "#001111",
+        gray: "#cccccc"
+      },
+      fonts: {
+        serif: "Times New Roman",
+        sansSerif: "Roboto"
+      },
+      source: {
+        html: { content: content }
+      },
+    }
 
-/* Custom classes */
-.b { padding: 2px; }`
-    )
-  });
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
 
-  test("should create css output with prefix", () => {
-
-    const classes = [
-      "x-p-h-1",
-      "x-p-v-2px",
-      "x-p-v-4px-M",
-      "x-p-v-8px-L",
-    ];
-
-    const pkg = initPackage({breakpoints: {M: 32, L: 64}, prefix: "x" });
-    const css = buildFromPackagesAndClasses([pkg], classes);
-
-    expect(css.trim()).toBe(
-`.x-p-h-1 { padding-left: 1rem; padding-right: 1rem; }
-.x-p-v-2px { padding-top: 2px; padding-bottom: 2px; }
-@media screen and (min-width: 32rem) {
-  .x-p-v-4px-M { padding-top: 4px; padding-bottom: 4px; }
+    expect(result.trim()).toBe(
+`.bg-c-black { background-color: #001111; }
+.f-f-sansSerif { font-family: Roboto; }
+.f-f-serif { font-family: Times New Roman; }
+.t-c-gray { color: #cccccc; }
+.t-c-white { color: #ffeeee; }
+@media screen and (min-width: 16rem) {
 }
-@media screen and (min-width: 64rem) {
-  .x-p-v-8px-L { padding-top: 8px; padding-bottom: 8px; }
+@media screen and (min-width: 32rem) {
 }`);
 
   });
 
-  test("should create css from configuration file", async (done) => {
-    const configPath = './tmp/leptons.yaml';
-    const outputPath = './tmp/index.html';
+  test("include should work", () => {
+    const content = `
+      <div class="f-s-1px">Text 1</div>
+    `
 
-    if (fs.existsSync(configPath)) fs.unlinkSync(configPath);
-    if (fs.existsSync(outputPath)) fs.unlinkSync(outputPath);
+    const plainConfig = {
+      lengthType: "em",
+      medias: {
+        M: "screen and (min-width: 16rem)",
+        L: "screen and (min-width: 32rem)"
+      },
+      include: `
+        m-b-1
+        p-t-1
+        m-b-2-L
+        f-s-1px
+      `,
+      source: {
+        html: { content: content }
+      },
+    }
 
-    fs.writeFileSync(outputPath, '<p class="p-10 p-20-M">Text</p>');
-    fs.writeFileSync(configPath, `
-source:
-  - ./tmp/index.html
-unit: em
-breakpoints:
-  M: 48
-  L: 64
-include: p-r-20 m-l-1`);
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
 
-  const css = await buildFromFile(configPath);
-
-  expect(css.trim()).toBe(`
-/* Generated classes */
-.m-l-1 { margin-left: 1em; }
-.p-10 { padding: 10em; }
-.p-r-20 { padding-right: 20em; }
-@media screen and (min-width: 48rem) {
-  .p-20-M { padding: 20em; }
+    expect(result.trim()).toBe(
+`.f-s-1px { font-size: 1px; }
+.m-b-1 { margin-bottom: 1em; }
+.p-t-1 { padding-top: 1em; }
+@media screen and (min-width: 16rem) {
 }
-@media screen and (min-width: 64rem) {
+@media screen and (min-width: 32rem) {
+  .m-b-2-L { margin-bottom: 2em; }
+}`);
+  });
+
+  test("Build should include cssBefore and cssAfter", () => {
+    const plainConfig = {
+      lengthType: "em",
+      medias: {
+        M: "screen and (min-width: 16rem)",
+        L: "screen and (min-width: 32rem)"
+      },
+      source: {
+        html: { content: `<div class="f-s-1">Text 1</div>` }
+      },
+      cssBefore: "body { border: 0; }",
+      cssAfter: ".f-s-1 { font-size: 1px; }"
+    }
+
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
+
+    console.log(result)
+
+    expect(result.trim()).toBe(
+`body { border: 0; }
+.f-s-1 { font-size: 1em; }
+@media screen and (min-width: 16rem) {
 }
-`.trim());
-
-  done();
-
+@media screen and (min-width: 32rem) {
+}
+.f-s-1 { font-size: 1px; }`);
   });
 
 });

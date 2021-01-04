@@ -1,125 +1,45 @@
-import fs from 'fs';
-import path from 'path';
-import Ajv from 'ajv';
-import yaml from 'js-yaml';
-
-import { Breakpoints } from './breakpoints';
-import { Colors } from './colors';
-import { Fonts } from './fonts';
-import { UnitType } from './unit-type';
-import { initPackage } from './default';
-import { Package } from './package';
+import fs from "fs";
+import path from "path";
+import Ajv from "ajv";
+import yaml from "js-yaml";
+import { configSchema } from "./config-schema"
+import { LengthType } from "./length";
+import { Source } from "./source";
 
 export type ConfigError = {
   path: string,
   message?: string
 }
 
-export type ConfigModule = {
-  name: string,
-  value: 'default' | any
-}
-
 export type Config = {
-  package?: string,
-  source: string[],
-  output: string,
-  prefix?: string,
-  unit?: UnitType,
-  breakpoints?: Breakpoints,
-  colors?: Colors,
-  fonts?: Fonts,
-  include?: string,
-  modules?: ConfigModule[],
-  css?: string
+  source?: Source
+  output?: string
+  medias?: { [index: string]: string }
+  lengthType?: LengthType
+  fonts?: { [index: string]: string }
+  colors?: { [index: string]: string }
+  classes?: string[]
+  aliases?: string[]
+  components?: string[]
+  items?: { [index: string]: { [index: string]: number } }
+  include?: string
+  exclude?: string
+  cssBefore?: string
+  cssAfter?: string
 }
 
 export function isConfig(config: Config | ConfigError[]): config is Config {
-  return (config as Config).package !== undefined;
+  return (config as Config).source !== undefined;
 }
 
 export function isConfigErrors(configErrors: Config | ConfigError[]): configErrors is ConfigError[] {
   return (configErrors as ConfigError[]).length !== undefined;
 }
 
-const schema = {
-  properties: {
-    package: { type: "string" },
-    prefix: { type: "string" },
-    source: {
-      type: "array",
-      items: {
-        type: "string"
-      }
-    },
-    output: { type: "string" },
-    unit: {
-      type: "string",
-      enum: [
-        "mm",
-        "cm",
-        "in",
-        "px",
-        "pt",
-        "pc",
-        "em",
-        "ex",
-        "ch",
-        "rem",
-        "vw",
-        "vh",
-        "vmin",
-        "vmax",
-        "p"
-      ]
-    },
-    breakpoints: {
-      type: "object",
-      patternProperties: {
-        ".+": { type: "number" }
-      }
-    },
-    colors: {
-      type: "object",
-      patternProperties: {
-        ".+": { type: "string" }
-      }
-    },
-    fonts: {
-      type: "object",
-      patternProperties: {
-        ".+": { type: "string" }
-      }
-    },
-    include: { type: "string" },
-    modules: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          ".+": {
-            oneOf: [
-              {
-                type: "string",
-                pattern: "^default$"
-              },
-              {
-                type: ["object", "string", "number", "integer", "array"]
-              }
-            ]
-          }
-        }
-      }
-    },
-    css: { type: "string" }
-  },
-  additionalProperties: false
-};
-
 export function schemaErrors(plainConfig: any): ConfigError[] | null {
 
   const ajv = new Ajv({allErrors: true});
-  const validate = ajv.compile(schema);
+  const validate = ajv.compile(configSchema);
   const valid = validate(plainConfig);
 
   if (!valid) {
@@ -134,7 +54,7 @@ export function schemaErrors(plainConfig: any): ConfigError[] | null {
 
     return errors;
   }
-  
+
   return null;
 }
 
@@ -172,22 +92,24 @@ export function parse(plainConfig: any): (Config | ConfigError[]) {
   return config as Config;
 }
 
-export function init(filePath: string, source?: string[], output?: string) {
-  const defaultPackage = initPackage();
+export function init(filePath: string, output?: string) {
 
   if (fs.existsSync(filePath)) {
     throw Error("Error: a file '" + filePath + "' already exists");
   } else {
-    fs.writeFileSync(filePath, getInitConfig(defaultPackage, source, output));
+    fs.writeFileSync(filePath, getInitConfig(output));
   }
 }
 
-export function getInitConfig(pkg: Package, source?: string[], output?: string): string {
-  const config = {
-    source: source || ["*.htm", "*.html"],
+export function getInitConfig(output?: string): string {
+  const config: Config = {
+    source: { html: ["*.htm", "*.html"] },
     output: output || "./leptons.css",
-    unit: "em",
-    breakpoints: pkg.breakpoints
+    lengthType: LengthType.Rem,
+    medias: {
+      M: "screen and (min-width: 48rem)",
+      L: "screen and (min-width: 64rem)"
+    }
   };
   return yaml.dump(config, {flowLevel: 3});
 }
