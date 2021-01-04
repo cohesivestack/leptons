@@ -77,7 +77,7 @@ items: ...
 
 ## License
 
-Copyright © 2019-2020 Carlos Forero
+Copyright © 2019-2021 Carlos Forero
 
 Atomic Styles is released under the [MIT License](LICENSE).
 
