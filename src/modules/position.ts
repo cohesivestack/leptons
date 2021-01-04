@@ -9,7 +9,7 @@ const styles: { [key: string]: Style } = {
   "absolute": "position: absolute;",
   "f": "position: fixed;",
   "fixed": "position: fixed;",
-  "rl": "position: relative;",
+  "re": "position: relative;",
   "relative": "position: relative;",
   "s": "position: static;'",
   "static": "position: static;'",
