@@ -42,7 +42,7 @@
     "@types/js-yaml": "^3.12.1",
     "ajv": "^6.10.2",
     "chokidar": "^3.3.1",
-    "class-transformer": "^0.2.3",
+    "class-transformer": "^0.3.1",
     "commander": "^4.0.1",
     "globby": "^11.0.0",
     "jest-cli": "^26.0.1",
