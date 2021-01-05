@@ -8,6 +8,7 @@ export { font } from "./font";
 export { height } from "./height";
 export { margin } from "./margin";
 export { max } from "./max";
+export { min } from "./min";
 export { object } from "./object";
 export { opacity } from "./opacity";
 export { padding } from "./padding";
