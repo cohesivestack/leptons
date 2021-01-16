@@ -191,6 +191,33 @@ describe("Builder", () => {
     ));
   });
 
+  test("build using lengths with decimal", () => {
+
+    const content = `
+      <div class="f-s-1.5 f-s-2.0em-L">Text 1</div>
+    `
+
+    const plainConfig = {
+      lengthType: "rem",
+      medias: {
+        L: "screen and (min-width: 32rem)"
+      },
+      source: {
+        html: { content: content }
+      }
+    }
+
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
+
+    expect(result.trim()).toBe(clearIdentForTesting(`
+      .f-s-1\.5 { font-size: 1.5rem; }
+      @media screen and (min-width: 32rem) {
+        .f-s-2\.0em-L { font-size: 2.0em; }
+      }`
+    ));
+  });
+
   test("build with colors and fonts should work", () => {
 
     const content = `

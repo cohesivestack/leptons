@@ -9,7 +9,7 @@ Leptons is an Atomic CSS generator
 ``` yaml
 package: default
 
-breakpoints:
+media:
   m: 48
   l: 64
   xl: 128
@@ -39,10 +39,10 @@ items: ...
 ## Classes anatomy
 
 ```
-[I-]module[-attribute]-value[--pseudoClasses][--pseudoElement][-breakpoint]
+[!]module[-attribute]-value[:pseudoClass][::pseudoElement][_media]
 ```
 * `[]` brackets means optional
-* `I` is the symbol for `!important`
+* `!` is the symbol for `!important`
 
 
 

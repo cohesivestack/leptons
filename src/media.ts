@@ -15,6 +15,8 @@ export class Media {
 
     Object.keys(this.classes).sort((a,b) => a > b ? 1 : -1 ).forEach(className => {
       let cssStyle = this.classes[className];
+      let cssClassName = className.replace(/\./g, "\\.");
+      cssClassName = className.replace(/:/g, "\\:");
       cssString += `${tabSpace}.${className} { ${cssStyle} }\n`
     });
 

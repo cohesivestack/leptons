@@ -16,7 +16,7 @@ export enum LengthType {
   P = 'p', // Percent %'
 }
 
-let regexString = "^[0-9]+(_[0-9]+)*(";
+let regexString = "^[0-9]+(\.[0-9]+)?(";
 let regexTail: string = ""
 const utKeys: string[] = Object.keys(LengthType);
 
@@ -25,7 +25,7 @@ utKeys.forEach(ut =>
     ut.toLowerCase() :
     "|" + ut.toLowerCase());
 
-const regexpLengthValid = new RegExp(regexString + regexTail + ")*$");
+const regexpLengthValid = new RegExp(regexString + regexTail + ")?$");
 
 export const isLengthValid = (length: string): boolean => {
   return regexpLengthValid.test(length);

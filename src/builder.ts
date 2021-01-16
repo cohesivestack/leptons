@@ -152,7 +152,7 @@ export class Builder {
     let attributeMatches: RegExpExecArray | null;
     const classNames: string[] = [];
 
-    const regexClass = /^[A-Za-z0-9-_]+$/;
+    const regexClass = /^[A-Za-z0-9-_\.:]+$/;
 
     while (attributeMatches = regexAttribute.exec(content)) {
       const entries = attributeMatches[1].split(" ");
@@ -303,16 +303,16 @@ export class Builder {
       throw new Error(`The value ${length} is not valid`);
     }
   
-    let value = length.replace("_", ".");
+    let value = length;
   
-    if (/^[0-9_]*\d$/.test(length)) {
+    if (/^[0-9]+(\.[0-9]+)?$/.test(length)) {
       value += this.lengthType;
     }
-  
+
     if (/[0-9]+p$/.test(length)) {
       value = value.replace("p", "%");
     }
-  
+
     return value;
   }
 
