@@ -1,6 +1,7 @@
 import { schemaErrors, Config, parseFromYaml, getInitConfig, parse } from "./config";
 import { Source } from "./source";
 import { LengthType } from "./length";
+import { clearIdentForTesting } from "./util";
 
 describe("Config", () => {
   test("should parse the scheme correctly without errors", () => {
@@ -38,18 +39,18 @@ describe("Config", () => {
 
   test("should parse from yaml content", () => {
 
-    const yaml = `
-lengthType: em
-medias:
-  A: "screen and (min-width: 16rem)"
-  B: "screen and (min-width: 32rem)"
-source:
-  html:
-    - a/*.html
-    - /b/*.htm
-  react: "**/*.tsx"
-cssBefore: "body { padding: 0; }"
-cssAfter: "a { text-decoration: none; }"`
+    const yaml = clearIdentForTesting(`
+      lengthType: em
+      medias:
+        A: "screen and (min-width: 16rem)"
+        B: "screen and (min-width: 32rem)"
+      source:
+        html:
+          - a/*.html
+          - /b/*.htm
+        react: "**/*.tsx"
+      cssBefore: "body { padding: 0; }"
+      cssAfter: "a { text-decoration: none; }"`);
 
     const config = parseFromYaml(yaml) as Config;
     const source = config.source as Source;

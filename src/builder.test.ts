@@ -5,6 +5,7 @@ import { Builder } from "./builder";
 import { Atom } from "./atom";
 import { sourceTypes } from "./source";
 import { Config } from "./config";
+import { clearIdentForTesting } from "./util";
 
 describe("Builder", () => {
   test("atomToCssStyle should create css styles", () => {
@@ -176,18 +177,18 @@ describe("Builder", () => {
     const builder = new Builder(plainConfig as Config, true);
     const result = builder.buildToString();
 
-    expect(result.trim()).toBe(
-`.f-s-1 { font-size: 1em; }
-.f-s-2 { font-size: 2em; }
-.w-100p { width: 100%; }
-.w-90p { width: 90%; }
-@media screen and (min-width: 16rem) {
-  .w-100p-M { width: 100%; }
-}
-@media screen and (min-width: 32rem) {
-  .w-100p-L { width: 100%; }
-}`);
-
+    expect(result.trim()).toBe(clearIdentForTesting(`
+      .f-s-1 { font-size: 1em; }
+      .f-s-2 { font-size: 2em; }
+      .w-100p { width: 100%; }
+      .w-90p { width: 90%; }
+      @media screen and (min-width: 16rem) {
+        .w-100p-M { width: 100%; }
+      }
+      @media screen and (min-width: 32rem) {
+        .w-100p-L { width: 100%; }
+      }`
+    ));
   });
 
   test("build with colors and fonts should work", () => {
@@ -220,17 +221,17 @@ describe("Builder", () => {
     const builder = new Builder(plainConfig as Config, true);
     const result = builder.buildToString();
 
-    expect(result.trim()).toBe(
-`.bg-c-black { background-color: #001111; }
-.f-f-sansSerif { font-family: Roboto; }
-.f-f-serif { font-family: Times New Roman; }
-.t-c-gray { color: #cccccc; }
-.t-c-white { color: #ffeeee; }
-@media screen and (min-width: 16rem) {
-}
-@media screen and (min-width: 32rem) {
-}`);
-
+    expect(result.trim()).toBe(clearIdentForTesting(`
+      .bg-c-black { background-color: #001111; }
+      .f-f-sansSerif { font-family: Roboto; }
+      .f-f-serif { font-family: Times New Roman; }
+      .t-c-gray { color: #cccccc; }
+      .t-c-white { color: #ffeeee; }
+      @media screen and (min-width: 16rem) {
+      }
+      @media screen and (min-width: 32rem) {
+      }`
+    ));
   });
 
   test("include should work", () => {
@@ -258,15 +259,16 @@ describe("Builder", () => {
     const builder = new Builder(plainConfig as Config, true);
     const result = builder.buildToString();
 
-    expect(result.trim()).toBe(
-`.f-s-1px { font-size: 1px; }
-.m-b-1 { margin-bottom: 1em; }
-.p-t-1 { padding-top: 1em; }
-@media screen and (min-width: 16rem) {
-}
-@media screen and (min-width: 32rem) {
-  .m-b-2-L { margin-bottom: 2em; }
-}`);
+    expect(result.trim()).toBe(clearIdentForTesting(`
+      .f-s-1px { font-size: 1px; }
+      .m-b-1 { margin-bottom: 1em; }
+      .p-t-1 { padding-top: 1em; }
+      @media screen and (min-width: 16rem) {
+      }
+      @media screen and (min-width: 32rem) {
+        .m-b-2-L { margin-bottom: 2em; }
+      }`
+    ));
   });
 
   test("Build should include cssBefore and cssAfter", () => {
@@ -286,16 +288,15 @@ describe("Builder", () => {
     const builder = new Builder(plainConfig as Config, true);
     const result = builder.buildToString();
 
-    console.log(result)
-
-    expect(result.trim()).toBe(
-`body { border: 0; }
-.f-s-1 { font-size: 1em; }
-@media screen and (min-width: 16rem) {
-}
-@media screen and (min-width: 32rem) {
-}
-.f-s-1 { font-size: 1px; }`);
+    expect(result.trim()).toBe(clearIdentForTesting(
+      `body { border: 0; }
+      .f-s-1 { font-size: 1em; }
+      @media screen and (min-width: 16rem) {
+      }
+      @media screen and (min-width: 32rem) {
+      }
+      .f-s-1 { font-size: 1px; }`
+    ));
   });
 
 });
