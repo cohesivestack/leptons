@@ -218,6 +218,32 @@ describe("Builder", () => {
     ));
   });
 
+  test("build using important", () => {
+    const content = `
+      <div class="!f-s-1 !f-s-2-L">Text 1</div>
+    `
+
+    const plainConfig = {
+      lengthType: "rem",
+      medias: {
+        L: "screen and (min-width: 32rem)"
+      },
+      source: {
+        html: { content: content }
+      }
+    }
+
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
+
+    expect(result.trim()).toBe(clearIdentForTesting(`
+      .\!f-s-1 { font-size: 1rem; }
+      @media screen and (min-width: 32rem) {
+        .\!f-s-2-L { font-size: 2rem; }
+      }`
+    ));
+  });
+
   test("build with colors and fonts should work", () => {
 
     const content = `

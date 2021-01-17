@@ -152,7 +152,7 @@ export class Builder {
     let attributeMatches: RegExpExecArray | null;
     const classNames: string[] = [];
 
-    const regexClass = /^[A-Za-z0-9-_\.:]+$/;
+    const regexClass = /^[A-Za-z0-9-_\.:!]+$/;
 
     while (attributeMatches = regexAttribute.exec(content)) {
       const entries = attributeMatches[1].split(" ");
@@ -274,6 +274,10 @@ export class Builder {
 
     if (!cssStyle) {
       throw new Error(`Not match any key in the module "${atom.module}"`);
+    }
+
+    if (atom.important) {
+      cssStyle.split(";").join(" !important;")
     }
 
     return cssStyle;

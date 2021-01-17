@@ -7,16 +7,16 @@ describe("Atom", () => {
     [
       ["a-b", undefined, "a", undefined, "b", undefined, undefined, undefined],
       ["a-b-c", undefined, "a", "b", "c", undefined, undefined, undefined],
-      ["I-a-b", true, "a", undefined, "b", undefined, undefined, undefined],
-      ["I-a-b-c", true, "a", "b", "c", undefined, undefined, undefined],
-      ["I-a-b-c-LM", true, "a", "b", "c", undefined, undefined, ["L", "M"]],
-      ["I-a-b-c--h", true, "a", "b", "c", ["h"], undefined, undefined],
-      ["I-a-b-c--hAl", true, "a", "b", "c", ["h", "l"], undefined, undefined],
-      ["I-a-b--hAl-L", true, "a", undefined, "b", ["h", "l"], undefined, ["L"]],
-      ["I-a-b-c--hAl-L", true, "a", "b", "c", ["h", "l"], undefined, ["L"]],
-      ["I-a-b--hAl--F", true, "a", undefined, "b", ["h", "l"], "F", undefined],
-      ["I-a-b-c--hAl--F", true, "a", "b", "c", ["h", "l"], "F", undefined],
-      ["I-a-b-c--hAl--F-ML", true, "a", "b", "c", ["h", "l"], "F", ["M", "L"]],
+      ["!a-b", true, "a", undefined, "b", undefined, undefined, undefined],
+      ["!a-b-c", true, "a", "b", "c", undefined, undefined, undefined],
+      ["!a-b-c-LM", true, "a", "b", "c", undefined, undefined, ["L", "M"]],
+      ["!a-b-c--h", true, "a", "b", "c", ["h"], undefined, undefined],
+      ["!a-b-c--hAl", true, "a", "b", "c", ["h", "l"], undefined, undefined],
+      ["!a-b--hAl-L", true, "a", undefined, "b", ["h", "l"], undefined, ["L"]],
+      ["!a-b-c--hAl-L", true, "a", "b", "c", ["h", "l"], undefined, ["L"]],
+      ["!a-b--hAl--F", true, "a", undefined, "b", ["h", "l"], "F", undefined],
+      ["!a-b-c--hAl--F", true, "a", "b", "c", ["h", "l"], "F", undefined],
+      ["!a-b-c--hAl--F-ML", true, "a", "b", "c", ["h", "l"], "F", ["M", "L"]],
     ].forEach(v => {
       const atom = new Atom(<string>v[0]);
 
@@ -33,7 +33,7 @@ describe("Atom", () => {
   test("Should not be created", () => {
     [
       ["a", "Class parts requires at least the Module and Value"],
-      ["I-a", "Class parts requires the Module and Value"],
+      ["!a", "Class parts requires at least the Module and Value"],
       ["a-L", "Class parts requires the Module and Value"],
       ["a--h", "Class parts requires the Module and Value"],
       ["a--h--F", "Class parts requires the Module and Value"],

@@ -16,16 +16,8 @@ export class Atom {
       throw `Class parts requires at least the Module and Value`
     }
 
-    // IMPORTANT
-    let part = parts[0];
-
-    if (part === "I") {
-      this.important = true;
-      parts.splice(0, 1);
-    }
-
     // MEDIAS
-    part = parts[parts.length - 1];
+    let part = parts[parts.length - 1];
 
     // If the last part match with Breakpoints
     // and it doesn't have a pseudo element separator
@@ -57,10 +49,18 @@ export class Atom {
       throw "Class parts requires the Module and Value"
     }
 
-    // MODULE
     part = parts[0];
-    if (part.match(/^[a-z]+$/)) {
-      this.module = part;
+
+    // MODULE
+    if (part.match(/^!?[a-z]+$/)) {
+
+      // IMPORTANT
+      if (part[0] === "!") {
+        this.important = true;
+        this.module = part.substr(1);
+      } else {
+        this.module = part;
+      }
       parts.splice(0, 1);
     } else {
       throw `Invalid Module characters "${part}"`;
