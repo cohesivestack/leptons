@@ -1,7 +1,9 @@
+import { ClassStyle } from "./class-style";
+
 export class Media {
   constructor(
     public rule: string,
-    public classes: { [className: string]: string }) {}
+    public classes: { [className: string]: ClassStyle }) {}
 
   public build(): string {
     let cssString = "";
@@ -13,11 +15,8 @@ export class Media {
     }
 
     Object.keys(this.classes).sort((a,b) => a > b ? 1 : -1 ).forEach(className => {
-      let cssStyle = this.classes[className];
-      let cssClassName = className.replace(/\./g, "\\.");
-      cssClassName = className.replace(/:/g, "\\:");
-      cssClassName = className.replace(/!/g, "\\!");
-      cssString += `${tabSpace}.${className} { ${cssStyle} }\n`
+      let classStyle = this.classes[className];
+      cssString += `${tabSpace}.${classStyle.cssClass} { ${classStyle.cssStyle} }\n`
     });
 
     if (this.rule !== "") {

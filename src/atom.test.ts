@@ -10,13 +10,13 @@ describe("Atom", () => {
       ["!a-b", true, "a", undefined, "b", undefined, undefined, undefined],
       ["!a-b-c", true, "a", "b", "c", undefined, undefined, undefined],
       ["!a-b-c-LM", true, "a", "b", "c", undefined, undefined, ["L", "M"]],
-      ["!a-b-c--h", true, "a", "b", "c", ["h"], undefined, undefined],
-      ["!a-b-c--hAl", true, "a", "b", "c", ["h", "l"], undefined, undefined],
-      ["!a-b--hAl-L", true, "a", undefined, "b", ["h", "l"], undefined, ["L"]],
-      ["!a-b-c--hAl-L", true, "a", "b", "c", ["h", "l"], undefined, ["L"]],
-      ["!a-b--hAl--F", true, "a", undefined, "b", ["h", "l"], "F", undefined],
-      ["!a-b-c--hAl--F", true, "a", "b", "c", ["h", "l"], "F", undefined],
-      ["!a-b-c--hAl--F-ML", true, "a", "b", "c", ["h", "l"], "F", ["M", "L"]],
+      ["!a-b-c:h", true, "a", "b", "c", ["h"], undefined, undefined],
+      ["!a-b-c:h:l", true, "a", "b", "c", ["h", "l"], undefined, undefined],
+      ["!a-b:h:l-L", true, "a", undefined, "b", ["h", "l"], undefined, ["L"]],
+      ["!a-b-c:h:l-L", true, "a", "b", "c", ["h", "l"], undefined, ["L"]],
+      ["!a-b:h:l::f", true, "a", undefined, "b", ["h", "l"], "f", undefined],
+      ["!a-b-c:h:l::f", true, "a", "b", "c", ["h", "l"], "f", undefined],
+      ["!a-b-c:h:l::f-ML", true, "a", "b", "c", ["h", "l"], "f", ["M", "L"]],
     ].forEach(v => {
       const atom = new Atom(<string>v[0]);
 
@@ -35,13 +35,14 @@ describe("Atom", () => {
       ["a", "Class parts requires at least the Module and Value"],
       ["!a", "Class parts requires at least the Module and Value"],
       ["a-L", "Class parts requires the Module and Value"],
-      ["a--h", "Class parts requires the Module and Value"],
-      ["a--h--F", "Class parts requires the Module and Value"],
-      ["a--h--F-L", "Class parts requires the Module and Value"],
+      ["a:h", "Class parts requires the Module and Value"],
+      ["a:h::f", "Class parts requires the Module and Value"],
+      ["a:h::f-L", "Class parts requires the Module and Value"],
       ["A-b", "Invalid Module characters \"A\""],
       ["A-b-c", "Invalid Module characters \"A\""],
-      ["A-b-c--h-L", "Invalid Module characters \"A\""],
-      ["a--a-b", "Value is empty"]
+      ["A-b-c:h-L", "Invalid Module characters \"A\""],
+      ["a:a-b", "Invalid Module characters \"a:a\""],
+      ["a-", "Value is empty"]
     ].forEach(v => {
       expect(() => new Atom(<string>v[0])).toThrow(v[1]);
     });

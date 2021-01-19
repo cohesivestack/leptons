@@ -1,4 +1,4 @@
-const pseudoClasses: { [key: string]: string } = {
+export const pseudoClasses: { [key: string]: string } = {
   "a":     ":active",
   "c":     ":checked",
   "d":     ":disabled",

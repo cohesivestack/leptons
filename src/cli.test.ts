@@ -5,7 +5,7 @@ import { init } from './config';
 
 const cli = path.join(__dirname, './cli.ts');
 
-const testTimeout = 10000;
+const testTimeout = 20000;
 
 describe("Cli", () => {
 

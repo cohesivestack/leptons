@@ -50,7 +50,7 @@ const styles: { [key: string]: Style } = {
   "w-bold":     "font-weight: 700;",
   "w-n":        "font-weight: 400;",
   "w-normal":   "font-weight: 400;",
-  "w-{weight}": ["font-weight: {weight}", (c: BuilderContext, v: string) => c.convertNumberPerHundrerToCss(v)],
+  "w-{weight}": ["font-weight: {weight};", (c: BuilderContext, v: string) => c.convertNumberPerHundrerToCss(v)],
 }
 
 export const font = new Module(name, symbol, styles);

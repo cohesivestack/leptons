@@ -68,10 +68,10 @@ describe("Builder", () => {
     builder.addClassName(classNameItemFunction);
     builder.addClassName(classNameFunction);
 
-    expect((builder as any).medias[""].classes[classNameLiteral]).toBe("background-size: auto;")
-    expect((builder as any).medias[""].classes[classNameItem]).toBe("background-position: 10px;")
-    expect((builder as any).medias[""].classes[classNameItemFunction]).toBe("font-weight: 300;")
-    expect((builder as any).medias[""].classes[classNameFunction]).toBe("unknown: any;")
+    expect((builder as any).medias[""].classes[classNameLiteral].cssStyle).toBe("background-size: auto;")
+    expect((builder as any).medias[""].classes[classNameItem].cssStyle).toBe("background-position: 10px;")
+    expect((builder as any).medias[""].classes[classNameItemFunction].cssStyle).toBe("font-weight: 300;")
+    expect((builder as any).medias[""].classes[classNameFunction].cssStyle).toBe("unknown: any;")
   });
 
   test("Class values should be globally replaced in the CSS style", () => {
@@ -98,9 +98,9 @@ describe("Builder", () => {
     builder.addClassName(classNameItemFunction);
     builder.addClassName(classNameFunction);
 
-    expect((builder as any).medias[""].classes[classNameItem]).toBe("padding-left: 1rem; padding-right: 1rem;")
-    expect((builder as any).medias[""].classes[classNameItemFunction]).toBe("padding-horizontal: 10px; padding-vertial: 10px;")
-    expect((builder as any).medias[""].classes[classNameFunction]).toBe("unknown0: any; unknown1: any;")
+    expect((builder as any).medias[""].classes[classNameItem].cssStyle).toBe("padding-left: 1rem; padding-right: 1rem;")
+    expect((builder as any).medias[""].classes[classNameItemFunction].cssStyle).toBe("padding-horizontal: 10px; padding-vertial: 10px;")
+    expect((builder as any).medias[""].classes[classNameFunction].cssStyle).toBe("unknown0: any; unknown1: any;")
   });
 
   test("addClassName should add the Classname for different medias", () => {
@@ -130,17 +130,17 @@ describe("Builder", () => {
     builder.addClassName(mediumMedia);
     builder.addClassName(largeMedia);
 
-    expect((builder as any).medias[""].classes[defaultMedia]).toBe("font-weight: 300;");
+    expect((builder as any).medias[""].classes[defaultMedia].cssStyle).toBe("font-weight: 300;");
     expect((builder as any).medias["M"].classes[defaultMedia]).toBeUndefined();
     expect((builder as any).medias["L"].classes[defaultMedia]).toBeUndefined();
 
     expect((builder as any).medias[""].classes[mediumMedia]).toBeUndefined();
-    expect((builder as any).medias["M"].classes[mediumMedia]).toBe("font-weight: 300;");
+    expect((builder as any).medias["M"].classes[mediumMedia].cssStyle).toBe("font-weight: 300;");
     expect((builder as any).medias["L"].classes[mediumMedia]).toBeUndefined();
 
     expect((builder as any).medias[""].classes[largeMedia]).toBeUndefined();
     expect((builder as any).medias["M"].classes[largeMedia]).toBeUndefined();
-    expect((builder as any).medias["L"].classes[largeMedia]).toBe("font-weight: 300;");
+    expect((builder as any).medias["L"].classes[largeMedia].cssStyle).toBe("font-weight: 300;");
   });
 
   test("extractClassesFromContent should extract class names with Html regexp", () => {
@@ -211,9 +211,9 @@ describe("Builder", () => {
     const result = builder.buildToString();
 
     expect(result.trim()).toBe(clearIdentForTesting(`
-      .f-s-1\.5 { font-size: 1.5rem; }
+      .f-s-1\\.5 { font-size: 1.5rem; }
       @media screen and (min-width: 32rem) {
-        .f-s-2\.0em-L { font-size: 2.0em; }
+        .f-s-2\\.0em-L { font-size: 2.0em; }
       }`
     ));
   });
@@ -237,9 +237,41 @@ describe("Builder", () => {
     const result = builder.buildToString();
 
     expect(result.trim()).toBe(clearIdentForTesting(`
-      .\!f-s-1 { font-size: 1rem; }
+      .\\!f-s-1 { font-size: 1rem; }
       @media screen and (min-width: 32rem) {
-        .\!f-s-2-L { font-size: 2rem; }
+        .\\!f-s-2-L { font-size: 2rem; }
+      }`
+    ));
+  });
+
+  test("build using pseudo classes and pseudo elements", () => {
+    const content = `
+      <div class="f-w-5:h f-w-6:h-L">Text 1</div>
+      <div class="f-w-5::a f-w-6::a-L">Text 2</div>
+      <div class="f-w-5:h::a f-w-6:h::a-L">Text 3</div>
+    `
+
+    const plainConfig = {
+      lengthType: "rem",
+      medias: {
+        L: "screen and (min-width: 32rem)"
+      },
+      source: {
+        html: { content: content }
+      }
+    }
+
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
+
+    expect(result.trim()).toBe(clearIdentForTesting(`
+      .f-w-5\\:\\:a::after { font-weight: 500; }
+      .f-w-5\\:h:hover { font-weight: 500; }
+      .f-w-5\\:h\\:\\:a:hover::after { font-weight: 500; }
+      @media screen and (min-width: 32rem) {
+        .f-w-6\\:\\:a-L::after { font-weight: 600; }
+        .f-w-6\\:h-L:hover { font-weight: 600; }
+        .f-w-6\\:h\\:\\:a-L:hover::after { font-weight: 600; }
       }`
     ));
   });

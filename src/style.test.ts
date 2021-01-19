@@ -52,7 +52,7 @@ describe("Style", () => {
       "b-c-{d}",
       "b-c-d-",
       "b-c-0",
-      "b-c--a"
+      "b-c:a"
     ].forEach(v => expect(isValidStyleLiteral(v)).toBe(false));
   });
 
@@ -66,7 +66,7 @@ describe("Style", () => {
 
     [
       "0-t-{c}",
-      "0-t--{c}",
+      "0-t:{c}",
       "b0-t-{c}",
       "b-c-d",
       "b-c-{d}-",

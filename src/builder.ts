@@ -10,6 +10,8 @@ import { Source, sourceTypes, isSourceWithContent, isSourceWithRegexp, isSourceW
 import globby from "globby";
 import fs from "fs";
 import * as defaultModules from "./modules";
+import { pseudoClasses } from "./pseudo-class";
+import { pseudoElements } from "./pseudo-element";
 
 export class Builder {
 
@@ -207,11 +209,14 @@ export class Builder {
 
     // Add atom to css styles
     try {
-      const cssStyle = this.atomToCssStyle(this.modules[<string>atom.module], atom);
+      const cssClassStyle = {
+        cssClass: this.atomToCssClass(className, atom),
+        cssStyle: this.atomToCssStyle(this.modules[<string>atom.module], atom)
+      };
 
       if (!atom.medias) {
         // No media
-        this.medias[""].classes[className] = cssStyle;
+        this.medias[""].classes[className] = cssClassStyle;
       } else {
         atom.medias.forEach(media => {
           if (!this.medias[media]) {
@@ -220,13 +225,28 @@ export class Builder {
           }
         });
         atom.medias.forEach(media => {
-          this.medias[media].classes[className] = cssStyle;
+          this.medias[media].classes[className] = cssClassStyle;
         });
       }
     } catch (e) {
       this.addError(ErrorType.Marformed, className, e);
       return;
     }
+  }
+
+  public atomToCssClass(className: string, atom: Atom): string  {
+    let output = className
+      .replace(/\./g, "\\.")
+      .replace(/:/g, "\\:")
+      .replace(/!/g, "\\!");
+
+    if (atom.pseudoClasses) {
+      atom.pseudoClasses.forEach(pc => output += pseudoClasses[pc]);
+    }
+    if (atom.pseudoElement) {
+      output += pseudoElements[atom.pseudoElement];
+    }
+    return output;
   }
 
 
