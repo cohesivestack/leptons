@@ -28,8 +28,8 @@ const styles: { [key: string]: Style } = {
   "tableColumn": "display: table-column;",
   "tcg": "display: table-column-group;",
   "tableColumnGroup": "display: table-column-group;",
-  "tCell": "display: table-cell;'",
-  "tableCell": "display: table-cell;'"
+  "tCell": "display: table-cell;",
+  "tableCell": "display: table-cell;"
 
 }
 

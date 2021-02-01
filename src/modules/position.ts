@@ -11,8 +11,8 @@ const styles: { [key: string]: Style } = {
   "fixed": "position: fixed;",
   "re": "position: relative;",
   "relative": "position: relative;",
-  "s": "position: static;'",
-  "static": "position: static;'",
+  "s": "position: static;",
+  "static": "position: static;",
 
   "t-{length}": "top: {length};",
   "top-{length}": "top: {length};",
