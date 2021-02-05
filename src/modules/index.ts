@@ -10,6 +10,7 @@ export { margin } from "./margin";
 export { max } from "./max";
 export { min } from "./min";
 export { object } from "./object";
+export { overflow } from "./overflow";
 export { opacity } from "./opacity";
 export { padding } from "./padding";
 export { position } from "./position";
