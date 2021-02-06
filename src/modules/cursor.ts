@@ -70,7 +70,8 @@ const styles: { [key: string]: Style } = {
   "zi":          "cursor: zoom-in;",
   "zoomIn":      "cursor: zoom-in;",
   "zo":          "cursor: zoom-out;",
-  "zoomOut":     "cursor: zoom-out;"
+  "zoomOut":     "cursor: zoom-out;",
+  "{keyword}":   "cursor: {keyword};"
 
 }
 

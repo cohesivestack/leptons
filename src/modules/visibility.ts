@@ -6,9 +6,10 @@ const symbol: string = "v";
 
 const styles: { [key: string]: Style } = {
 
-  "c": "visibility: collapse;",
-  "h": "visibility: hidden;",
-  "v": "visibility: visible;"
+  "c":         "visibility: collapse;",
+  "h":         "visibility: hidden;",
+  "v":         "visibility: visible;",
+  "{keyword}": "visibility: {keyword};"
 
 }
 

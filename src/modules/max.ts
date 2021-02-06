@@ -7,10 +7,12 @@ const symbol: string = "max";
 const styles: { [key: string]: Style } = {
 
   //Width
-  "w-{length}": "max-width: {length};",
+  "w-{length}":  "max-width: {length};",
+  "w-{keyword}": "max-width: {keyword};",
 
   //Height
-  "h-{length}": "max-height: {length};",
+  "h-{length}":  "max-height: {length};",
+  "h-{keyword}": "max-height: {keyword};"
 
 }
 

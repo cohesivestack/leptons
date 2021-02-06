@@ -16,7 +16,7 @@ Current version is `0.1.0.alpha.11`. The first goal is to release version `0.1.0
 - [x] Pseudo elements
 - [x] Command line interface
 - [x] Watcher
-- [ ] Add the type of value keyword, supporting `initial`, `revert`, `inherit` and `unset`
+- [x] Add the type of value keyword, supporting `initial`, `revert`, `inherit` and `unset`
 - [ ] Shadows collection
 - [ ] Display errors, missing classes, duplicated classes
 - [ ] Add modules: `all`, `animation`, `backface`, `caret`, `caption`, `columns`, `grid`, `list`, `outline`, `overflow`, `resize`, `scroll`, `tab-size`, `transform`, `transition`,  `user-select`, `white-space`, `word`

@@ -1,7 +1,9 @@
+import { inherits } from "util";
 import { BuilderContext } from "./builder-context";
 
 const regexLiteral = /^[a-z][a-zA-Z]*(-[a-z][a-zA-Z]*){0,2}$/;
 const regexItem = /^([a-z][a-zA-Z]*-){0,2}(\{[a-z][a-zA-Z0-9]*\})$/;
+const regexKeyword = /^(initial|inherit|unset|revert)$/
 
 export type StyleFunc =
   ((b: BuilderContext, v: string) => string);
@@ -32,4 +34,8 @@ export function isValidStyleLiteral(literal: string): boolean {
 
 export function isValidStringItem(item: string): boolean {
   return regexItem.test(item);
+}
+
+export function isValidStringKeyword(keyword: string): boolean {
+  return regexKeyword.test(keyword);
 }

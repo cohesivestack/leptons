@@ -16,6 +16,7 @@ const styles: { [key: string]: Style } = {
   "f-none":      "object-fit: none;",
   "f-sd":        "object-fit: scale-down;",
   "f-scaleDown": "object-fit: scale-down;",
+  "f-{keyword}": "object-fit: {keyword};",
 
   // Position
   "p-lt":           "object-position: left top;",
@@ -36,7 +37,8 @@ const styles: { [key: string]: Style } = {
   "p-centerCenter": "object-position: center center;",
   "p-cb":           "object-position: center bottom;",
   "p-centerBottom": "object-position: center bottom;",
-  "p-{length2}": "object-position: {length2};",
+  "p-{length2}":    "object-position: {length2};",
+  "p-{keyword}":    "object-position: {keyword};"
 
 }
 

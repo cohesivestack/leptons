@@ -6,11 +6,13 @@ describe("Module", () => {
   test("Create module with all types of styles", () => {
 
     const styles: { [key: string]: Style } = {
-      "s-a":         "background-size: auto;",
-      "p-{length}":  "background-position: {length};",
+      "s-a":        "background-size: auto;",
+      "p-{length}": "background-position: {length};",
+      "p-{keyword}": "background-position: {keyword};",
       "w-{weight}": ["font-weight: {weight}", (c: BuilderContext, v: string) => c.convertNumberPerHundrerToCss(v)],
-      "u-{custom}":   (c: BuilderContext, v: string) => `unknown: ${v}`,
-      "{length}":  "size: {length};",
+      "u-{custom}": (c: BuilderContext, v: string) => `unknown: ${v}`,
+      "{length}":   "size: {length};",
+      "{keyword}":  "size: {keyword};"
     }
 
     const module = new Module(
@@ -34,5 +36,7 @@ describe("Module", () => {
     expect(itemStandalone?.itemName).toBe("length");
     expect(itemStandalone?.style).toBe(styles["{length}"]);
 
+    expect(module.getKeyword("p")).toBe(styles["p-{keyword}"]);
+    expect(module.getKeyword("")).toBe(styles["{keyword}"]);
   });
 });

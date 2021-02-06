@@ -319,6 +319,33 @@ describe("Builder", () => {
     ));
   });
 
+  test("build with keyword values", () => {
+
+    const content = `
+      <div class="bg-c-revert t-c-unset f-f-initial f-f-inherit">Text 1</div>
+    `
+
+    const plainConfig = {
+      lengthType: "em",
+      medias: { },
+      colors: { },
+      fonts: { },
+      source: {
+        html: { content: content }
+      },
+    }
+
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
+
+    expect(result.trim()).toBe(clearIdentForTesting(`
+      .bg-c-revert { background-color: revert; }
+      .f-f-inherit { font-family: inherit; }
+      .f-f-initial { font-family: initial; }
+      .t-c-unset { color: unset; }`
+      ));
+  });
+
   test("include should work", () => {
     const content = `
       <div class="f-s-1px">Text 1</div>

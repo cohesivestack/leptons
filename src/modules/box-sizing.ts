@@ -7,8 +7,9 @@ const symbol: string = "bs";
 const styles: { [key: string]: Style } = {
 
   // Box Sizing
-  "c": "box-sizing: content-box;",
-  "b": "box-sizing: border-box;"
+  "c":         "box-sizing: content-box;",
+  "b":         "box-sizing: border-box;",
+  "{keyword}": "box-sizing: {keyword};"
 
 }
 

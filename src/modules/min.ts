@@ -7,10 +7,12 @@ const symbol: string = "min";
 const styles: { [key: string]: Style } = {
 
   //Width
-  "w-{length}": "min-width: {length};",
+  "w-{length}":  "min-width: {length};",
+  "w-{keyword}": "min-width: {keyword};",
 
   //Height
-  "h-{length}": "min-height: {length};",
+  "h-{length}":  "min-height: {length};",
+  "h-{keyword}": "min-height: {keyword};"
 
 }
 

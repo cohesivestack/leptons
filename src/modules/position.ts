@@ -5,23 +5,28 @@ const name: string = "Position";
 const symbol: string = "pos";
 
 const styles: { [key: string]: Style } = {
-  "a": "position: absolute;",
-  "absolute": "position: absolute;",
-  "f": "position: fixed;",
-  "fixed": "position: fixed;",
-  "re": "position: relative;",
-  "relative": "position: relative;",
-  "s": "position: static;",
-  "static": "position: static;",
+  "a":         "position: absolute;",
+  "absolute":  "position: absolute;",
+  "f":         "position: fixed;",
+  "fixed":     "position: fixed;",
+  "re":        "position: relative;",
+  "relative":  "position: relative;",
+  "s":         "position: static;",
+  "static":    "position: static;",
+  "{keyword}": "position: {keyword};",
 
-  "t-{length}": "top: {length};",
-  "top-{length}": "top: {length};",
-  "b-{length}": "bottom: {length};",
-  "bottom-{length}": "bottom: {length};",
-  "l-{length}": "left: {length};",
-  "left-{length}": "left: {length};",
-  "r-{length}": "right: {length};",
-  "right-{length}": "right: {length};"
+  "t-{length}":  "top: {length};",
+  "t-{keyword}": "top: {keyword};",
+
+  "b-{length}":  "bottom: {length};",
+  "b-{keyword}": "bottom: {keyword};",
+
+  "l-{length}":  "left: {length};",
+  "l-{keyword}": "left: {keyword};",
+
+  "r-{length}":  "right: {length};",
+  "r-{keyword}": "right: {keyword};"
+
 }
 
 export const position = new Module(name, symbol, styles);

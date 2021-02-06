@@ -11,7 +11,8 @@ const styles: { [key: string]: Style } = {
       throw new Error(`The z-index ${v} is not valid`);
     }
     return v;
-  }]
+  }],
+  "{keyword}": "{keyword}"
 }
 
 export const zIndex = new Module(name, symbol, styles);

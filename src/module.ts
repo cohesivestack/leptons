@@ -10,6 +10,7 @@ import {
 
 export class Module {
   private literals: { [key: string]: string } = {};
+  private keywords: { [key: string]: string } = {};
   private items: { [key: string]: {itemName: string, style: string } } = {};
   private functions: { [key: string]: StyleFunc } = {};
   private itemFunctions: { [key: string]: { itemName: string, style: StyleItemFunc } } = {};
@@ -23,14 +24,18 @@ export class Module {
       if (isStyleString(style)) {
         if (isValidStyleLiteral(key)) {
           this.literals[key] = style;
-        } else if (isValidStringItem(key)) {
-          const itemNameAndAttribute = this.extractItemNameAndAttribute(key);
-          this.items[itemNameAndAttribute[0]] = {
-            itemName: itemNameAndAttribute[1],
-            style: style
-          };
         } else {
-          throw Error(`String style is invalid "{ ${key}: ${style} }"`)
+          const [attr, _string] = this.extractItemNameAndAttribute(key);
+          if (_string === "keyword") {
+            this.keywords[attr] = style;
+          } else if (isValidStringItem(key)) {
+            this.items[attr] = {
+              itemName: _string,
+              style: style
+            };
+          } else {
+            throw Error(`String style is invalid "{ ${key}: ${style} }"`)
+          }
         }
       } else if (isStyleItemFunc(style)) {
         const itemNameAndAttribute = this.extractItemNameAndAttribute(key);
@@ -58,6 +63,9 @@ export class Module {
 
   public getLiteral(key: string): string | undefined {
     return this.literals[key];
+  }
+  public getKeyword(key: string): string | undefined {
+    return this.keywords[key];
   }
   public getItem(key: string): {itemName: string, style: string } | undefined {
     return this.items[key];

@@ -1,5 +1,5 @@
 import { Atom } from "./atom";
-import { StyleItemFunc, StyleFunc } from "./style";
+import { StyleItemFunc, StyleFunc, isValidStringKeyword } from "./style";
 import { Module } from "./module";
 import { ErrorType } from "./error";
 import { BuilderContext } from "./builder-context";
@@ -255,6 +255,7 @@ export class Builder {
     let cssStyle: string | undefined
 
     let literalValue: string | undefined;
+    let keywordStyle: string | undefined;
     let item: {itemName: string, style: string } | undefined;
     let itemFunction: { itemName: string, style: StyleItemFunc } | undefined | undefined;
     let func: StyleFunc | undefined;
@@ -273,8 +274,11 @@ export class Builder {
         keyModule = "";
       }
 
-      if (item = mod.getItem(keyModule)) {
+      if ((keywordStyle = mod.getKeyword(keyModule)) && isValidStringKeyword(atom.value)) {
+        const template = keywordStyle;
+        cssStyle = template.replace(new RegExp("{keyword}", 'g'), atom.value);
 
+      } else if (item = mod.getItem(keyModule)) {
         const template = item.style;
         cssStyle = template.replace(new RegExp(`{${item.itemName}}`, 'g'), this.parseItemValue(item.itemName, atom));
 

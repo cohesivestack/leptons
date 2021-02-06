@@ -16,7 +16,8 @@ const styles: { [key: string]: Style } = {
     
       return value;
     }
-  ]
+  ],
+  "{keyword}": "{keyword}"
 }
 
 export const opacity = new Module(name, symbol, styles);

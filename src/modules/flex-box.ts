@@ -7,12 +7,11 @@ const symbol: string = "fb";
 const styles: { [key: string]: Style } = {
 
   // Type
-  "n":       "flex: none;",
-  "none":    "flex: none;",
-  "a":       "flex: 1 1 auto; min-width:0; min-height:0;",
-  "auto":    "flex: 1 1 auto; min-width:0; min-height:0;",
-  "i":       "flex: initial;",
-  "initial": "flex: initial;",
+  "n":         "flex: none;",
+  "none":      "flex: none;",
+  "a":         "flex: 1 1 auto; min-width:0; min-height:0;",
+  "auto":      "flex: 1 1 auto; min-width:0; min-height:0;",
+  "{keyword}": "flex: {keyword};",
 
   // Direction
   "d-r":             "flex-direction: row;",
@@ -23,11 +22,13 @@ const styles: { [key: string]: Style } = {
   "d-rowReverse":    "flex-direction: row-reverse;",
   "d-cr":            "flex-direction: column-reverse;",
   "d-columnReverse": "flex-direction: column-reverse;",
+  "d-{keyword}":     "flex-direction: {keyword};",
 
   // Wrap
-  "w": "flex-wrap: wrap;",
-  "nw": "flex-wrap: nowrap;",
-  "wr": "flex-wrap: wrap-reverse;",
+  "w-w":         "flex-wrap: wrap;",
+  "w-n":         "flex-wrap: nowrap;",
+  "w-r":         "flex-wrap: wrap-reverse;",
+  "w-{keyword}": "flex-wrap: {keyword};",
 
   // Justify Content
   "jc-s":            "justify-content: flex-start;",
@@ -43,28 +44,31 @@ const styles: { [key: string]: Style } = {
   "jc-spaceAround":  "justify-content: space-around;",
   "jc-se":           "justify-content: space-evenly;",
   "jc-spaceEvenly":  "justify-content: space-evenly;",
+  "jc-{keyword}":    "justify-content: {keyword};",
 
   // Align Items
-  "ai-s":        "align-items: flex-start;",
-  "ai-start":    "align-items: flex-start;",
-  "ai-e":        "align-items: flex-end;",
-  "ai-end":      "align-items: flex-end;",
-  "ai-c":        "align-items: center;",
-  "ai-center":   "align-items: center;",
-  "ai-stretch":  "align-items: stretch;",
-  "ai-b":        "align-items: baseline;",
-  "ai-baseline": "align-items: baseline;",
+  "ai-s":         "align-items: flex-start;",
+  "ai-start":     "align-items: flex-start;",
+  "ai-e":         "align-items: flex-end;",
+  "ai-end":       "align-items: flex-end;",
+  "ai-c":         "align-items: center;",
+  "ai-center":    "align-items: center;",
+  "ai-stretch":   "align-items: stretch;",
+  "ai-b":         "align-items: baseline;",
+  "ai-baseline":  "align-items: baseline;",
+  "ai-{keyword}": "align-items: {keyword};",
 
   // Align Self
-  "as-s":        "align-self: flex-start;",
-  "as-start":    "align-self: flex-start;",
-  "as-e":        "align-self: flex-end;",
-  "as-end":      "align-self: flex-end;",
-  "as-c":        "align-self: center;",
-  "as-center":   "align-self: center;",
-  "as-stretch":  "align-self: stretch;",
-  "as-b":        "align-self: baseline;",
-  "as-baseline": "align-self: baseline;",
+  "as-s":         "align-self: flex-start;",
+  "as-start":     "align-self: flex-start;",
+  "as-e":         "align-self: flex-end;",
+  "as-end":       "align-self: flex-end;",
+  "as-c":         "align-self: center;",
+  "as-center":    "align-self: center;",
+  "as-stretch":   "align-self: stretch;",
+  "as-b":         "align-self: baseline;",
+  "as-baseline":  "align-self: baseline;",
+  "as-{keyword}": "align-self: {keyword};",
 
   // Align Content
   "ac-s":            "align-content: flex-start;",
@@ -79,7 +83,8 @@ const styles: { [key: string]: Style } = {
   "ac-sa":           "align-content: space-around;",
   "ac-spaceAround":  "align-content: space-around;",
   "ac-se":           "align-content: space-evenly;",
-  "ac-spaceEvenly":  "align-content: space-evenly;"
+  "ac-spaceEvenly":  "align-content: space-evenly;",
+  "ac-{keyword}":    "align-content: {keyword};"
 
 }
 
