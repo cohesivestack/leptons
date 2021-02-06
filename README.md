@@ -19,21 +19,37 @@ Current version is `0.1.0.alpha.11`. The first goal is to release version `0.1.0
 - [x] Add the type of value keyword, supporting `initial`, `revert`, `inherit` and `unset`
 - [ ] Shadows collection
 - [ ] Display errors, missing classes, duplicated classes
-- [ ] Add modules: `all`, `animation`, `backface`, `caret`, `caption`, `columns`, `grid`, `list`, `outline`, `overflow`, `resize`, `scroll`, `tab-size`, `transform`, `transition`,  `user-select`, `white-space`, `word`
+- [ ] Add modules:
+  - [ ] `all`
+  - [ ] `animation`
+  - [ ] `backface`
+  - [ ] `caret`
+  - [ ] `caption`
+  - [ ] `columns`
+  - [ ] `grid`
+  - [ ] `list`
+  - [ ] `outline`
+  - [ ] `resize`
+  - [ ] `scroll`
+  - [ ] `tab-size`
+  - [ ] `transform`
+  - [ ] `transition`,  `user-select`
+  - [ ] `white-space`
+  - [ ] `word`
+- [ ] Classes web search portal
 
 ### Version 0.2.0
-- [ ] Classes web search portal
 - [ ] Aliases
+- [ ] Classes
+- [ ] Collections
+- [ ] Components
 - [ ] Website
 - [ ] Documentation
 
 ### Version 0.3.0
 - [ ] Allow multiple values in functions
-- [ ] Classes
-- [ ] Collections
 
 ### Version 0.4.0
-- [ ] Components
 - [ ] Classes search command line
 
 ### Version 1.0
