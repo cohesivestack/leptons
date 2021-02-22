@@ -34,7 +34,7 @@ Current version is `0.1.0.alpha.11`. The first goal is to release version `0.1.0
   - [ ] `tab-size`
   - [ ] `transform`
   - [ ] `transition`,  `user-select`
-  - [ ] `white-space`
+  - [x] `white-space`
   - [ ] `word`
 - [ ] Classes web search portal
 

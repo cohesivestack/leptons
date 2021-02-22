@@ -17,5 +17,6 @@ export { position } from "./position";
 export { text } from "./text";
 export { verticalAlign } from "./vertical-align";
 export { visibility } from "./visibility";
+export { whiteSpace } from "./white-space";
 export { width } from "./width";
 export { zIndex } from "./z-index";
