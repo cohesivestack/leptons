@@ -30,9 +30,14 @@ const styles: { [key: string]: Style } = {
   "s-ridge":     "outline-style: ridge;",
   "s-inset":     "outline-style: inset;",
   "s-outset":    "outline-style: outset;",
-  "s-{keyword}": "outline-style: {keyword};"
+  "s-{keyword}": "outline-style: {keyword};",
 
-  // TODO: Complete module properties
+  //Color
+  "c-i":         "outline-color: invert;",
+  "c-invert":    "outline-color: invert;",
+  "c-{color}":   "outline-color: {color};",
+  "c-{keyword}": "outline-color: {keyword};",
+
 }
 
 export const outline = new Module(name, symbol, styles);
