@@ -1,6 +1,6 @@
 {
   "name": "leptons",
-  "version": "0.1.0-alpha.15",
+  "version": "0.1.0-alpha.16",
   "description": "Leptons is an atomic CSS generator",
   "homepage": "github.com/cohesivestack/leptons",
   "author": "Carlos Forero",
@@ -12,7 +12,7 @@
     "build": "tsc"
   },
   "bin": {
-    "leptons": "./bin/leptons"
+    "leptons": "bin/leptons"
   },
   "files": [
     "bin",
