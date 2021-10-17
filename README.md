@@ -28,6 +28,7 @@ Current version is `0.1.0.alpha.11`. The first goal is to release version `0.1.0
   - [ ] `columns`
   - [ ] `grid`
   - [ ] `list`
+  - [ ] `line-height`
   - [ ] `outline`
   - [ ] `resize`
   - [ ] `scroll`
