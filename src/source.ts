@@ -4,8 +4,8 @@ export enum SourceType {
 }
 
 export const sourceTypes: {[index: string]: RegExp} = {
-  html: /(?:class|className)\=(?:\"(.+?)\"|'.+?')/g,
-  react: /(?:className)\=(?:\"(.+?)\"|'.+?')/g
+  html: /(?:class|className)\=(?:\"(.+?)\"|'(.+?)')/g,
+  react: /(?:className)\=(?:\"(.+?)\"|'(.+?)'|\{`(.+?)`\})/g
 }
 
 // Source with 'content' property is used for Testing. So it's not possible to set

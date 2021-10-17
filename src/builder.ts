@@ -154,10 +154,20 @@ export class Builder {
     let attributeMatches: RegExpExecArray | null;
     const classNames: string[] = [];
 
-    const regexClass = /^[A-Za-z0-9-_\.:!]+$/;
+    const regexClass = /[A-Za-z0-9!][A-Za-z0-9-_\.:]+/;
 
     while (attributeMatches = regexAttribute.exec(content)) {
-      const entries = attributeMatches[1].split(" ");
+      let entries: null | string[] = null;
+      for (let i = 1; i < attributeMatches.length; i++) {
+        if (attributeMatches[i]) {
+          entries = attributeMatches[i].split(" ");
+          break;
+        }
+      }
+
+      if (entries === null) {
+        throw new Error(`Fatal error extracting classes using regexp "${regexAttribute}" with: \n\t${content}`);
+      }
 
       for (let i = 0; i < entries.length; i++) {
         let classMatch = regexClass.exec(entries[i]);
@@ -197,7 +207,7 @@ export class Builder {
     try {
       atom = new Atom(className);
     } catch (e) {
-      this.addError(ErrorType.Marformed, className, e);
+      this.addError(ErrorType.Marformed, className, e as string);
       return;
     }
 
@@ -229,7 +239,7 @@ export class Builder {
         });
       }
     } catch (e) {
-      this.addError(ErrorType.Marformed, className, e);
+      this.addError(ErrorType.Marformed, className, e as string);
       return;
     }
   }

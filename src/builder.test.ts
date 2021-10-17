@@ -155,6 +155,19 @@ describe("Builder", () => {
     expect(classes.join("; ")).toBe("w-100p; w-100p-L; f-s-1; w-90p; w-100p-M; f-s-2");
   });
 
+  test("extractClassesFromContent should extract class names with React regexp", () => {
+    const content = `
+      <div className={\`\${x === 1 ? "f-s-1" : "f-s-1.5 f-s-2"} b-r-1 m-t-2\`}></div>
+      <div className={\`m-t-3 m-t-4 \${x === 1 ? "f-s-1" : "f-s-3 f-s-2"} b-r-1 m-t-5\`} ></div>
+      <div className="d-f m-t-6 m-t-3"></div>
+    `;
+
+    const classes = Builder.extractClassesFromContent(content, sourceTypes.react);
+
+    expect(classes.length).toBe(15);
+    expect(classes.join("; ")).toBe("f-s-1; f-s-1.5; f-s-2; b-r-1; m-t-2; m-t-3; m-t-4; f-s-1; f-s-3; f-s-2; b-r-1; m-t-5; d-f; m-t-6; m-t-3");
+  });
+
 
   test("build should work", () => {
 
