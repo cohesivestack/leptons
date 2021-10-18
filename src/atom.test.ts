@@ -7,6 +7,8 @@ describe("Atom", () => {
     [
       ["a-b", undefined, "a", undefined, "b", undefined, undefined, undefined],
       ["a-b-c", undefined, "a", "b", "c", undefined, undefined, undefined],
+      ["a-bb-c:h", undefined, "a", "bb", "c", ["h"], undefined, undefined],
+      ["a-b-c:lot", undefined, "a", "b", "c", ["lot"], undefined, undefined],
       ["!a-b", true, "a", undefined, "b", undefined, undefined, undefined],
       ["!a-b-c", true, "a", "b", "c", undefined, undefined, undefined],
       ["!a-b-c-LM", true, "a", "b", "c", undefined, undefined, ["L", "M"]],
