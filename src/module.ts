@@ -16,13 +16,18 @@ export class Module {
   private functions: { [key: string]: StyleFunc } = {};
   private itemFunctions: { [key: string]: { itemName: string, style: StyleItemFunc } } = {};
 
+  private coveredStyles: string[] = [];
+
   constructor (
     public readonly name: string,
     public readonly symbol: string,
     styles: { [key: string]: Style }) {
 
     Object.entries(styles).forEach(([key, style]) => {
+
       if (isStyleString(style)) {
+        this.coveredStyles.push(style);
+
         if (isValidStyleLiteral(key)) {
           this.literals[key] = style;
         } else {
@@ -103,5 +108,9 @@ export class Module {
     }));
 
     return searchData;
+  }
+
+  public getCoveredStyles(): string[] {
+    return [...this.coveredStyles];
   }
 }

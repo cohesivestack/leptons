@@ -3,6 +3,7 @@ import { init, parseFromFile, isConfigErrors } from './config';
 import { Builder } from './builder';
 import { Watcher } from './watcher';
 import { SearchData } from './search-data';
+import { printOutCoverInfo } from './cover-info';
 
 program.version('0.0.1');
 
@@ -58,12 +59,19 @@ program
   });
 
 program
-  .command('develop')
-  .description('This command should be used for development purposes')
-  .option("--export-search-data", "Export search data information to use with Fuse.js")
-  .action((options) => {
+  .command('dev-search-data')
+  .description('Export search data information to use with Fuse.js')
+  .action(() => {
 
-    console.log(SearchData.exportToJsonString());
-  });
+  console.log(SearchData.exportToJsonString());
+});
+
+program
+  .command('dev-cover-info')
+  .description('Display information about the CSS styles covered by Leptons')
+  .action(() => {
+
+  printOutCoverInfo();
+});
 
 program.parse(process.argv)
