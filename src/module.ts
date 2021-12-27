@@ -1,3 +1,4 @@
+import { SearchData } from "./search-data";
 import {
   Style,
   StyleFunc,
@@ -77,5 +78,30 @@ export class Module {
     return this.itemFunctions[key];
   }
 
+  public getSearchData(): SearchData[] {
 
+    const searchData: SearchData[] = [];
+
+    searchData.push(...Object.keys(this.literals).map(className =>
+      new SearchData(this.name, this.symbol + "-" + className, this.literals[className])
+    ));
+
+    searchData.push(...Object.keys(this.keywords).flatMap(className =>
+      ["initial", "inherit", "unset", "revert"].map(keyword => {
+        return new SearchData(this.name, `${this.symbol}-${className ? className + "-" : ""}${keyword}`, this.keywords[className].replace(/\{keyword\}/g, keyword))
+      })
+    ));
+
+    searchData.push(...Object.keys(this.items).map((className) => {
+      return new SearchData(this.name, `${this.symbol}-${className ? className + "-" : ""}{${this.items[className].itemName}}`, this.items[className].style)
+    }));
+    searchData.push(...Object.keys(this.itemFunctions).map((className) => {
+      return new SearchData(this.name, `${this.symbol}-${className ? className + "-" : ""}{${this.itemFunctions[className].itemName}}`, "function")
+    }));
+    searchData.push(...Object.keys(this.functions).map((className) => {
+      return new SearchData(this.name, `${this.symbol}-${className}`, "function")
+    }));
+
+    return searchData;
+  }
 }

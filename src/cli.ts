@@ -2,6 +2,7 @@ import program from 'commander';
 import { init, parseFromFile, isConfigErrors } from './config';
 import { Builder } from './builder';
 import { Watcher } from './watcher';
+import { SearchData } from './search-data';
 
 program.version('0.0.1');
 
@@ -54,6 +55,15 @@ program
     watcher.watch();
 
     console.log("Leptons is watching");
+  });
+
+program
+  .command('develop')
+  .description('This command should be used for development purposes')
+  .option("--export-search-data", "Export search data information to use with Fuse.js")
+  .action((options) => {
+
+    console.log(SearchData.exportToJsonString());
   });
 
 program.parse(process.argv)
