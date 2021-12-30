@@ -47,7 +47,7 @@ export function schemaErrors(plainConfig: any): ConfigError[] | null {
 
     validate.errors?.forEach(err => {
       errors.push({
-        path: err.dataPath,
+        path: err.schemaPath,
         message: err.message
       })
     });
@@ -59,7 +59,7 @@ export function schemaErrors(plainConfig: any): ConfigError[] | null {
 }
 
 export function parseFromYaml(yamlConfig: string): (Config | ConfigError[]) {
-  return parse(yaml.safeLoad(yamlConfig, {schema: yaml.DEFAULT_FULL_SCHEMA}));
+  return parse(yaml.load(yamlConfig, {schema: yaml.DEFAULT_SCHEMA}));
 }
 
 export function parseFromJson(jsonConfig: string): (Config | ConfigError[]) {

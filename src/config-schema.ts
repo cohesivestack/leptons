@@ -1,4 +1,5 @@
 export const configSchema = {
+  type: "object",
   properties: {
     source: {
       type: "object",
