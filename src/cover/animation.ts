@@ -11,11 +11,17 @@ export const animation: CoverInfo[] = [
   { style: "animation-direction",
     values: "normal|reverse|alternate|alternate-reverse|initial|inherit"
   },
+  { style: "animation-duration",
+    values: "{time}|initial|inherit"
+  },
   { style: "animation-fill-mode",
     values: "none|forwards|backwards|both|initial|inherit"
   },
   { style: "animation-iteration-count",
     values: "{number}|infinite|initial|inherit"
+  },
+  { style: "animation-name",
+    values: "{keyframename}|none|initial|inherit"
   },
   { style: "animation-play-state",
     values: "paused|running|initial|inherit"
