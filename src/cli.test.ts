@@ -12,7 +12,7 @@ describe("Cli", () => {
   test("should return help", (done) => {
 
     childProcess.exec(`ts-node ${cli} -h`, function(_error: any, stdout: any, stderr: any) {
-      expect((new RegExp(/Usage: cli\.ts \[options\] \[command\]/)).test(stdout)).toBe(true);
+      expect((new RegExp(/Usage: cli \[options\] \[command\]/)).test(stdout)).toBe(true);
       done();
     });
 

@@ -1,10 +1,11 @@
-import program from 'commander';
+import { Command } from 'commander';
 import { init, parseFromFile, isConfigErrors } from './config';
 import { Builder } from './builder';
 import { Watcher } from './watcher';
 import { SearchData } from './search-data';
 import { printOutCoverInfo } from './cover-info';
 
+const program = new Command();
 program.version('0.0.1');
 
 program
