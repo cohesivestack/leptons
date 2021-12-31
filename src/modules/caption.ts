@@ -14,4 +14,4 @@ const styles: { [key: string]: Style } = {
   "{keyword}":  "caption-side: {keyword};",
 }
 
-export const outline = new Module(name, symbol, styles);
+export const caption = new Module(name, symbol, styles);

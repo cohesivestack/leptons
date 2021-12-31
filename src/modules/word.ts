@@ -33,4 +33,4 @@ const styles: { [key: string]: Style } = {
 
 }
 
-export const outline = new Module(name, symbol, styles);
+export const word = new Module(name, symbol, styles);

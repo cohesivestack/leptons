@@ -24,4 +24,4 @@ const styles: { [key: string]: Style } = {
   "c-{keyword}":  "column-count: {keyword};",
 }
 
-export const outline = new Module(name, symbol, styles);
+export const columns = new Module(name, symbol, styles);

@@ -16,4 +16,4 @@ const styles: { [key: string]: Style } = {
 
 }
 
-export const outline = new Module(name, symbol, styles);
+export const transform = new Module(name, symbol, styles);

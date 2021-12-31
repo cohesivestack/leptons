@@ -14,4 +14,4 @@ const styles: { [key: string]: Style } = {
   "{keyword}":  "backface-visibility: {keyword};",
 }
 
-export const outline = new Module(name, symbol, styles);
+export const backface = new Module(name, symbol, styles);

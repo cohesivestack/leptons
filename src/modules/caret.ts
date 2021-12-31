@@ -13,4 +13,4 @@ const styles: { [key: string]: Style } = {
   "{keyword}":  "caret-color: {keyword};",
 }
 
-export const outline = new Module(name, symbol, styles);
+export const caret = new Module(name, symbol, styles);

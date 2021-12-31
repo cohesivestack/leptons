@@ -15,4 +15,4 @@ const styles: { [key: string]: Style } = {
 
 }
 
-export const outline = new Module(name, symbol, styles);
+export const scroll = new Module(name, symbol, styles);

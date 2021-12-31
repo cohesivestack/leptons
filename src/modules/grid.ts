@@ -76,4 +76,4 @@ const styles: { [key: string]: Style } = {
 
 }
 
-export const outline = new Module(name, symbol, styles);
+export const grid = new Module(name, symbol, styles);

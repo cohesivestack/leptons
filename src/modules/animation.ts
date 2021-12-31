@@ -73,4 +73,4 @@ const styles: { [key: string]: Style } = {
   "ps-{keyword}":  "animation-fill-node: {keyword};",
 }
 
-export const outline = new Module(name, symbol, styles);
+export const animation = new Module(name, symbol, styles);

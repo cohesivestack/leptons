@@ -60,4 +60,4 @@ const styles: { [key: string]: Style } = {
   "i-{keyword}":  "list-style-image: {keyword};",
 }
 
-export const outline = new Module(name, symbol, styles);
+export const list = new Module(name, symbol, styles);
