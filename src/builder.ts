@@ -12,6 +12,7 @@ import fs from "fs";
 import * as defaultModules from "./modules";
 import { pseudoClasses } from "./pseudo-class";
 import { pseudoElements } from "./pseudo-element";
+import { isNumberValid } from "./number";
 
 export class Builder {
 
@@ -327,6 +328,8 @@ export class Builder {
         return this.convertLength2ToCss(value);
       case "length4":
         return this.convertLength4ToCss(value);
+      case "number":
+        return this.convertNumberToCss(value);
       case "color":
         return this.getColor(value);
       case "font":
@@ -352,6 +355,13 @@ export class Builder {
     }
 
     return value;
+  }
+
+  convertNumberToCss(number: string): string {
+    if (!isNumberValid(number)) {
+      throw new Error(`The value ${number} is not valid`);
+    }
+    return number;
   }
 
   convertLength2ToCss(length: string): string {
