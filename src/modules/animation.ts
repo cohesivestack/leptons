@@ -28,8 +28,8 @@ const styles: { [key: string]: Style } = {
   "tf-end":              "animation-timing-function: step-end;",
 
   // TODO function 
-  "tf-steps-{lenght}_start":   "animation-timing-function: steps(int,start|end);",
-  "tf-steps-{lenght}_end":     "animation-timing-function: steps(int,start|end);",
+  "tf-steps-{length}_start":   "animation-timing-function: steps(int,start|end);",
+  "tf-steps-{length}_end":     "animation-timing-function: steps(int,start|end);",
   "tf-cb-":                    "animation-timing-function: cubic-bezier(n,n,n,n);",
 
   "tf-{keyword}": "animation-timing-function: {keyword};",
@@ -39,7 +39,7 @@ const styles: { [key: string]: Style } = {
   "delay-{keyword}": "animation-delay: {keyword};",
 
   //Iteration-count
-  "ic-{lenght}":    "animation-iteration-count: {lenght};",
+  "ic-{length}":    "animation-iteration-count: {length};",
   "ic-i":           "animation-iteration-count: infinite;",
   "ic-infinite":    "animation-iteration-count: infinite;",
   "ic-{keyword}":   "animation-iteration-count: {keyword};",

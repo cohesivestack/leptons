@@ -11,7 +11,7 @@ const styles: { [key: string]: Style } = {
   "none":    "transform: none;",
 
   //TO DO
-  "{lenght}":   "transform: {lenght};",
+  "{length}":   "transform: {length};",
   "{keyword}":  "transform: {keyword};",
 
 }

@@ -14,11 +14,11 @@ const styles: { [key: string]: Style } = {
   //Column Width
   "w-a":          "column-width: auto;",
   "w-auto":       "column-width: auto;",
-  "w-{lenght}":   "column-width: {lenght};",
+  "w-{length}":   "column-width: {length};",
   "w-{keyword}":  "column-width: {keyword};",
 
   //Column Count
-  "c-{lenght}":   "column-count: {lenght};",
+  "c-{length}":   "column-count: {length};",
   "c-a":          "column-count: auto;",
   "c-auto":       "column-count: auto;",
   "c-{keyword}":  "column-count: {keyword};",

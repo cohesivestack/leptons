@@ -8,9 +8,9 @@ const styles: { [key: string]: Style } = {
 
   //Tab Size
   "{number}":   "tab-size: {number};",
-  "{lenght}":   "tab-size: {lenght};",
+  "{length}":   "tab-size: {length};",
   "{keyword}":  "tab-size: {keyword};",
 
 }
 
-export const outline = new Module(name, symbol, styles);
+export const tabSize = new Module(name, symbol, styles);
