@@ -1,4 +1,4 @@
-import { Command } from 'commander';
+import { Command, createCommand } from 'commander';
 import { init, parseFromFile, isConfigErrors } from './config';
 import { Builder } from './builder';
 import { Watcher } from './watcher';
@@ -60,19 +60,21 @@ program
   });
 
 program
-  .command('dev-search-data')
-  .description('Export search data information to use with Fuse.js')
-  .action(() => {
+  .command('dev')
+  .description('Command to be used by Leptons developers')
+  .commands = [
+    createCommand('search-data')
+      .description('Export search data information to use with Fuse.js')
+      .action(() => {
 
-  console.log(exportToJsonString());
-});
+      console.log(exportToJsonString());
+    }),
+    createCommand('cover-info')
+      .description('Display information about the CSS styles covered by Leptons')
+      .action(() => {
 
-program
-  .command('dev-cover-info')
-  .description('Display information about the CSS styles covered by Leptons')
-  .action(() => {
-
-  printOutCoverInfo();
-});
+      printOutCoverInfo();
+    })
+  ];
 
 program.parse(process.argv)
