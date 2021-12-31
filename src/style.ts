@@ -1,4 +1,3 @@
-import { inherits } from "util";
 import { BuilderContext } from "./builder-context";
 
 const regexLiteral = /^[a-z][a-zA-Z]*(-[a-z][a-zA-Z]*){0,2}$/;
