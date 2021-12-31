@@ -17,21 +17,15 @@ const styles: { [key: string]: Style } = {
   "d-{keyword}": "animation-duration: {keyword};",
 
   //Timing-function
-  "tf-l":                "animation-timing-function: linear;",
-  "tf-linear":           "animation-timing-function: linear;",
-  "tf-e":                "animation-timing-function: ease;",
-  "tf-ease":             "animation-timing-function: ease;",
-  "tf-e-in":             "animation-timing-function: ease-in;",
-  "tf-e-out":            "animation-timing-function: ease-out;",
-  "tf-e-in-out":         "animation-timing-function: ease-in-out;",
-  "tf-start":            "animation-timing-function: step-start;",
-  "tf-end":              "animation-timing-function: step-end;",
-
-  // TODO function 
-  "tf-steps-{length}_start":   "animation-timing-function: steps(int,start|end);",
-  "tf-steps-{length}_end":     "animation-timing-function: steps(int,start|end);",
-  "tf-cb-":                    "animation-timing-function: cubic-bezier(n,n,n,n);",
-
+  "tf-l":         "animation-timing-function: linear;",
+  "tf-linear":    "animation-timing-function: linear;",
+  "tf-e":         "animation-timing-function: ease;",
+  "tf-ease":      "animation-timing-function: ease;",
+  "tf-e-in":      "animation-timing-function: ease-in;",
+  "tf-e-out":     "animation-timing-function: ease-out;",
+  "tf-e-inOut":   "animation-timing-function: ease-in-out;",
+  "tf-start":     "animation-timing-function: step-start;",
+  "tf-end":       "animation-timing-function: step-end;",
   "tf-{keyword}": "animation-timing-function: {keyword};",
 
   //Delay
