@@ -2,8 +2,8 @@ import { Command } from 'commander';
 import { init, parseFromFile, isConfigErrors } from './config';
 import { Builder } from './builder';
 import { Watcher } from './watcher';
-import { SearchData } from './search-data';
 import { printOutCoverInfo } from './cover-info';
+import { exportToJsonString } from './search-data-exporter';
 
 const program = new Command();
 program.version('0.0.1');
@@ -64,7 +64,7 @@ program
   .description('Export search data information to use with Fuse.js')
   .action(() => {
 
-  console.log(SearchData.exportToJsonString());
+  console.log(exportToJsonString());
 });
 
 program
