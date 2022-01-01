@@ -2,7 +2,7 @@ import { Command, createCommand, createOption } from 'commander';
 import { init, parseFromFile, isConfigErrors } from './config';
 import { Builder } from './builder';
 import { Watcher } from './watcher';
-import { printOutCoverInfo } from './cover-info';
+import { printOutCoverInfo } from './coverage-info';
 import { exportToJsonString } from './search-data-exporter';
 
 const program = new Command();

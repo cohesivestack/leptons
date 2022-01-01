@@ -2,7 +2,7 @@ import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Word";
-const symbol: string = "w";
+const symbol: string = "word";
 
 const styles: { [key: string]: Style } = {
 

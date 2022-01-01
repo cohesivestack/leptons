@@ -1,7 +1,7 @@
 import * as defaultModules from "./modules";
-import * as coversInfo from "./cover";
+import * as coversInfo from "./coverage";
 
-export type CoverInfo = {
+export type CoverageInfo = {
   style: string
   values: string
   skip?: boolean
@@ -11,7 +11,7 @@ export type CoverInfo = {
   missingValues?: string[]
 }
 
-const buildLine = (cover: CoverInfo, hideMissingValues?: boolean): string => {
+const buildLine = (cover: CoverageInfo, hideMissingValues?: boolean): string => {
   let output = `    ${cover.style}`;
   if (cover.skipValues) {
     output = `${output} ## SKIP: ${cover.skipValues}`
@@ -30,10 +30,10 @@ export const printOutCoverInfo = (filter: string) => {
   const styles = Object.values(defaultModules).flatMap(mod =>mod.getCoveredStyles());
   const covers = Object.values(coversInfo).flat();
 
-  const covered: CoverInfo[] = [];
-  const partially: CoverInfo[] = [];
-  const notCovered: CoverInfo[] = [];
-  const skip: CoverInfo[] = [];
+  const covered: CoverageInfo[] = [];
+  const partially: CoverageInfo[] = [];
+  const notCovered: CoverageInfo[] = [];
+  const skip: CoverageInfo[] = [];
 
   covers.forEach(cover => {
     if (cover.skip) {
