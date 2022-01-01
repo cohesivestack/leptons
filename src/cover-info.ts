@@ -14,13 +14,13 @@ export type CoverInfo = {
 const buildLine = (cover: CoverInfo, hideMissingValues?: boolean): string => {
   let output = `    ${cover.style}`;
   if (cover.skipValues) {
-    output = `${output}; SKIP: ${cover.skipValues}`
+    output = `${output} ## SKIP: ${cover.skipValues}`
   }
   if (cover.missingValues && cover.missingValues.length > 0 && !hideMissingValues) {
-    output = `${output}; MISSING: ${cover.missingValues?.join("|")}`
+    output = `${output} ## MISSING: ${cover.missingValues?.join("|")}`
   }
   if (cover.note) {
-    output = `${output}; NOTE: ${cover.note}`
+    output = `${output} ## ${cover.note}`
   }
   return `${output}\n`;
 }
