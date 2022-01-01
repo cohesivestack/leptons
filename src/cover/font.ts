@@ -3,14 +3,16 @@ import { CoverInfo } from "../cover-info";
 export const font: CoverInfo[] = [
   { style: "font",
     values: "font-style font-variant font-weight font-size/line-height font-family|caption|icon|menu|message-box|small-caption|status-bar|initial|inherit",
-    skip: true
+    skip: true,
+    note: "Covered by specific styles."
   },
   { style: "font-family",
     values: "{family-name}|{generic-family}|initial|inherit"
   },
   { style: "font-feature-settings",
     values: "normal|{feature-value}",
-    skip: true
+    skip: true,
+    note: "No plans to cover this for now"
   },
   { style: "font-kerning",
     values: "auto|normal|none"

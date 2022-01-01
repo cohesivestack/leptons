@@ -3,7 +3,8 @@ import { CoverInfo } from "../cover-info";
 export const animation: CoverInfo[] = [
   { style: "animation",
     values: "name duration timing-function delay iteration-count direction fill-mode play-state",
-    skip: true
+    skip: true,
+    note: "Covered by specific styles."
   },
   { style: "animation-delay",
     values: "{time}|initial|inherit"

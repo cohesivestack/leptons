@@ -8,7 +8,7 @@ const styles: { [key: string]: Style } = {
 
   //Columns
   "a":          "columns: auto;",
-  "auto":        "columns: auto;",
+  "auto":       "columns: auto;",
   "{keyword}":  "columns: {keyword};",
 
   //Column Width

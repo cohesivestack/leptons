@@ -3,7 +3,8 @@ import { CoverInfo } from "../cover-info";
 export const background: CoverInfo[] = [
   { style: "background",
     values: "bg-color bg-image position/bg-size bg-repeat bg-origin bg-clip bg-attachment initial|inherit",
-    skip: true
+    skip: true,
+    note: "Covered by specific styles."
   },
   { style: "background-attachment",
     values: "scroll|fixed|local|initial|inherit"
@@ -19,7 +20,8 @@ export const background: CoverInfo[] = [
   },
   { style: "background-image",
     values: "{url}|none|initial|inherit",
-    skip: true
+    skip: true,
+    note: "It will be covered when URL is supported."
   },
   { style: "background-origin",
     values: "padding-box|border-box|content-box|initial|inherit"
