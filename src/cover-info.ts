@@ -7,10 +7,25 @@ export type CoverInfo = {
   skip?: boolean
   skipValues?: string
   covered?: "no" | "partially" | "yes"
+  note?: string
   missingValues?: string[]
 }
 
-export const printOutCoverInfo = () => {
+const buildLine = (cover: CoverInfo, hideMissingValues?: boolean): string => {
+  let output = `    ${cover.style}`;
+  if (cover.skipValues) {
+    output = `${output}; SKIP: ${cover.skipValues}`
+  }
+  if (cover.missingValues && cover.missingValues.length > 0 && !hideMissingValues) {
+    output = `${output}; MISSING: ${cover.missingValues?.join("|")}`
+  }
+  if (cover.note) {
+    output = `${output}; NOTE: ${cover.note}`
+  }
+  return `${output}\n`;
+}
+
+export const printOutCoverInfo = (filter: string) => {
 
   const styles = Object.values(defaultModules).flatMap(mod =>mod.getCoveredStyles());
   const covers = Object.values(coversInfo).flat();
@@ -69,15 +84,26 @@ export const printOutCoverInfo = () => {
     }
   })
 
-  console.log();
-  console.log(`  Total Styles Covered: ${covered.length}`);
+  let output = "\n";
+  if (filter === "all" || filter === "covered") {
+    output += `  Covered: ${covered.length}\n`;
+    covered.forEach(c => output += buildLine(c));
+  }
 
-  console.log(`  Not Covered: ${notCovered.length}`);
-  notCovered.forEach(c => console.log(`    ${c.style}`));
+  if (filter === "all" || filter === "not-covered") {
+    output += `  Not Covered: ${notCovered.length}\n`;
+    notCovered.forEach(c => output += buildLine(c, true));
+  }
 
-  console.log(`  Partially Covered: ${partially.length}`);
-  partially.forEach(c => console.log(`    ${c.style}: ${c.missingValues?.join("|")}`));
+  if (filter === "all" || filter === "partially-covered") {
+    output += `  Partially Covered: ${partially.length}\n`;
+    partially.forEach(c => output += buildLine(c));
+  }
 
-  console.log(`  Skip: ${skip.length}`);
-  skip.forEach(c => console.log(`    ${c.style}`));
+  if (filter === "all" || filter === "skipped") {
+    output += `  Skipped: ${skip.length}\n`;
+    skip.forEach(c => output += buildLine(c));
+  }
+
+  console.log(output)
 }

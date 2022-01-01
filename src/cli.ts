@@ -1,4 +1,4 @@
-import { Command, createCommand } from 'commander';
+import { Command, createCommand, createOption } from 'commander';
 import { init, parseFromFile, isConfigErrors } from './config';
 import { Builder } from './builder';
 import { Watcher } from './watcher';
@@ -63,18 +63,20 @@ program
   .command('dev')
   .description('Command to be used by Leptons developers')
   .commands = [
+
     createCommand('search-data')
       .description('Export search data information to use with Fuse.js')
-      .action(() => {
+      .action(() => console.log(exportToJsonString())),
 
-      console.log(exportToJsonString());
-    }),
-    createCommand('cover-info')
+    createCommand('coverage')
+      .addOption(
+        createOption("-f --filter <type>", "Type between covered | not-covered | partially-covered | skipped")
+          .choices(["all", "covered", "not-covered", "partially-covered", "skipped"])
+          .default("all")
+      )
       .description('Display information about the CSS styles covered by Leptons')
-      .action(() => {
+      .action((options) => printOutCoverInfo(options.filter))
 
-      printOutCoverInfo();
-    })
   ];
 
 program.parse(process.argv)
