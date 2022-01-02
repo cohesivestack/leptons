@@ -6,6 +6,8 @@ const symbol: string = "w";
 
 const styles: { [key: string]: Style } = {
 
+  "a":         "width: auto;",
+  "auto":      "width: auto;",
   "{length}":  "width: {length};",
   "{keyword}": "width: {keyword};"
 

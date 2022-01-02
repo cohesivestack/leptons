@@ -12,6 +12,21 @@ const styles: { [key: string]: Style } = {
   "f-{keyword}": "font-family: {keyword};",
 
   // Size
+  "s-s":         "font-size: small;",
+  "s-small":     "font-size: small;",
+  "s-smaller":   "font-size: smaller;",
+  "s-xs":        "font-size: x-small;",
+  "s-xSmall":    "font-size: x-small;",
+  "s-xxs":       "font-size: xx-small;",
+  "s-xxSmall":   "font-size: xx-small;",
+  "s-m":         "font-size: medium;",
+  "s-medium":    "font-size: medium;",
+  "s-l":         "font-size: large;",
+  "s-large":     "font-size: large;",
+  "s-larger":    "font-size: larger;",
+  "s-xl":        "font-size: x-large;",
+  "s-xLarge":    "font-size: x-large;",
+  "s-xxLarge":   "font-size: xx-large;",
   "s-{length}":  "font-size: {length};",
   "s-{keyword}": "font-size: {keyword};",
 
@@ -29,6 +44,8 @@ const styles: { [key: string]: Style } = {
   "stretch-ultraCondensed": "font-stretch: ultra-condensed;",
   "stretch-ec":             "font-stretch: extra-condensed;",
   "stretch-extraCondensed": "font-stretch: extra-condensed;",
+  "stretch-sc":             "font-stretch: semi-condensed;",
+  "stretch-semiCondensed":  "font-stretch: semi-condensed;",
   "stretch-c":              "font-stretch: condensed;",
   "stretch-condensed":      "font-stretch: condensed;",
   "stretch-n":              "font-stretch: normal;",
@@ -51,10 +68,13 @@ const styles: { [key: string]: Style } = {
   "v-{keyword}": "font-variant: {keyword};",
 
   // Weight
-  "w-b":         "font-weight: 700;",
-  "w-bold":      "font-weight: 700;",
-  "w-n":         "font-weight: 400;",
-  "w-normal":    "font-weight: 400;",
+  "w-l":         "font-weight: lighter;",
+  "w-lighter":   "font-weight: lighter;",
+  "w-n":         "font-weight: normal;",
+  "w-normal":    "font-weight: normal;",
+  "w-b":         "font-weight: bold;",
+  "w-bold":      "font-weight: bold;",
+  "w-bolder":    "font-weight: bolder;",
   "w-{weight}":  ["font-weight: {weight};", (c: BuilderContext, v: string) => c.convertNumberPerHundrerToCss(v)],
   "w-{keyword}": "font-weight: {keyword};"
 }

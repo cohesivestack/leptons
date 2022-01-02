@@ -25,7 +25,7 @@ const styles: { [key: string]: Style } = {
   "p-centerCenter": "background-position: center center;",
   "p-cb":           "background-position: center bottom;",
   "p-centerBottom": "background-position: center bottom;",
-  "p-{length}":     "background-position: {length};",
+  "p-{length2}":    "background-position: {length2};",
   "p-{keyword}":    "background-position: {keyword};",
 
   // Size
@@ -79,8 +79,10 @@ const styles: { [key: string]: Style } = {
   "a-{keyword}": "background-attachment: {keyword};",
 
   // Background Color
-  "c-{color}":   "background-color: {color};",
-  "c-{keyword}": "background-color: {keyword};"
+  "c-t":           "background-color: transparent;",
+  "c-transparent": "background-color: transparent;",
+  "c-{color}":     "background-color: {color};",
+  "c-{keyword}":   "background-color: {keyword};"
 }
 
 export const background = new Module(name, symbol, styles);

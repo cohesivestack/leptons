@@ -13,6 +13,11 @@ const styles: { [key: string]: Style } = {
   "auto":      "flex: 1 1 auto; min-width:0; min-height:0;",
   "{keyword}": "flex: {keyword};",
 
+  "b-a":         "flex-basis: auto;",
+  "b-auto":      "flex-basis: auto;",
+  "b-{length}":  "flex-basis: {length};",
+  "b-{keyword}": "flex-basis: {keyword};",
+
   // Direction
   "d-r":             "flex-direction: row;",
   "d-row":           "flex-direction: row;",
@@ -31,6 +36,8 @@ const styles: { [key: string]: Style } = {
   "w-{keyword}": "flex-wrap: {keyword};",
 
   // Justify Content
+  "jc-n":            "justify-content: normal;",
+  "jc-normal":       "justify-content: normal;",
   "jc-s":            "justify-content: flex-start;",
   "jc-start":        "justify-content: flex-start;",
   "jc-e":            "justify-content: flex-end;",
@@ -47,6 +54,8 @@ const styles: { [key: string]: Style } = {
   "jc-{keyword}":    "justify-content: {keyword};",
 
   // Align Items
+  "ai-n":         "align-items: normal;",
+  "ai-normal":    "align-items: normal;",
   "ai-s":         "align-items: flex-start;",
   "ai-start":     "align-items: flex-start;",
   "ai-e":         "align-items: flex-end;",
@@ -59,6 +68,10 @@ const styles: { [key: string]: Style } = {
   "ai-{keyword}": "align-items: {keyword};",
 
   // Align Self
+  "as-a":         "align-self: auto;",
+  "as-auto":      "align-self: auto;",
+  "as-n":         "align-self: normal;",
+  "as-normal":    "align-self: normal;",
   "as-s":         "align-self: flex-start;",
   "as-start":     "align-self: flex-start;",
   "as-e":         "align-self: flex-end;",
@@ -71,6 +84,8 @@ const styles: { [key: string]: Style } = {
   "as-{keyword}": "align-self: {keyword};",
 
   // Align Content
+  "ac-n":            "align-content: normal;",
+  "ac-normal":       "align-content: normal;",
   "ac-s":            "align-content: flex-start;",
   "ac-start":        "align-content: flex-start;",
   "ac-e":            "align-content: flex-end;",

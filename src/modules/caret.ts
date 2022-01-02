@@ -9,7 +9,7 @@ const styles: { [key: string]: Style } = {
   //Color
   "a":          "caret-color: auto;",
   "auto":       "caret-color: auto;",
-  "{color}":    "caret-color: {color}:",
+  "{color}":    "caret-color: {color};",
   "{keyword}":  "caret-color: {keyword};",
 }
 

@@ -68,10 +68,10 @@ const styles: { [key: string]: Style } = {
   "af-column":       "grid-auto-flow: column;",
   "af-d":            "grid-auto-flow: dense;",
   "af-dense":        "grid-auto-flow: dense;",
-  "af-rd":           "grid-auto-flow: row-dense;",
-  "af-rowDense":     "grid-auto-flow: row-dense;",
-  "af-cd":           "grid-auto-flow: column-dense;",
-  "af-columnDense":  "grid-auto-flow: column-dense;",
+  "af-rd":           "grid-auto-flow: row dense;",
+  "af-rowDense":     "grid-auto-flow: row dense;",
+  "af-cd":           "grid-auto-flow: column dense;",
+  "af-columnDense":  "grid-auto-flow: column dense;",
   "af-{keyword}":    "grid-auto-flow: {keyword};",
 
 }

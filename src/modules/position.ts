@@ -13,17 +13,26 @@ const styles: { [key: string]: Style } = {
   "relative":  "position: relative;",
   "s":         "position: static;",
   "static":    "position: static;",
+  "sticky":    "position: sticky;",
   "{keyword}": "position: {keyword};",
 
+  "t-a":         "top: auto;",
+  "t-auto":      "top: auto;",
   "t-{length}":  "top: {length};",
   "t-{keyword}": "top: {keyword};",
 
+  "b-a":         "bottom: auto;",
+  "b-auto":      "bottom: auto;",
   "b-{length}":  "bottom: {length};",
   "b-{keyword}": "bottom: {keyword};",
 
+  "l-a":         "left: auto;",
+  "l-auto":      "left: auto;",
   "l-{length}":  "left: {length};",
   "l-{keyword}": "left: {keyword};",
 
+  "r-a":         "right: auto;",
+  "r-auto":      "right: auto;",
   "r-{length}":  "right: {length};",
   "r-{keyword}": "right: {keyword};"
 

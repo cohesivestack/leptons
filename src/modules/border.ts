@@ -7,24 +7,34 @@ const symbol: string = "b";
 const styles: { [key: string]: Style } = {
 
   // Color
-  "c-{color}":   "border-color: {color};",
-  "c-{keyword}": "border-color: {keyword};",
+  "c-t":           "border-color: transparent;",
+  "c-transparent": "border-color: transparent;",
+  "c-{color}":     "border-color: {color};",
+  "c-{keyword}":   "border-color: {keyword};",
 
-  "ct-{color}":   "border-top-color: {color};",
-  "ct-{keyword}": "border-top-color: {keyword};",
+  "ct-t":           "border-top-color: transparent;",
+  "ct-transparent": "border-top-color: transparent;",
+  "ct-{color}":     "border-top-color: {color};",
+  "ct-{keyword}":   "border-top-color: {keyword};",
 
-  "cb-{color}":   "border-bottom-color: {color};",
-  "cb-{keyword}": "border-bottom-color: {keyword};",
+  "cb-t":           "border-bottom-color: transparent;",
+  "cb-transparent": "border-bottom-color: transparent;",
+  "cb-{color}":     "border-bottom-color: {color};",
+  "cb-{keyword}":   "border-bottom-color: {keyword};",
 
-  "cl-{color}":   "border-left-color: {color};",
-  "cl-{keyword}": "border-left-color: {keyword};",
+  "cl-t":           "border-left-color: transparent;",
+  "cl-transparent": "border-left-color: transparent;",
+  "cl-{color}":     "border-left-color: {color};",
+  "cl-{keyword}":   "border-left-color: {keyword};",
 
-  "cr-{color}":   "border-right-color: {color};",
-  "cr-{keyword}": "border-right-color: {keyword};",
+  "cr-t":           "border-right-color: transparent;",
+  "cr-transparent": "border-right-color: transparent;",
+  "cr-{color}":     "border-right-color: {color};",
+  "cr-{keyword}":   "border-right-color: {keyword};",
 
   // Radius
-  "r-{length}":  "border-radius: {length};",
-  "r-{keyword}": "border-radius: {keyword};",
+  "r-{length}":    "border-radius: {length};",
+  "r-{keyword}":   "border-radius: {keyword};",
 
   "rtl-{length}":  "border-top-left-radius: {length};",
   "rtl-{keyword}": "border-top-left-radius: {keyword};",
@@ -144,18 +154,43 @@ const styles: { [key: string]: Style } = {
   "sr-{keyword}": "border-right-style: {keyword};",
 
   // Width
+  "w-m":         "border-width: medium;",
+  "w-medium":    "border-width: medium;",
+  "w-t":         "border-width: thin;",
+  "w-thin":      "border-width: thin;",
+  "w-thick":     "border-width: thick;",
   "w-{length}":  "border-width: {length};",
   "w-{keyword}": "border-width: {keyword};",
 
+  "wt-m":         "border-top-width: medium;",
+  "wt-medium":    "border-top-width: medium;",
+  "wt-t":         "border-top-width: thin;",
+  "wt-thin":      "border-top-width: thin;",
+  "wt-thick":     "border-top-width: thick;",
   "wt-{length}":  "border-top-width: {length};",
   "wt-{keyword}": "border-top-width: {keyword};",
 
+  "wb-m":         "border-bottom-width: medium;",
+  "wb-medium":    "border-bottom-width: medium;",
+  "wb-t":         "border-bottom-width: thin;",
+  "wb-thin":      "border-bottom-width: thin;",
+  "wb-thick":     "border-bottom-width: thick;",
   "wb-{length}":  "border-bottom-width: {length};",
   "wb-{keyword}": "border-bottom-width: {keyword};",
 
+  "wl-m":         "border-left-width: medium;",
+  "wl-medium":    "border-left-width: medium;",
+  "wl-t":         "border-left-width: thin;",
+  "wl-thin":      "border-left-width: thin;",
+  "wl-thick":     "border-left-width: thick;",
   "wl-{length}":  "border-left-width: {length};",
   "wl-{keyword}": "border-left-width: {keyword};",
 
+  "wr-m":         "border-right-width: medium;",
+  "wr-medium":    "border-right-width: medium;",
+  "wr-t":         "border-right-width: thin;",
+  "wr-thin":      "border-right-width: thin;",
+  "wr-thick":     "border-right-width: thick;",
   "wr-{length}":  "border-right-width: {length};",
   "wr-{keyword}": "border-right-width: {keyword};"
 

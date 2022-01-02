@@ -7,9 +7,14 @@ const symbol: string = "ws";
 const styles: { [key: string]: Style } = {
 
   "n":         "white-space: nowrap;",
+  "nowrap":    "white-space: nowrap;",
+  "normal":    "white-space: normal;",
   "p":         "white-space: pre;",
+  "pre":       "white-space: pre;",
   "pl":        "white-space: pre-line;",
+  "preLine":   "white-space: pre-line;",
   "pw":        "white-space: pre-wrap;",
+  "preWrap":   "white-space: pre-wrap;",
   "{keyword}": "white-space: {keyword};"
 
 }

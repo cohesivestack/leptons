@@ -6,11 +6,6 @@ const symbol: string = "cl";
 
 const styles: { [key: string]: Style } = {
 
-  //Columns
-  "a":          "columns: auto;",
-  "auto":       "columns: auto;",
-  "{keyword}":  "columns: {keyword};",
-
   //Column Width
   "w-a":          "column-width: auto;",
   "w-auto":       "column-width: auto;",
@@ -18,7 +13,7 @@ const styles: { [key: string]: Style } = {
   "w-{keyword}":  "column-width: {keyword};",
 
   //Column Count
-  "c-{length}":   "column-count: {length};",
+  "c-{number}":   "column-count: {number};",
   "c-a":          "column-count: auto;",
   "c-auto":       "column-count: auto;",
   "c-{keyword}":  "column-count: {keyword};",

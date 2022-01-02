@@ -9,8 +9,8 @@ const styles: { [key: string]: Style } = {
   //Visibility
   "v":          "backface-visibility: visible;",
   "visible":    "backface-visibility: visible;",
-  "h":          "backface-visibility: hidden:",
-  "hidden":     "backface-visibility: hidden:",
+  "h":          "backface-visibility: hidden;",
+  "hidden":     "backface-visibility: hidden;",
   "{keyword}":  "backface-visibility: {keyword};",
 }
 

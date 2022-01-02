@@ -33,14 +33,14 @@ const styles: { [key: string]: Style } = {
   "delay-{keyword}": "animation-delay: {keyword};",
 
   //Iteration-count
-  "ic-{length}":    "animation-iteration-count: {length};",
+  "ic-{number}":    "animation-iteration-count: {number};",
   "ic-i":           "animation-iteration-count: infinite;",
   "ic-infinite":    "animation-iteration-count: infinite;",
   "ic-{keyword}":   "animation-iteration-count: {keyword};",
 
   //Direction
-  "dir-n":                 "animation-direction: name;",
-  "dir-name":              "animation-direction: name;",
+  "dir-n":                 "animation-direction: normal;",
+  "dir-normal":            "animation-direction: normal;",
   "dir-r":                 "animation-direction: reverse;",
   "dir-reverse":           "animation-direction: reverse;",
   "dir-a":                 "animation-direction: alternate;",

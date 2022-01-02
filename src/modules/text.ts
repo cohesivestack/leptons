@@ -12,8 +12,8 @@ const styles: { [key: string]: Style } = {
   "a-center":    "text-align: center;",
   "a-r":         "text-align: right;",
   "a-right":     "text-align: right;",
-  "a-j":         "text-align: jusitify;",
-  "a-justify":   "text-align: jusitify;",
+  "a-j":         "text-align: justify;",
+  "a-justify":   "text-align: justify;",
   "a-{keyword}": "text-align: {keyword};",
 
   // Color
@@ -38,10 +38,12 @@ const styles: { [key: string]: Style } = {
   // Decoration Style
   "ds-s":         "text-decoration-style: solid;",
   "ds-solid":     "text-decoration-style: solid;",
-  "ds-d":         "text-decoration-style: dotted;",
-  "ds-dotted":    "text-decoration-style: dotted;",
+  "ds-d":         "text-decoration-style: dashed;",
   "ds-dashed":    "text-decoration-style: dashed;",
+  "ds-dotted":    "text-decoration-style: dotted;",
+  "ds-double":    "text-decoration-style: double;",
   "ds-w":         "text-decoration-style: wavy;",
+  "ds-wavy":      "text-decoration-style: wavy;",
   "ds-{keyword}": "text-decoration-style: {keyword};",
 
   // Indent
