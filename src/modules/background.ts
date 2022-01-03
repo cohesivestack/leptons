@@ -82,7 +82,29 @@ const styles: { [key: string]: Style } = {
   "c-t":           "background-color: transparent;",
   "c-transparent": "background-color: transparent;",
   "c-{color}":     "background-color: {color};",
-  "c-{keyword}":   "background-color: {keyword};"
+  "c-{keyword}":   "background-color: {keyword};",
+
+  // Blend Mode
+  "bm-n":           "background-blend-mode: normal;",
+  "bm-normal":      "background-blend-mode: normal;",
+  "bm-m":           "background-blend-mode: multiply;",
+  "bm-multiply":    "background-blend-mode: multiply;",
+  "bm-s":           "background-blend-mode: screen;",
+  "bm-screen":      "background-blend-mode: screen;",
+  "bm-o":           "background-blend-mode: overlay;",
+  "bm-overlay":     "background-blend-mode: overlay;",
+  "bm-d":           "background-blend-mode: darken;",
+  "bm-darken":      "background-blend-mode: darken;",
+  "bm-l":           "background-blend-mode: lighten;",
+  "bm-lighten":     "background-blend-mode: lighten;",
+  "bm-cd":          "background-blend-mode: color-dodge;",
+  "bm-colorDodge":  "background-blend-mode: color-dodge;",
+  "bm-saturation":  "background-blend-mode: saturation;",
+  "bm-c":           "background-blend-mode: color;",
+  "bm-color":       "background-blend-mode: color;",
+  "bm-luminosity":  "background-blend-mode: luminosity;",
+  "bm-{keyword}":    "background-blend-mode: {keyword};",
+
 }
 
 export const background = new Module(name, symbol, styles);

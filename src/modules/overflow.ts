@@ -33,7 +33,14 @@ const styles: { [key: string]: Style } = {
   "y-scroll":    "overflow-y: scroll;",
   "y-a":         "overflow-y: auto;",
   "y-auto":      "overflow-y: auto;",
-  "y-{keyword}": "overflow-y: {keyword};"
+  "y-{keyword}": "overflow-y: {keyword};",
+
+  "w-normal":    "overflow-wrap: normal;",
+  "w-bw":        "overflow-wrap: break-word;",
+  "w-breakWord": "overflow-wrap: break-word;",
+  "w-a":         "overflow-wrap: anywhere;",
+  "w-anywhere":  "overflow-wrap: anywhere;",
+  "w-{keyword}": "overflow-wrap: {keyword};",
 }
 
 export const overflow = new Module(name, symbol, styles);

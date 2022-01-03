@@ -50,21 +50,21 @@ const styles: { [key: string]: Style } = {
   "dir-{keyword}":         "animation-direction: {keyword};",
 
   //Fill-mode
-  "fm-n":          "animation-fill-node: none;",
-  "fm-none":       "animation-fill-node: none;",
-  "fm-f":          "animation-fill-node: forwards;",
-  "fm-forwards":   "animation-fill-node: forwards;",
-  "fm-b":          "animation-fill-node: backwards;",
-  "fm-backwards":  "animation-fill-node: backwards;",
-  "fm-both":       "animation-fill-node: both;",
-  "fm-{keyword}":  "animation-fill-node: {keyword};",
+  "fm-n":          "animation-fill-mode: none;",
+  "fm-none":       "animation-fill-mode: none;",
+  "fm-f":          "animation-fill-mode: forwards;",
+  "fm-forwards":   "animation-fill-mode: forwards;",
+  "fm-b":          "animation-fill-mode: backwards;",
+  "fm-backwards":  "animation-fill-mode: backwards;",
+  "fm-both":       "animation-fill-mode: both;",
+  "fm-{keyword}":  "animation-fill-mode: {keyword};",
 
   //Play-state
-  "ps-p":          "animation-fill-node: paused;",
-  "ps-paused":     "animation-fill-node: paused;",
-  "ps-r":          "animation-fill-node: running;",
-  "ps-running":    "animation-fill-node: running;",
-  "ps-{keyword}":  "animation-fill-node: {keyword};",
+  "ps-p":          "animation-play-state: paused;",
+  "ps-paused":     "animation-play-state: paused;",
+  "ps-r":          "animation-play-state: running;",
+  "ps-running":    "animation-play-state: running;",
+  "ps-{keyword}":  "animation-play-state: {keyword};",
 }
 
 export const animation = new Module(name, symbol, styles);

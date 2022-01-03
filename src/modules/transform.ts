@@ -6,13 +6,12 @@ const symbol: string = "tf";
 
 const styles: { [key: string]: Style } = {
 
-  //Transform
-  "n":       "transform: none;",
-  "none":    "transform: none;",
-
-  //TO DO
-  "{length}":   "transform: {length};",
-  "{keyword}":  "transform: {keyword};",
+  // Style
+  "s-f":              "transform-style: flat;",
+  "s-flat":           "transform-style: flat;",
+  "s-ptd":            "transform-style: preserve-3d;",
+  "s-preserveThreeD": "transform-style: preserve-3d;",
+  "s-{keyword}":      "transform-style: {keyword};",
 
 }
 

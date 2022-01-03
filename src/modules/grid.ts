@@ -73,6 +73,39 @@ const styles: { [key: string]: Style } = {
   "af-cd":           "grid-auto-flow: column dense;",
   "af-columnDense":  "grid-auto-flow: column dense;",
   "af-{keyword}":    "grid-auto-flow: {keyword};",
+  
+  // Grid Column End
+  "ce-a":         "grid-column-end: auto;",
+  "ce-auto":      "grid-column-end: auto;",
+  "ce-{number}":  "grid-column-end: {number};",
+  "ce-{keyword}": "grid-column-end: {keyword};",
+
+  // Grid Column Gap
+  "cg-{length}":  "grid-column-gap: {length};",
+  "cg-{keyword}": "grid-column-gap: {keyword};",
+
+  // Grid Column Start
+  "cs-s":         "grid-column-start: auto;",
+  "cs-start":     "grid-column-start: auto;",
+  "cs-{number}":  "grid-column-start: {number};",
+  "cs-{keyword}": "grid-column-start: {keyword};",
+
+
+  // Grid Row End
+  "re-a":         "grid-row-end: auto;",
+  "re-auto":      "grid-row-end: auto;",
+  "re-{number}":  "grid-row-end: {number};",
+  "re-{keyword}": "grid-row-end: {keyword};",
+
+  // Grid Row Gap
+  "rg-{length}":  "grid-row-gap: {length};",
+  "rg-{keyword}": "grid-row-gap: {keyword};",
+
+  // Grid Row Start
+  "rs-s":         "grid-row-start: auto;",
+  "rs-start":     "grid-row-start: auto;",
+  "rs-{number}":  "grid-row-start: {number};",
+  "rs-{keyword}": "grid-row-start: {keyword};",
 
 }
 

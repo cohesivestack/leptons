@@ -39,6 +39,14 @@ const styles: { [key: string]: Style } = {
   "style-oblique":   "font-style: oblique;",
   "style-{keyword}": "font-style: {keyword};",
 
+  // Kerning
+  "k-a":         "font-kerning: auto;",
+  "k-auto":      "font-kerning: auto;",
+  "k-n":         "font-kerning: none;",
+  "k-none":      "font-kerning: none;",
+  "k-normal":    "font-kerning: normal;",
+  "k-{keyword}": "font-kerning: {keyword};",
+
   // Stretch 
   "stretch-uc":             "font-stretch: ultra-condensed;",
   "stretch-ultraCondensed": "font-stretch: ultra-condensed;",
@@ -60,12 +68,35 @@ const styles: { [key: string]: Style } = {
   "stretch-ultraExpanded":  "font-stretch: ultra-expanded;",
   "stretch-{keyword}":      "font-stretch: {keyword};",
 
+  // Size Adjust
+  "sizeAdjust-n":         "font-size-adjust: none;",
+  "sizeAdjust-none":      "font-size-adjust: none;",
+  "sizeAdjust-{number}":  "font-size-adjust: {number};",
+  "sizeAdjust-{keyword}": "font-size-adjust: {keyword};",
+
   // Variant
   "v-n":         "font-variant: normal;",
   "v-normal":    "font-variant: normal;",
   "v-sm":        "font-variant: small-caps;",
   "v-smallCaps": "font-variant: small-caps;",
   "v-{keyword}": "font-variant: {keyword};",
+
+  // Variant Caps
+  "vc-n":             "font-variant-caps: normal;",
+  "vc-normal":        "font-variant-caps: normal;",
+  "vc-sm":            "font-variant-caps: small-caps;",
+  "vc-smallCaps":     "font-variant-caps: small-caps;",
+  "vc-asm":           "font-variant-caps: all-small-caps;",
+  "vc-allSmallCaps":  "font-variant-caps: all-small-caps;",
+  "vc-pc":            "font-variant-caps: petite-caps;",
+  "vc-petiteCaps":    "font-variant-caps: petite-caps;",
+  "vc-apc":           "font-variant-caps: all-petite-caps;",
+  "vc-allPetiteCaps": "font-variant-caps: all-petite-caps;",
+  "vc-u":             "font-variant-caps: unicase;",
+  "vc-unicase":       "font-variant-caps: unicase;",
+  "vc-tc":            "font-variant-caps: titling-caps;",
+  "vc-titlingCaps":   "font-variant-caps: titling-caps;",
+  "vc-{keyword}":     "font-variant-caps: {keyword};",
 
   // Weight
   "w-l":         "font-weight: lighter;",

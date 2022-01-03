@@ -50,6 +50,7 @@ export class Module {
           itemName: itemNameAndAttribute[1],
           style: style
         };
+        this.coveredStyles.push((style as StyleItemFunc)[0]);
       } else if (isStyleFunc(style)) {
         const itemNameAndAttribute = this.extractItemNameAndAttribute(key);
         this.functions[itemNameAndAttribute[0]] = style;

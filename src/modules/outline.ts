@@ -38,6 +38,10 @@ const styles: { [key: string]: Style } = {
   "c-{color}":   "outline-color: {color};",
   "c-{keyword}": "outline-color: {keyword};",
 
+  // Offset
+  "o-{length}":  "outline-offset: {length};",
+  "o-{keyword}": "outline-offset: {keyword};",
+
 }
 
 export const outline = new Module(name, symbol, styles);

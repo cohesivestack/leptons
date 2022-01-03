@@ -29,10 +29,20 @@ const styles: { [key: string]: Style } = {
   "d-columnReverse": "flex-direction: column-reverse;",
   "d-{keyword}":     "flex-direction: {keyword};",
 
+  // Grow
+  "g-{number}":  "flex-grow: {number};",
+  "g-{keyword}": "flex-grow: {keyword};",
+
+  // Shrink
+  "s-{number}":  "flex-shrink: {number};",
+  "s-{keyword}": "flex-shrink: {keyword};",
+
   // Wrap
   "w-w":         "flex-wrap: wrap;",
-  "w-n":         "flex-wrap: nowrap;",
+  "w-wrap":      "flex-wrap: wrap;",
+  "w-nowrap":    "flex-wrap: nowrap;",
   "w-r":         "flex-wrap: wrap-reverse;",
+  "w-reverse":   "flex-wrap: wrap-reverse;",
   "w-{keyword}": "flex-wrap: {keyword};",
 
   // Justify Content

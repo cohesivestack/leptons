@@ -33,19 +33,19 @@ const styles: { [key: string]: Style } = {
   "cr-{keyword}":   "border-right-color: {keyword};",
 
   // Radius
-  "r-{length}":    "border-radius: {length};",
+  "r-{length4}":   "border-radius: {length4};",
   "r-{keyword}":   "border-radius: {keyword};",
 
-  "rtl-{length}":  "border-top-left-radius: {length};",
+  "rtl-{length2}": "border-top-left-radius: {length2};",
   "rtl-{keyword}": "border-top-left-radius: {keyword};",
 
-  "rtr-{length}":  "border-rop-right-radius: {length};",
-  "rtr-{keyword}": "border-rop-right-radius: {keyword};",
+  "rtr-{length2}": "border-top-right-radius: {length2};",
+  "rtr-{keyword}": "border-top-right-radius: {keyword};",
 
-  "rbl-{length}":  "border-bottom-left-radius: {length};",
+  "rbl-{length2}": "border-bottom-left-radius: {length2};",
   "rbl-{keyword}": "border-bottom-left-radius: {keyword};",
 
-  "rbr-{length}":  "border-bottom-right-radius: {length};",
+  "rbr-{length2}": "border-bottom-right-radius: {length2};",
   "rbr-{keyword}": "border-bottom-right-radius: {keyword};",
 
   // Style
@@ -192,7 +192,36 @@ const styles: { [key: string]: Style } = {
   "wr-thin":      "border-right-width: thin;",
   "wr-thick":     "border-right-width: thick;",
   "wr-{length}":  "border-right-width: {length};",
-  "wr-{keyword}": "border-right-width: {keyword};"
+  "wr-{keyword}": "border-right-width: {keyword};",
+
+  // Image Outset
+  "io-{length4}": "border-image-outset: {length4};",
+  "io-{keyword}": "border-image-outset: {keyword};",
+
+  // Image Repeat
+  "ir-s":         "border-image-repeat: stretch;",
+  "ir-stretch":   "border-image-repeat: stretch;",
+  "ir-r":         "border-image-repeat: repeat;",
+  "ir-repeat":    "border-image-repeat: repeat;",
+  "ir-round":     "border-image-repeat: round;",
+  "ir-space":     "border-image-repeat: space;",
+  "ir-{keyword}": "border-image-repeat: {keyword};",
+
+  // Image Slice
+  "is-f":         "border-image-slice: fill;",
+  "is-fill":      "border-image-slice: fill;",
+  "is-{length2}": "border-image-slice: {length2};",
+  "is-{keyword}": "border-image-slice: {keyword};",
+
+  // Image Width
+  "iw-a":         "border-image-width: auto;",
+  "iw-auto":      "border-image-width: auto;",
+  "iw-{length4}": "border-image-width: {length4};",
+  "iw-{keyword}": "border-image-width: {keyword};",
+
+  // Spacing
+  "spacing-{length2}": "border-spacing: {length2};",
+  "spacing-{keyword}": "border-spacing: {keyword};",
 
 }
 

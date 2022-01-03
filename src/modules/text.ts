@@ -16,6 +16,23 @@ const styles: { [key: string]: Style } = {
   "a-justify":   "text-align: justify;",
   "a-{keyword}": "text-align: {keyword};",
 
+  // Align Last
+  "al-a":         "text-align-last: auto;",
+  "al-auto":      "text-align-last: auto;",
+  "al-l":         "text-align-last: left;",
+  "al-left":      "text-align-last: left;",
+  "al-c":         "text-align-last: center;",
+  "al-center":    "text-align-last: center;",
+  "al-r":         "text-align-last: right;",
+  "al-right":     "text-align-last: right;",
+  "al-j":         "text-align-last: justify;",
+  "al-justify":   "text-align-last: justify;",
+  "al-s":         "text-align-last: start;",
+  "al-start":     "text-align-last: start;",
+  "al-e":         "text-align-last: end;",
+  "al-end":       "text-align-last: end;",
+  "al-{keyword}": "text-align-last: {keyword};",
+
   // Color
   "c-{color}":   "color: {color};",
   "c-{keyword}": "color: {keyword};",
