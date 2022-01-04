@@ -6,7 +6,7 @@ Unopinionated and Pragmatic Atomic CSS Generator.
 
 ## Roadmap
 
-Current version is `0.1.0.alpha.11`. The first goal is to release version `0.1.0` in order to make this tool public. However, new versions could break compatibility with old versions until version 1.0 is reached.
+Current version is `0.1.0.alpha.18`. The first goal is to release version `0.1.0` in order to make this tool public. However, new versions could break compatibility with old versions until version 1.0 is reached.
 
 ### Version 0.1.0
 - [x] Basic CSS generator
@@ -17,41 +17,37 @@ Current version is `0.1.0.alpha.11`. The first goal is to release version `0.1.0
 - [x] Command line interface
 - [x] Watcher
 - [x] Add the type of value keyword, supporting `initial`, `revert`, `inherit` and `unset`
-- [ ] Shadows collection
-- [ ] Display errors, missing classes, duplicated classes
-- [ ] Add modules:
-  - [ ] `all`
-  - [ ] `animation`
-  - [ ] `backface`
-  - [ ] `caret`
-  - [ ] `caption`
-  - [ ] `columns`
-  - [ ] `grid`
-  - [ ] `list`
-  - [ ] `line-height`
-  - [ ] `outline`
-  - [ ] `resize`
-  - [ ] `scroll`
-  - [ ] `tab-size`
-  - [ ] `transform`
-  - [ ] `transition`,  `user-select`
+- [x] Add modules:
+  - [x] `all`
+  - [x] `animation`
+  - [x] `backface`
+  - [x] `caret`
+  - [x] `caption`
+  - [x] `columns`
+  - [x] `grid`
+  - [x] `list`
+  - [x] `line-height`
+  - [x] `outline`
+  - [x] `resize`
+  - [x] `scroll`
+  - [x] `tab-size`
+  - [x] `transform`
+  - [x] `transition` 
+  - [x] `user-select`
   - [x] `white-space`
-  - [ ] `word`
-- [ ] Classes web search portal
-
-### Version 0.2.0
-- [ ] Aliases
+  - [x] `word`
+- [x] Classes web search portal
+- [ ] Improve values (length, number, etc)
+- [ ] Support standard HTML colors
 - [ ] Classes
 - [ ] Collections
 - [ ] Components
-- [ ] Website
 - [ ] Documentation
+- [ ] Website
 
-### Version 0.3.0
-- [ ] Allow multiple values in functions
-
-### Version 0.4.0
-- [ ] Classes search command line
+### Version 0.2.0
+- [ ] Display errors, missing classes, duplicated classes
+- [ ] Collection of shadows
 
 ### Version 1.0
 - [ ] External module system
