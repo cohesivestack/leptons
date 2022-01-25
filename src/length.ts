@@ -25,8 +25,28 @@ utKeys.forEach(ut =>
     ut.toLowerCase() :
     "|" + ut.toLowerCase());
 
+regexTail += "|%";
+
 const regexpLengthValid = new RegExp(regexString + regexTail + ")?$");
 
 export const isLengthValid = (length: string): boolean => {
   return regexpLengthValid.test(length);
+}
+
+export const convertLengthToCss = (length: string, defaultType?: LengthType): string => {
+  if (!isLengthValid(length)) {
+    throw new Error(`The value ${length} is not valid`);
+  }
+
+  let value = length;
+
+  if (/^[0-9]+(\.[0-9]+)?$/.test(length)) {
+    value += defaultType;
+  }
+
+  if (/[0-9]+p$/.test(value)) {
+    value = value.replace("p", "%");
+  }
+
+  return value;
 }

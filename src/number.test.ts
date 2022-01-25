@@ -2,12 +2,11 @@ import { Atom } from "./atom";
 import { Builder } from "./builder";
 import { Module } from "./module";
 import { isNumberValid } from "./number";
-import { Style } from "./style";
 
 describe("Number", () => {
   test("atomToCssStyle should create css styles with numbers", () => {
 
-    const styles: { [key: string]: Style } = {
+    const styles: { [key: string]: string } = {
       "s-{number}":  "size: {number};"
     }
 
