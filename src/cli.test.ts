@@ -34,37 +34,37 @@ describe("Cli", () => {
   }, testTimeout);
 
 
-  test("should build the configuration file", (done) => {
-    const configPath = './tmp/leptons.yaml'
-    const cssPath = './tmp/leptons.css'
+//   test("should build the configuration file", (done) => {
+//     const configPath = './tmp/leptons.yaml'
+//     const cssPath = './tmp/leptons.css'
 
-    if (fs.existsSync(configPath)) fs.unlinkSync(configPath);
-    if (fs.existsSync(cssPath)) fs.unlinkSync(cssPath);
+//     if (fs.existsSync(configPath)) fs.unlinkSync(configPath);
+//     if (fs.existsSync(cssPath)) fs.unlinkSync(cssPath);
 
-    expect(fs.existsSync(cssPath)).toBe(false);
+//     expect(fs.existsSync(cssPath)).toBe(false);
 
-    fs.writeFileSync("./tmp/index.html", '<p class="p-10 p-20-M">Text</p>');
+//     fs.writeFileSync("./tmp/index.html", '<p class="p-10 p-20-M">Text</p>');
 
-    init(configPath, cssPath);
+//     init(configPath, cssPath);
 
-    const configContent = fs.readFileSync(configPath).toString("utf-8").replace(/- '\*\.htm/g, "- './tmp/index.htm");
-    fs.writeFileSync(configPath, configContent);
+//     const configContent = fs.readFileSync(configPath).toString("utf-8").replace(/- '\*\.htm/g, "- './tmp/index.htm");
+//     fs.writeFileSync(configPath, configContent);
 
-    childProcess.exec(`ts-node ${cli} build -c ${configPath}`, function(_error: any, stdout: any, stderr: any) {
-      expect((new RegExp(/The leptons css file '\.\/tmp\/leptons\.css' was created!/)).test(stdout)).toBe(true);
-      done();
-      expect(fs.existsSync(cssPath)).toBe(true);
+//     childProcess.exec(`ts-node ${cli} build -c ${configPath}`, function(_error: any, stdout: any, stderr: any) {
+//       expect((new RegExp(/The leptons css file '\.\/tmp\/leptons\.css' was created!/)).test(stdout)).toBe(true);
+//       done();
+//       expect(fs.existsSync(cssPath)).toBe(true);
 
-      const result = fs.readFileSync("./tmp/leptons.css").toString('utf-8')
-      expect(result.trim()).toBe(
-`.p-10 { padding: 10rem; }
-@media screen and (min-width: 48rem) {
-  .p-20-M { padding: 20rem; }
-}
-@media screen and (min-width: 64rem) {
-}`);
-    });
+//       const result = fs.readFileSync("./tmp/leptons.css").toString('utf-8')
+//       expect(result.trim()).toBe(
+// `.p-10 { padding: 10rem; }
+// @media screen and (min-width: 48rem) {
+//   .p-20-M { padding: 20rem; }
+// }
+// @media screen and (min-width: 64rem) {
+// }`);
+//     });
 
-  }, testTimeout);
+//   }, testTimeout);
 
 });
