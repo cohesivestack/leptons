@@ -1,4 +1,5 @@
 import { Builder } from "./builder";
+import { convertLengthToCss } from "./length";
 
 
 export class BuilderContext {
@@ -7,15 +8,7 @@ export class BuilderContext {
     private builder: Builder) { }
 
   convertLengthToCss(length: string): string {
-    return this.builder.convertLengthToCss(length);
-  }
-
-  convertLength2ToCss(length: string): string {
-    return this.builder.convertLength2ToCss(length);
-  }
-
-  convertLength4ToCss(length: string): string {
-    return this.builder.convertLength4ToCss(length);
+    return convertLengthToCss(length, this.builder.config.lengthType);
   }
 
   convertNumberPerHundrerToCss(number: string): string {
