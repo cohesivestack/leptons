@@ -55,6 +55,31 @@ export const configSchema = {
         ".+": { type: "string" }
       }
     },
+    animations: {
+      type: "object",
+      patternProperties: {
+        ".+": { type: "string" }
+      }
+    },
+    urls: {
+      type: "object",
+      patternProperties: {
+        ".+": { type: "string" }
+      }
+    },
+    collections: {
+      type: "object",
+      patternProperties: {
+        ".+": {
+          type: "object",
+          patternProperties: {
+            ".+": {
+              type: "string"
+            }
+          }
+        }
+      }
+    },
     classes: {
       type: "object",
       patternProperties: {

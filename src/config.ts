@@ -18,6 +18,10 @@ export type Config = {
   lengthType?: LengthType
   fonts?: { [index: string]: string }
   colors?: { [index: string]: string }
+  shadows?: { [index: string]: string }
+  animations?: { [index: string]: string }
+  urls?: { [index: string]: string }
+  collections?: { [index: string]: { [index: string]: string } }
   classes?: string[]
   aliases?: string[]
   components?: string[]
