@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Padding";
 const symbol: string = "p";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
   "{length}":   "padding: {length};",
   "{keyword}":  "padding: {keyword};",
 

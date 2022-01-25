@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Caret Color";
 const symbol: string = "cc";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   //Color
   "a":          "caret-color: auto;",

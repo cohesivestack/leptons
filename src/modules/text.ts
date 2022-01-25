@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name = "Text";
 const symbol: string = "t";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
   // Align
   "a-l":         "text-align: left;",
   "a-left":      "text-align: left;",

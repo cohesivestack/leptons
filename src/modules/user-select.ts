@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "User Select";
 const symbol: string = "us";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   //User Select
   "a":          "user-select: auto;",

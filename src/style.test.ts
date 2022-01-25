@@ -1,43 +1,10 @@
 import {
-  isStyleString,
-  isStyleFunc,
-  isStyleItemFunc,
-  isValidStyleLiteral,
-  isValidStringItem
+  isValidStringLiteral,
+  isValidStringDynamic,
+  isValidStringKeyword
 } from "./style";
-import { BuilderContext } from "./builder-context";
 
 describe("Style", () => {
-
-  test("isStyleString", () => {
-    [
-      "b-t-c",
-      "b-{c}",
-      "any string"
-    ].forEach(v => expect(isStyleString(v)).toBe(true));
-    
-    expect(isStyleString((b: BuilderContext, v: string) => v)).toBe(false);
-    expect(isStyleString(["a", (b: BuilderContext, v: string) => v])).toBe(false);
-
-  });
-
-  test("isStyleFunc", () => {
-
-    expect(isStyleFunc((b: BuilderContext, v: string) => v)).toBe(true);
-
-    expect(isStyleFunc("a-b-c")).toBe(false);
-    expect(isStyleFunc(["a", (b: BuilderContext, v: string) => v])).toBe(false);
-
-  });
-
-  test("isStyleItemFunc", () => {
-
-    expect(isStyleItemFunc(["a", (b: BuilderContext, v: string) => v])).toBe(true);
-    
-    expect(isStyleItemFunc("a-b-c")).toBe(false);
-    expect(isStyleItemFunc((b: BuilderContext, v: string) => v)).toBe(false);
-
-  });
 
   test("isStyleStringLiternal", () => {
     [
@@ -45,7 +12,7 @@ describe("Style", () => {
       "ab-at-ac",
       "b-c",
       "c"
-    ].forEach(v => expect(isValidStyleLiteral(v)).toBe(true));
+    ].forEach(v => expect(isValidStringLiteral(v)).toBe(true));
 
     [
       "b-c-d-e",
@@ -53,16 +20,22 @@ describe("Style", () => {
       "b-c-d-",
       "b-c-0",
       "b-c:a"
-    ].forEach(v => expect(isValidStyleLiteral(v)).toBe(false));
+    ].forEach(v => expect(isValidStringLiteral(v)).toBe(false));
   });
 
-  test("isStyleStringItem", () => {
+  test("isStyleStringDynamic", () => {
     [
       "b-t-{c}",
       "ab-at-{ac}",
       "b-{c}",
       "{c}",
-    ].forEach(v => expect(isValidStringItem(v)).toBe(true));
+      "b-t-{c0}_{d1}",
+      "ab-at-{ac}_{ad}",
+      "b-{c}_{d}",
+      "{c}_{d}",
+      "{c$a}",
+      "{c:a}",
+    ].forEach(v => expect(isValidStringDynamic(v)).toBe(true));
 
     [
       "0-t-{c}",
@@ -74,7 +47,20 @@ describe("Style", () => {
       "b-c-{a}{a}",
       "b-{t}-c",
       "{b}-t-c"
-    ].forEach(v => expect(isValidStringItem(v)).toBe(false));
+    ].forEach(v => expect(isValidStringDynamic(v)).toBe(false));
+  });
+
+  test("isStyleStringKeyword", () => {
+    [
+      "initial",
+      "inherit",
+      "unset",
+      "revert"
+    ].forEach(v => expect(isValidStringKeyword(v)).toBe(true));
+
+    [
+      "notkeyword"
+    ].forEach(v => expect(isValidStringKeyword(v)).toBe(false));
 
   });
 });

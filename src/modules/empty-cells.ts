@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "empty-cells";
 const symbol: string = "ec";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
   "s":         "empty-cells: show;",
   "show":      "empty-cells: show;",
   "h":         "empty-cells: hide;",

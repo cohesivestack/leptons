@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Unicode Bidi";
 const symbol: string = "ub";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   "normal":       "unicode-bidi: normal;",
   "e":            "unicode-bidi: embed;",

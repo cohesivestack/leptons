@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Animation";
 const symbol: string = "a";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   //Name
   "n-{name}":    "animation-name: {name};",
@@ -33,10 +32,10 @@ const styles: { [key: string]: Style } = {
   "delay-{keyword}": "animation-delay: {keyword};",
 
   //Iteration-count
-  "ic-{number}":    "animation-iteration-count: {number};",
-  "ic-i":           "animation-iteration-count: infinite;",
-  "ic-infinite":    "animation-iteration-count: infinite;",
-  "ic-{keyword}":   "animation-iteration-count: {keyword};",
+  "ic-{count$number}": "animation-iteration-count: {count};",
+  "ic-i":              "animation-iteration-count: infinite;",
+  "ic-infinite":       "animation-iteration-count: infinite;",
+  "ic-{keyword}":      "animation-iteration-count: {keyword};",
 
   //Direction
   "dir-n":                 "animation-direction: normal;",

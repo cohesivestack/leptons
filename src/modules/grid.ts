@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Grid";
 const symbol: string = "g";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   //Grid
   "n":          "grid: none;",

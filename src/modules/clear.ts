@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Clear";
 const symbol: string = "clear";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   "n":         "clear: none;",
   "none":      "clear: none;",

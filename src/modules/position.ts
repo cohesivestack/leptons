@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Position";
 const symbol: string = "pos";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
   "a":         "position: absolute;",
   "absolute":  "position: absolute;",
   "f":         "position: fixed;",

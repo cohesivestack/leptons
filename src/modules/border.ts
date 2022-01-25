@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Border";
 const symbol: string = "b";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   // Color
   "c-t":           "border-color: transparent;",

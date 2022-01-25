@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Background";
 const symbol: string = "bg";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   // Position
   "p-lt":           "background-position: left top;",

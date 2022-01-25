@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Float";
 const symbol: string = "float";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
   "n":         "float: none;",
   "none":      "float: none;",
   "l":         "float: left;",

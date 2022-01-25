@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Outline";
 const symbol: string = "ol";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   //Width
   "w-m":         "outline-width: medium;",

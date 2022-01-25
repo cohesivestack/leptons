@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Transform";
 const symbol: string = "tf";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   // Style
   "s-f":              "transform-style: flat;",

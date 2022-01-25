@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Mix";
 const symbol: string = "mix";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   // Blend Mode
   "bm-normal":     "mix-blend-mode: normal;",

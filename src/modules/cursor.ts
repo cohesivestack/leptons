@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Cursor";
 const symbol: string = "c";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   "a":             "cursor: auto;",
   "auto":          "cursor: auto;",

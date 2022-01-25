@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Vertical Align";
 const symbol: string = "va";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   "baseline":   "vertical-align: baseline;",
   "s":          "vertical-align: super;",

@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Letter Spacing";
 const symbol: string = "ls";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
   "normal":    "letter-spacing: normal;",
   "{length}":  "letter-spacing: {length};",
   "{keyword}": "letter-spacing: {keyword};",

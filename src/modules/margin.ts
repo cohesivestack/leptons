@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Margin";
 const symbol: string = "m";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
   "a":   "margin: auto;",
   "{length}":   "margin: {length};",
   "{keyword}":  "margin: {keyword};",

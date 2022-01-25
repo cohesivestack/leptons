@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "List";
 const symbol: string = "ls";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   //List Style
   "{keyword}":  "list-style: {keyword};",

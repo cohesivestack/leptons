@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Break";
 const symbol: string = "break";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   // After
   "a-a":           "break-after: auto;",

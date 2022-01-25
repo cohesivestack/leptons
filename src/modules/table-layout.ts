@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Table Layout";
 const symbol: string = "tl";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   "a":         "table-layout: auto;",
   "auto":      "table-layout: auto;",

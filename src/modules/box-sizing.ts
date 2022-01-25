@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Box Sizing";
 const symbol: string = "bs";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   // Box Sizing
   "c":         "box-sizing: content-box;",

@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Flex Box";
 const symbol: string = "fb";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   // Type
   "n":         "flex: none;",

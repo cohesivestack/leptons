@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Tab Size";
 const symbol: string = "ts";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   //Tab Size
   "{number}":   "tab-size: {number};",

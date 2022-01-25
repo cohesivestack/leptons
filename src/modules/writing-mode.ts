@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Writing Mode";
 const symbol: string = "wm";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
   "ht":           "writing-mode: horizontal-tb;",
   "horizontalTb": "writing-mode: horizontal-tb;",
   "vr":           "writing-mode: vertical-rl;",

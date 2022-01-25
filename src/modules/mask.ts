@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Mask";
 const symbol: string = "mask";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   // Size
   "s-a":         "mask-size: auto;",

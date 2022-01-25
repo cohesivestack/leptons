@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Page Break";
 const symbol: string = "pb";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   // Inside
   "i-a":         "page-break-inside: auto;",

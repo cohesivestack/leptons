@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Transition";
 const symbol: string = "trans";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   // Property
   "p-n":         "transition-property: none;",

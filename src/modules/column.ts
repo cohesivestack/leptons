@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Columns";
 const symbol: string = "col";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   //Column Width
   "w-a":          "column-width: auto;",

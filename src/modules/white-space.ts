@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "White Space";
 const symbol: string = "ws";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   "n":         "white-space: nowrap;",
   "nowrap":    "white-space: nowrap;",

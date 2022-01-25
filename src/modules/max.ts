@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Max";
 const symbol: string = "max";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   //Width
   "w-n":         "max-width: none;",

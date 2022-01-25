@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Image";
 const symbol: string = "img";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   // Rendering
   "r-a":           "image-rendering: auto;",

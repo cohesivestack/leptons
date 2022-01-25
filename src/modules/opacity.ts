@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Opacity";
 const symbol: string = "o";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
   "{number}":  "opacity: {number};",
   "{keyword}": "opacity: {keyword};"
 }

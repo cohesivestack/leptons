@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Hanging Punctuation";
 const symbol: string = "hp";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
   "n":         "hanging-punctuation: none;",
   "none":      "hanging-punctuation: none;",
   "f":         "hanging-punctuation: first;",

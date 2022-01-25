@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Isolation";
 const symbol: string = "isolation";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   "a":           "isolation: auto;",
   "auto":        "isolation: auto;",

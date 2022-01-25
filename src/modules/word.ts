@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Word";
 const symbol: string = "word";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   //Word Break
   "b-n":          "word-break: normal;",

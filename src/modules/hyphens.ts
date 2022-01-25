@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Hyphens";
 const symbol: string = "hyphens";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
   "n":         "hyphens: none;",
   "none":      "hyphens: none;",
   "m":         "hyphens: manual;",

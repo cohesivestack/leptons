@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Height";
 const symbol: string = "h";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   "auto":      "height: auto;",
   "{length}":  "height: {length};",

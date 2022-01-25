@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Direction";
 const symbol: string = "dir";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   "l":         "direction: ltr;",
   "ltr":       "direction: ltr;",

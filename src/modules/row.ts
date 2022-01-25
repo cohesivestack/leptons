@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Row";
 const symbol: string = "row";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   // Row Gap
   "g-n":         "row-gap: normal;",

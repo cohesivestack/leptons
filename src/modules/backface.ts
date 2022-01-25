@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Backface Visibility";
 const symbol: string = "bv";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   "v":          "backface-visibility: visible;",
   "visible":    "backface-visibility: visible;",

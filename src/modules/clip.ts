@@ -1,10 +1,9 @@
-import { Style } from "../style";
 import { Module } from "../module";
 
 const name: string = "Clip";
 const symbol: string = "clip";
 
-const styles: { [key: string]: Style } = {
+const styles: { [key: string]: string } = {
 
   // Path
   "p-mb":         "clip-path: margin-box;",
