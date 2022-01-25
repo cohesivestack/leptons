@@ -1,9 +1,9 @@
 import { Atom } from "./atom";
-import { StyleItemFunc, StyleFunc, isValidStringKeyword } from "./style";
+import { isValidStringKeyword } from "./style";
 import { Module } from "./module";
 import { ErrorType } from "./error";
 import { BuilderContext } from "./builder-context";
-import { isLengthValid, LengthType } from "./length";
+import { LengthType } from "./length";
 import { Config } from "./config";
 import { Media } from "./media";
 import { Source, sourceTypes, isSourceWithContent, isSourceWithRegexp, isSourceWithRegexpAndPath } from "./source";
@@ -12,18 +12,22 @@ import fs from "fs";
 import * as defaultModules from "./modules";
 import { pseudoClasses } from "./pseudo-class";
 import { pseudoElements } from "./pseudo-element";
-import { isNumberValid } from "./number";
+import { Dynamic } from "./dynamic";
 
 export class Builder {
 
   private fonts: { [font: string]: string } = {};
   private colors: { [color: string]: string } = {};
+  private urls: { [url: string]: string } = {};
+  private shadows: { [shadow: string]: string } = {};
+  private animations: { [animation: string]: string } = {};
+  private collections: { [collection: string]: { [item: string]: string } } = {};
   private modules: { [moduleName: string]: Module } = {};
   private errors: { [errorType: string]: { [className: string]: string } } = {};
   private classesIndex: string[] = [];
   private medias: { [media: string]: Media } = {}
   private context: BuilderContext;
-  private lengthType: LengthType;
+  public readonly lengthType: LengthType;
 
   constructor(public readonly config: Config = {}, initDefaultModules: boolean = false) {
 
@@ -47,6 +51,30 @@ export class Builder {
     if (this.config.fonts) {
       Object.entries(this.config.fonts).forEach(([name, fontFamily]) => {
         this.fonts[name] = fontFamily;
+      })
+    }
+
+    if (this.config.shadows) {
+      Object.entries(this.config.shadows).forEach(([name, shadow]) => {
+        this.shadows[name] = shadow;
+      })
+    }
+
+    if (this.config.animations) {
+      Object.entries(this.config.animations).forEach(([name, animation]) => {
+        this.animations[name] = animation;
+      })
+    }
+
+    if (this.config.urls) {
+      Object.entries(this.config.urls).forEach(([name, url]) => {
+        this.urls[name] = url;
+      })
+    }
+
+    if (this.config.collections) {
+      Object.entries(this.config.collections).forEach(([name, collection]) => {
+        this.collections[name] = collection;
       })
     }
 
@@ -84,7 +112,7 @@ export class Builder {
     if (this.config.cssAfter) {
       const cssAfter = this.config.cssAfter.trim()
       if (cssAfter.length > 0) {
-        output = output.trimRight() + "\n" + cssAfter;
+        output = output.trimEnd() + "\n" + cssAfter;
       }
     }
 
@@ -267,9 +295,6 @@ export class Builder {
 
     let literalValue: string | undefined;
     let keywordStyle: string | undefined;
-    let item: {itemName: string, style: string } | undefined;
-    let itemFunction: { itemName: string, style: StyleItemFunc } | undefined | undefined;
-    let func: StyleFunc | undefined;
 
     let keyModule = atom.attribute ? `${atom.attribute}-${atom.value}` : atom.value;
 
@@ -285,25 +310,19 @@ export class Builder {
         keyModule = "";
       }
 
+      let dynamics: Dynamic[] | undefined;
+
       if ((keywordStyle = mod.getKeyword(keyModule)) && isValidStringKeyword(atom.value)) {
         const template = keywordStyle;
         cssStyle = template.replace(new RegExp("{keyword}", 'g'), atom.value);
-
-      } else if (item = mod.getItem(keyModule)) {
-        const template = item.style;
-        cssStyle = template.replace(new RegExp(`{${item.itemName}}`, 'g'), this.parseItemValue(item.itemName, atom));
-
-      } else if (itemFunction = mod.getItemFunction(keyModule)) {
-
-        const template = itemFunction.style[0];
-        const func = itemFunction.style[1];
-        cssStyle = template.replace(
-          new RegExp(`{${itemFunction.itemName}}`, 'g'),
-          func(this.context, atom.value));
-
-      } else if (func = mod.getFunction(keyModule)) {
-        cssStyle = func(this.context, atom.value);
-
+      } else if (dynamics = mod.getDynamics(keyModule)) {
+        for (const d of dynamics) {
+          d.setBuilder(this);
+          if (d.isMatching(atom.value)) {
+            cssStyle = d.parse(atom.value);
+            break;
+          }
+        }
       }
     }
 
@@ -318,60 +337,6 @@ export class Builder {
     return cssStyle;
   }
 
-  private parseItemValue(itemName: string, atom: Atom): string {
-    const value = atom.value as string;
-
-    switch (itemName) {
-      case "length":
-        return this.convertLengthToCss(value);
-      case "length2":
-        return this.convertLength2ToCss(value);
-      case "length4":
-        return this.convertLength4ToCss(value);
-      case "number":
-        return this.convertNumberToCss(value);
-      case "color":
-        return this.getColor(value);
-      case "font":
-        return this.getFont(value);
-      default:
-        return value
-    }
-  }
-
-  convertLengthToCss(length: string): string {
-    if (!isLengthValid(length)) {
-      throw new Error(`The value ${length} is not valid`);
-    }
-  
-    let value = length;
-  
-    if (/^[0-9]+(\.[0-9]+)?$/.test(length)) {
-      value += this.lengthType;
-    }
-
-    if (/[0-9]+p$/.test(length)) {
-      value = value.replace("p", "%");
-    }
-
-    return value;
-  }
-
-  convertNumberToCss(number: string): string {
-    if (!isNumberValid(number)) {
-      throw new Error(`The value ${number} is not valid`);
-    }
-    return number;
-  }
-
-  convertLength2ToCss(length: string): string {
-    return this.convertLengthsToCss(length, 2);
-  }
-
-  convertLength4ToCss(length: string): string {
-    return this.convertLengthsToCss(length, 4);
-  }
-
   convertNumberPerHundrerToCss(v: string): string {
     if (!/^[1-9]$/.test(v)) {
       throw new Error(`The value ${v} is not a valid number. It must be any number between 1 to 9`);
@@ -380,35 +345,69 @@ export class Builder {
     return (parseInt(v) * 100).toString();
   }
 
+  hasFont(font: string): boolean {
+    return !!this.fonts[font];
+  }
+
   getFont(font: string): string {
-    if (!this.fonts[font]) {
+    if (!this.hasFont(font)) {
       throw new Error(`There is not a defined font with the name ${font}`);
     }
     return this.fonts[font];
   }
 
+  hasColor(color: string): boolean {
+    return !!this.colors[color];
+  }
+
   getColor(color: string): string {
-    if (!this.colors[color]) {
+    if (!this.hasColor(color)) {
       throw new Error(`There is not a defined color with the name ${color}`);
     }
     return this.colors[color];
   }
 
-  private convertLengthsToCss(lengths: string, quantity: number): string {
-    const _lengths = lengths.split("X");
-  
-    if (quantity != _lengths.length) {
-      throw new Error(`The quantities of values in ${lengths} is not valid`);
+  hasCollection(collection: string): boolean {
+    return !!this.collections[collection];
+  }
+
+  getCollection(collection: string): {[item: string]: string} {
+    if (!this.hasCollection(collection)) {
+      throw new Error(`There is not a defined collection with the name ${collection}`);
     }
-  
-    let output = "";
-    _lengths.forEach(u => {
-      if (output.length > 0) {
-        output += " ";
-      }
-      output += this.convertLengthToCss(u);
-    })
-  
-    return output;
+    return this.collections[collection];
+  }
+
+  hasUrl(url: string): boolean {
+    return !!this.urls[url];
+  }
+
+  getUrl(url: string): string {
+    if (!this.hasUrl(url)) {
+      throw new Error(`There is not a defined url with the name ${url}`);
+    }
+    return this.urls[url];
+  }
+
+  hasShadow(shadow: string): boolean {
+    return !!this.shadows[shadow];
+  }
+
+  getShadow(shadow: string): string {
+    if (!this.hasShadow(shadow)) {
+      throw new Error(`There is not a defined shadow with the name ${shadow}`);
+    }
+    return this.shadows[shadow];
+  }
+
+  hasAnimation(animation: string): boolean {
+    return !!this.animations[animation];
+  }
+
+  getAnimation(animation: string): string {
+    if (!this.hasAnimation(animation)) {
+      throw new Error(`There is not a defined animation with the name ${animation}`);
+    }
+    return this.animations[animation];
   }
 }
