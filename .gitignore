@@ -17,8 +17,6 @@ tmp/*
 # Build
 public/css/main.css
 
-# Coverage reports
-coverage
 
 # API keys and secrets
 .env
