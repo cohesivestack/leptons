@@ -5,8 +5,8 @@ const symbol: string = "orphans";
 
 const styles: { [key: string]: string } = {
 
-  "{number}":  "orphans: {number};",
-  "{keyword}": "orphans: {keyword};",
+  "{number$number}":  "orphans: {number};",
+  "{keyword}":        "orphans: {keyword};",
 
 }
 

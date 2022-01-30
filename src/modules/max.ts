@@ -6,16 +6,16 @@ const symbol: string = "max";
 const styles: { [key: string]: string } = {
 
   //Width
-  "w-n":         "max-width: none;",
-  "w-none":      "max-width: none;",
-  "w-{length}":  "max-width: {length};",
-  "w-{keyword}": "max-width: {keyword};",
+  "w-n":                "max-width: none;",
+  "w-none":             "max-width: none;",
+  "w-{width$length}":   "max-width: {width};",
+  "w-{keyword}":        "max-width: {keyword};",
 
   //Height
-  "h-n":         "max-height: none;",
-  "h-none":      "max-height: none;",
-  "h-{length}":  "max-height: {length};",
-  "h-{keyword}": "max-height: {keyword};"
+  "h-n":                "max-height: none;",
+  "h-none":             "max-height: none;",
+  "h-{height$length}":  "max-height: {height};",
+  "h-{keyword}":        "max-height: {keyword};"
 
 }
 

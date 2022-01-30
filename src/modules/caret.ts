@@ -6,10 +6,10 @@ const symbol: string = "cc";
 const styles: { [key: string]: string } = {
 
   //Color
-  "a":          "caret-color: auto;",
-  "auto":       "caret-color: auto;",
-  "{color}":    "caret-color: {color};",
-  "{keyword}":  "caret-color: {keyword};",
+  "a":              "caret-color: auto;",
+  "auto":           "caret-color: auto;",
+  "{color$color}":  "caret-color: {color};",
+  "{keyword}":      "caret-color: {keyword};",
 }
 
 export const caret = new Module(name, symbol, styles);

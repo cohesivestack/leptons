@@ -10,23 +10,23 @@ const styles: { [key: string]: string } = {
   "f-{keyword}": "font-family: {keyword};",
 
   // Size
-  "s-s":         "font-size: small;",
-  "s-small":     "font-size: small;",
-  "s-smaller":   "font-size: smaller;",
-  "s-xs":        "font-size: x-small;",
-  "s-xSmall":    "font-size: x-small;",
-  "s-xxs":       "font-size: xx-small;",
-  "s-xxSmall":   "font-size: xx-small;",
-  "s-m":         "font-size: medium;",
-  "s-medium":    "font-size: medium;",
-  "s-l":         "font-size: large;",
-  "s-large":     "font-size: large;",
-  "s-larger":    "font-size: larger;",
-  "s-xl":        "font-size: x-large;",
-  "s-xLarge":    "font-size: x-large;",
-  "s-xxLarge":   "font-size: xx-large;",
-  "s-{length}":  "font-size: {length};",
-  "s-{keyword}": "font-size: {keyword};",
+  "s-s":                "font-size: small;",
+  "s-small":            "font-size: small;",
+  "s-smaller":          "font-size: smaller;",
+  "s-xs":               "font-size: x-small;",
+  "s-xSmall":           "font-size: x-small;",
+  "s-xxs":              "font-size: xx-small;",
+  "s-xxSmall":          "font-size: xx-small;",
+  "s-m":                "font-size: medium;",
+  "s-medium":           "font-size: medium;",
+  "s-l":                "font-size: large;",
+  "s-large":            "font-size: large;",
+  "s-larger":           "font-size: larger;",
+  "s-xl":               "font-size: x-large;",
+  "s-xLarge":           "font-size: x-large;",
+  "s-xxLarge":          "font-size: xx-large;",
+  "s-{length$length}":  "font-size: {length};",
+  "s-{keyword}":        "font-size: {keyword};",
 
   // Style
   "style-n":         "font-style: normal;",
@@ -97,15 +97,15 @@ const styles: { [key: string]: string } = {
   "vc-{keyword}":     "font-variant-caps: {keyword};",
 
   // Weight
-  "w-l":         "font-weight: lighter;",
-  "w-lighter":   "font-weight: lighter;",
-  "w-n":         "font-weight: normal;",
-  "w-normal":    "font-weight: normal;",
-  "w-b":         "font-weight: bold;",
-  "w-bold":      "font-weight: bold;",
-  "w-bolder":    "font-weight: bolder;",
-  "w-{weight}":  "font-weight: {weight};",
-  "w-{keyword}": "font-weight: {keyword};"
+  "w-l":                "font-weight: lighter;",
+  "w-lighter":          "font-weight: lighter;",
+  "w-n":                "font-weight: normal;",
+  "w-normal":           "font-weight: normal;",
+  "w-b":                "font-weight: bold;",
+  "w-bold":             "font-weight: bold;",
+  "w-bolder":           "font-weight: bolder;",
+  "w-{weight$number}":  "font-weight: {weight};",
+  "w-{keyword}":        "font-weight: {keyword};"
 }
 
 export const font = new Module(name, symbol, styles);

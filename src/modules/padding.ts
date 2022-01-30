@@ -4,26 +4,29 @@ const name: string = "Padding";
 const symbol: string = "p";
 
 const styles: { [key: string]: string } = {
-  "{length}":   "padding: {length};",
-  "{keyword}":  "padding: {keyword};",
+  "{width$length}":                                               "padding: {width};",
+  "{vertical$length}_{horizontal$length}":                        "padding: {vertical} {horizontal};",
+  "{top$length}_{horizontal$length}_{bottom$length}":             "padding: {top} {horizontal} {bottom};",
+  "{top$length}_{right$length}_{bottom$length}_{left$length}":    "padding: {top} {right} {bottom} {left};",
+  "{keyword}":                                                    "padding: {keyword};",
 
-  "t-{length}":  "padding-top: {length};",
-  "t-{keyword}": "padding-top: {keyword};",
+  "t-{width$length}":   "padding-top: {width};",
+  "t-{keyword}":        "padding-top: {keyword};",
 
-  "r-{length}":  "padding-right: {length};",
-  "r-{keyword}": "padding-right: {keyword};",
+  "r-{width$length}":   "padding-right: {width};",
+  "r-{keyword}":        "padding-right: {keyword};",
 
-  "b-{length}":  "padding-bottom: {length};",
-  "b-{keyword}": "padding-bottom: {keyword};",
+  "b-{width$length}":   "padding-bottom: {width};",
+  "b-{keyword}":        "padding-bottom: {keyword};",
 
-  "l-{length}":  "padding-left: {length};",
-  "l-{keyword}": "padding-left: {keyword};",
+  "l-{width$length}":   "padding-left: {width};",
+  "l-{keyword}":        "padding-left: {keyword};",
 
-  "v-{length}":  "padding-top: {length}; padding-bottom: {length};",
-  "v-{keyword}": "padding-top: {keyword}; padding-bottom: {keyword};",
+  "v-{width$length}":   "padding-top: {width}; padding-bottom: {width};",
+  "v-{keyword}":        "padding-top: {keyword}; padding-bottom: {keyword};",
 
-  "h-{length}":  "padding-left: {length}; padding-right: {length};",
-  "h-{keyword}": "padding-left: {keyword}; padding-right: {keyword};"
+  "h-{width$length}":   "padding-left: {width}; padding-right: {width};",
+  "h-{keyword}":        "padding-left: {keyword}; padding-right: {keyword};"
 }
 
 export const padding = new Module(name, symbol, styles);

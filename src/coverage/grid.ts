@@ -70,9 +70,11 @@ export const grid: CoverageInfo[] = [
     note: "This could be covered in the future with a {template-area} collection item"
   },
   { style: "grid-template-columns",
-    values: "none|auto|max-content|min-content|{length}|initial|inherit"
+    values: "none|auto|max-content|min-content|{length}|initial|inherit",
+    note: "Currently Leptons only support one length for all columns. In the future a type like {length...} could support an undefined array of params."
   },
   { style: "grid-template-rows",
-    values: "none|auto|max-content|min-content|{length}|initial|inherit"
+    values: "none|auto|max-content|min-content|{length}|initial|inherit",
+    note: "Currently Leptons only support one length for all rows. In the future a type like {length...} could support an undefined array of params."
   }
 ]

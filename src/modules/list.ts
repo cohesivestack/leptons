@@ -55,7 +55,7 @@ const styles: { [key: string]: string } = {
   //List Style Image
   "i-n":          "list-style-image: none;",
   "i-none":       "list-style-image: none;",
-  "i-{url}":      "list-style-image: url{url};",
+  "i-{url$url}":  "list-style-image: url{url};",
   "i-{keyword}":  "list-style-image: {keyword};",
 }
 

@@ -6,13 +6,13 @@ const symbol: string = "ol";
 const styles: { [key: string]: string } = {
 
   //Width
-  "w-m":         "outline-width: medium;",
-  "w-medium":    "outline-width: medium;",
-  "w-t":         "outline-width: thin;",
-  "w-thin":      "outline-width: thin;",
-  "w-thick":     "outline-width: thick;",
-  "w-{length}":  "outline-width: {length};",
-  "w-{keyword}": "outline-width: {keyword};",
+  "w-m":                "outline-width: medium;",
+  "w-medium":           "outline-width: medium;",
+  "w-t":                "outline-width: thin;",
+  "w-thin":             "outline-width: thin;",
+  "w-thick":            "outline-width: thick;",
+  "w-{width$length}":   "outline-width: {width};",
+  "w-{keyword}":        "outline-width: {keyword};",
 
   //Style
   "s-n":         "outline-style: none;",
@@ -32,14 +32,14 @@ const styles: { [key: string]: string } = {
   "s-{keyword}": "outline-style: {keyword};",
 
   //Color
-  "c-i":         "outline-color: invert;",
-  "c-invert":    "outline-color: invert;",
-  "c-{color}":   "outline-color: {color};",
-  "c-{keyword}": "outline-color: {keyword};",
+  "c-i":              "outline-color: invert;",
+  "c-invert":         "outline-color: invert;",
+  "c-{color$color}":  "outline-color: {color};",
+  "c-{keyword}":      "outline-color: {keyword};",
 
   // Offset
-  "o-{length}":  "outline-offset: {length};",
-  "o-{keyword}": "outline-offset: {keyword};",
+  "o-{width$length}":  "outline-offset: {width};",
+  "o-{keyword}":       "outline-offset: {keyword};",
 
 }
 

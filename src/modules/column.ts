@@ -6,16 +6,16 @@ const symbol: string = "col";
 const styles: { [key: string]: string } = {
 
   //Column Width
-  "w-a":          "column-width: auto;",
-  "w-auto":       "column-width: auto;",
-  "w-{length}":   "column-width: {length};",
-  "w-{keyword}":  "column-width: {keyword};",
+  "w-a":                "column-width: auto;",
+  "w-auto":             "column-width: auto;",
+  "w-{width$length}":   "column-width: {width};",
+  "w-{keyword}":        "column-width: {keyword};",
 
   //Column Count
-  "c-{number}":   "column-count: {number};",
-  "c-a":          "column-count: auto;",
-  "c-auto":       "column-count: auto;",
-  "c-{keyword}":  "column-count: {keyword};",
+  "c-{number$number}":    "column-count: {number};",
+  "c-a":                  "column-count: auto;",
+  "c-auto":               "column-count: auto;",
+  "c-{keyword}":          "column-count: {keyword};",
 
 
   // Column Fill
@@ -26,14 +26,14 @@ const styles: { [key: string]: string } = {
   "f-{keyword}": "column-fill: {keyword};",
 
   // Column Gap
-  "g-n":         "column-gap: normal;",
-  "g-normal":    "column-gap: normal;",
-  "g-{length}":  "column-gap: {length};",
-  "g-{keyword}": "column-gap: {keyword};",
+  "g-n":                "column-gap: normal;",
+  "g-normal":           "column-gap: normal;",
+  "g-{length$length}":  "column-gap: {length};",
+  "g-{keyword}":        "column-gap: {keyword};",
 
   // Column Rule Color
-  "rc-{color}":   "column-rule-color: {color};",
-  "rc-{keyword}": "column-rule-color: {keyword};",
+  "rc-{color$color}":   "column-rule-color: {color};",
+  "rc-{keyword}":       "column-rule-color: {keyword};",
 
   // Column Rule Style
   "rs-n":          "column-rule-style: none;",
@@ -57,13 +57,13 @@ const styles: { [key: string]: string } = {
   "rs-{keyword}":  "column-rule-style: {keyword};",
 
   // Column Rule Width
-  "rw-m":         "column-rule-width: medium;",
-  "rw-medium":    "column-rule-width: medium;",
-  "rw-t":         "column-rule-width: thin;",
-  "rw-thin":      "column-rule-width: thin;",
-  "rw-thick":     "column-rule-width: thick;",
-  "rw-{length}":  "column-rule-width: {length};",
-  "rw-{keyword}": "column-rule-width: {keyword};",
+  "rw-m":               "column-rule-width: medium;",
+  "rw-medium":          "column-rule-width: medium;",
+  "rw-t":               "column-rule-width: thin;",
+  "rw-thin":            "column-rule-width: thin;",
+  "rw-thick":           "column-rule-width: thick;",
+  "rw-{width$length}":  "column-rule-width: {width};",
+  "rw-{keyword}":       "column-rule-width: {keyword};",
 
   // Column Span
   "s-n":         "column-span: none;",

@@ -6,13 +6,13 @@ const symbol: string = "mask";
 const styles: { [key: string]: string } = {
 
   // Size
-  "s-a":         "mask-size: auto;",
-  "s-auto":      "mask-size: auto;",
-  "s-c":         "mask-size: contain;",
-  "s-contain":   "mask-size: contain;",
-  "s-cover":     "mask-size: cover;",
-  "s-{length}":  "mask-size: {length};",
-  "s-{keyword}": "mask-size: {keyword};",
+  "s-a":                "mask-size: auto;",
+  "s-auto":             "mask-size: auto;",
+  "s-c":                "mask-size: contain;",
+  "s-contain":          "mask-size: contain;",
+  "s-cover":            "mask-size: cover;",
+  "s-{length$length}":  "mask-size: {length};",
+  "s-{keyword}":        "mask-size: {keyword};",
 
   // Repeat
   "r-r":         "mask-repeat: repeat;",
@@ -47,8 +47,8 @@ const styles: { [key: string]: string } = {
   "p-centerCenter": "mask-position: center center;",
   "p-cb":           "mask-position: center bottom;",
   "p-centerBottom": "mask-position: center bottom;",
-  "p-{lenght2}":    "mask-position: {lenght2};",
-  "p-{keyword}":    "mask-position: {keyword};",
+  "p-{horizontal$length}_{vertical$length}":    "mask-position: {horizontal} {vertical};",
+  "p-{keyword}":                                "mask-position: {keyword};",
 
   // Origin
   "o-bb":         "mask-origin: border-box;",

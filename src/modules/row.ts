@@ -6,10 +6,10 @@ const symbol: string = "row";
 const styles: { [key: string]: string } = {
 
   // Row Gap
-  "g-n":         "row-gap: normal;",
-  "g-normal":    "row-gap: normal;",
-  "g-{length}":  "row-gap: {length};",
-  "g-{keyword}": "row-gap: {keyword};",
+  "g-n":                "row-gap: normal;",
+  "g-normal":           "row-gap: normal;",
+  "g-{length$length}":  "row-gap: {length};",
+  "g-{keyword}":        "row-gap: {keyword};",
 
 }
 

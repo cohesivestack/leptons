@@ -5,10 +5,10 @@ const symbol: string = "w";
 
 const styles: { [key: string]: string } = {
 
-  "a":         "width: auto;",
-  "auto":      "width: auto;",
-  "{length}":  "width: {length};",
-  "{keyword}": "width: {keyword};"
+  "a":                "width: auto;",
+  "auto":             "width: auto;",
+  "{width$length}":   "width: {width};",
+  "{keyword}":        "width: {keyword};"
 
 }
 

@@ -17,18 +17,18 @@ const styles: { [key: string]: string } = {
   "b-{keyword}":  "word-break: {keyword};",
 
   //Word Spacing
-  "s-n":          "word-spacing: normal;",
-  "s-normal":     "word-spacing: normal;",
-  "s-{length}":   "word-spacing: {length};",
-  "s-{keyword}":  "word-spacing: {keyword};",
+  "s-n":                "word-spacing: normal;",
+  "s-normal":           "word-spacing: normal;",
+  "s-{length$length}":  "word-spacing: {length};",
+  "s-{keyword}":        "word-spacing: {keyword};",
 
   //Word Wrap
-  "w-n":           "word-wrap: normal;",
-  "w-normal":      "word-wrap: normal;",
-  "w-bw":          "word-wrap: break-word;",
-  "w-breakWord":   "word-wrap: break-word;",
-  "w-{length}":    "word-wrap: {length};",
-  "w-{keyword}":   "word-wrap: {keyword};",
+  "w-n":                "word-wrap: normal;",
+  "w-normal":           "word-wrap: normal;",
+  "w-bw":               "word-wrap: break-word;",
+  "w-breakWord":        "word-wrap: break-word;",
+  "w-{length$length}":  "word-wrap: {length};",
+  "w-{keyword}":        "word-wrap: {keyword};",
 
 }
 

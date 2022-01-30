@@ -33,12 +33,12 @@ const styles: { [key: string]: string } = {
   "al-{keyword}": "text-align-last: {keyword};",
 
   // Color
-  "c-{color}":   "color: {color};",
-  "c-{keyword}": "color: {keyword};",
+  "c-{color$color}":    "color: {color};",
+  "c-{keyword}":        "color: {keyword};",
 
   // Decoration
-  "dc-{color}":   "text-decoration-color: {color};",
-  "dc-{keyword}": "text-decoration-color: {keyword};",
+  "dc-{color$color}":   "text-decoration-color: {color};",
+  "dc-{keyword}":       "text-decoration-color: {keyword};",
 
   // Decoration Line
   "dl-u":            "text-decoration-line: underline;",
@@ -63,8 +63,8 @@ const styles: { [key: string]: string } = {
   "ds-{keyword}": "text-decoration-style: {keyword};",
 
   // Indent
-  "i-{length}":  "text-indent: {length};",
-  "i-{keyword}": "text-indent: {keyword};",
+  "i-{length$length}":  "text-indent: {length};",
+  "i-{keyword}":        "text-indent: {keyword};",
 
   // Justify
   "j-a":              "text-justify: auto;",

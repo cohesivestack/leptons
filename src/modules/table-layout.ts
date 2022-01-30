@@ -5,12 +5,12 @@ const symbol: string = "tl";
 
 const styles: { [key: string]: string } = {
 
-  "a":         "table-layout: auto;",
-  "auto":      "table-layout: auto;",
-  "f":         "table-layout: fixed;",
-  "fixed":     "table-layout: fixed;",
-  "{length}":  "table-layout: {length};",
-  "{keyword}": "table-layout: {keyword};",
+  "a":                "table-layout: auto;",
+  "auto":             "table-layout: auto;",
+  "f":                "table-layout: fixed;",
+  "fixed":            "table-layout: fixed;",
+  "{length$length}":  "table-layout: {length};",
+  "{keyword}":        "table-layout: {keyword};",
 
 }
 

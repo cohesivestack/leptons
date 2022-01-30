@@ -6,26 +6,29 @@ const symbol: string = "bg";
 const styles: { [key: string]: string } = {
 
   // Position
-  "p-lt":           "background-position: left top;",
-  "p-leftTop":      "background-position: left top;",
-  "p-lc":           "background-position: left center;",
-  "p-leftCenter":   "background-position: left center;",
-  "p-lb":           "background-position: left bottom;",
-  "p-leftBottom":   "background-position: left bottom;",
-  "p-rt":           "background-position: right top;",
-  "p-rightTop":     "background-position: right top;",
-  "p-rc":           "background-position: right center;",
-  "p-rightCenter":  "background-position: right center;",
-  "p-rb":           "background-position: right bottom;",
-  "p-rightBottom":  "background-position: right bottom;",
-  "p-ct":           "background-position: center top;",
-  "p-centerTop":    "background-position: center top;",
-  "p-cc":           "background-position: center center;",
-  "p-centerCenter": "background-position: center center;",
-  "p-cb":           "background-position: center bottom;",
-  "p-centerBottom": "background-position: center bottom;",
-  "p-{length2}":    "background-position: {length2};",
-  "p-{keyword}":    "background-position: {keyword};",
+  "p-lt":               "background-position: left top;",
+  "p-leftTop":          "background-position: left top;",
+  "p-lc":               "background-position: left center;",
+  "p-leftCenter":       "background-position: left center;",
+  "p-lb":               "background-position: left bottom;",
+  "p-leftBottom":       "background-position: left bottom;",
+  "p-rt":               "background-position: right top;",
+  "p-rightTop":         "background-position: right top;",
+  "p-rc":               "background-position: right center;",
+  "p-rightCenter":      "background-position: right center;",
+  "p-rb":               "background-position: right bottom;",
+  "p-rightBottom":      "background-position: right bottom;",
+  "p-ct":               "background-position: center top;",
+  "p-centerTop":        "background-position: center top;",
+  "p-cc":               "background-position: center center;",
+  "p-centerCenter":     "background-position: center center;",
+  "p-cb":               "background-position: center bottom;",
+  "p-centerBottom":     "background-position: center bottom;",
+  "pbr-{bottom$length}_{rigth$length}":   "background-position: bottom {bottom} right {right};",
+  "pbl-{bottom$length}_{left$length}":    "background-position: bottom {bottom} left {left};",
+  "ptr-{top$length}_{rigth$length}":      "background-position: top {top} right {right};",
+  "ptl-{top$length}_{left$length}":       "background-position: top {top} left {left};",
+  "p-{keyword}":                          "background-position: {keyword};",
 
   // Size
   "s-a":         "background-size: auto;",
@@ -33,8 +36,9 @@ const styles: { [key: string]: string } = {
   "s-c":         "background-size: cover;",
   "s-cover":     "background-size: cover;",
   "s-contain":   "background-size: contain;",
-  "s-{length2}": "background-size: {length2};",
-  "s-{keyword}": "background-size: {keyword};",
+  "s-{width$length}":                   "background-size: {width};",
+  "s-{width$length}_{height$length}":   "background-size: width {width} height {height};",
+  "s-{keyword}":                        "background-size: {keyword};",
 
   // Repeat
   "r-r":         "background-repeat: repeat;",
@@ -78,10 +82,10 @@ const styles: { [key: string]: string } = {
   "a-{keyword}": "background-attachment: {keyword};",
 
   // Background Color
-  "c-t":           "background-color: transparent;",
-  "c-transparent": "background-color: transparent;",
-  "c-{color}":     "background-color: {color};",
-  "c-{keyword}":   "background-color: {keyword};",
+  "c-t":              "background-color: transparent;",
+  "c-transparent":    "background-color: transparent;",
+  "c-{color$color}":  "background-color: {color};",
+  "c-{keyword}":      "background-color: {keyword};",
 
   // Blend Mode
   "bm-n":           "background-blend-mode: normal;",
@@ -102,7 +106,7 @@ const styles: { [key: string]: string } = {
   "bm-c":           "background-blend-mode: color;",
   "bm-color":       "background-blend-mode: color;",
   "bm-luminosity":  "background-blend-mode: luminosity;",
-  "bm-{keyword}":    "background-blend-mode: {keyword};",
+  "bm-{keyword}":   "background-blend-mode: {keyword};",
 
 }
 

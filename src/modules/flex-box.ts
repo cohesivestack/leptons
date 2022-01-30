@@ -12,10 +12,13 @@ const styles: { [key: string]: string } = {
   "auto":      "flex: 1 1 auto; min-width:0; min-height:0;",
   "{keyword}": "flex: {keyword};",
 
-  "b-a":         "flex-basis: auto;",
-  "b-auto":      "flex-basis: auto;",
-  "b-{length}":  "flex-basis: {length};",
-  "b-{keyword}": "flex-basis: {keyword};",
+  // Basis
+  "b-a":            "flex-basis: auto;",
+  "b-auto":         "flex-basis: auto;",
+  "b-c":            "flex-basis: content;",
+  "b-content":      "flex-basis: content;",
+  "b-{length}":     "flex-basis: {length};",
+  "b-{keyword}":    "flex-basis: {keyword};",
 
   // Direction
   "d-r":             "flex-direction: row;",
@@ -29,11 +32,11 @@ const styles: { [key: string]: string } = {
   "d-{keyword}":     "flex-direction: {keyword};",
 
   // Grow
-  "g-{number}":  "flex-grow: {number};",
+  "g-{number$number}":  "flex-grow: {number};",
   "g-{keyword}": "flex-grow: {keyword};",
 
   // Shrink
-  "s-{number}":  "flex-shrink: {number};",
+  "s-{number$number}":  "flex-shrink: {number};",
   "s-{keyword}": "flex-shrink: {keyword};",
 
   // Wrap

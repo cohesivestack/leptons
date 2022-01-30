@@ -36,8 +36,8 @@ const styles: { [key: string]: string } = {
   "p-centerCenter": "object-position: center center;",
   "p-cb":           "object-position: center bottom;",
   "p-centerBottom": "object-position: center bottom;",
-  "p-{length2}":    "object-position: {length2};",
-  "p-{keyword}":    "object-position: {keyword};"
+  "p-{horizontal$length}_{vertical$length}":  "object-position: {horizontal} {vertical};",
+  "p-{keyword}":                              "object-position: {keyword};",
 
 }
 

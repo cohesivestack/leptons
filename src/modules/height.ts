@@ -5,9 +5,9 @@ const symbol: string = "h";
 
 const styles: { [key: string]: string } = {
 
-  "auto":      "height: auto;",
-  "{length}":  "height: {length};",
-  "{keyword}": "height: {keyword};",
+  "auto":             "height: auto;",
+  "{heigth$length}":  "height: {heigth};",
+  "{keyword}":        "height: {keyword};",
 
 }
 

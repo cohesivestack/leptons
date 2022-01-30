@@ -12,7 +12,7 @@ const styles: { [key: string]: string } = {
   "n-{keyword}": "animation-name: {keyword};",
 
   //Duration
-  "d-{time}":    "animation-duration: {time};",
+  "d-{time$time}":    "animation-duration: {time};",
   "d-{keyword}": "animation-duration: {keyword};",
 
   //Timing-function
@@ -28,8 +28,8 @@ const styles: { [key: string]: string } = {
   "tf-{keyword}": "animation-timing-function: {keyword};",
 
   //Delay
-  "delay-{time}":    "animation-delay: {time};",
-  "delay-{keyword}": "animation-delay: {keyword};",
+  "delay-{time$time}":  "animation-delay: {time};",
+  "delay-{keyword}":    "animation-delay: {keyword};",
 
   //Iteration-count
   "ic-{count$number}": "animation-iteration-count: {count};",

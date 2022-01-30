@@ -6,12 +6,16 @@ const symbol: string = "min";
 const styles: { [key: string]: string } = {
 
   //Width
-  "w-{length}":  "min-width: {length};",
-  "w-{keyword}": "min-width: {keyword};",
+  "w-n":               "min-width: none;",
+  "w-none":            "min-width: none;",
+  "w-{width$length}":  "min-width: {width};",
+  "w-{keyword}":       "min-width: {keyword};",
 
   //Height
-  "h-{length}":  "min-height: {length};",
-  "h-{keyword}": "min-height: {keyword};"
+  "h-n":                "min-height: none;",
+  "h-none":             "min-height: none;",
+  "h-{height$length}":  "min-height: {height};",
+  "h-{keyword}":        "min-height: {keyword};"
 
 }
 

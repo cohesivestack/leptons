@@ -5,10 +5,10 @@ const symbol: string = "perspective";
 
 const styles: { [key: string]: string } = {
 
-  "n":         "perspective: none;",
-  "none":      "perspective: none;",
-  "{length}":  "perspective: {length};",
-  "{keyword}": "perspective: {keyword};",
+  "n":                "perspective: none;",
+  "none":             "perspective: none;",
+  "{length$length}":  "perspective: {length};",
+  "{keyword}":        "perspective: {keyword};",
 
 }
 
