@@ -1,12 +1,14 @@
 import { Builder } from "./builder"
 import { convertLengthToCss, isLengthValid } from "./length"
 import { convertNumberToCss, isNumberValid } from "./number"
+import { convertTimeToCss, isTimeValid } from "./time"
 
 export enum DynamicParamType {
   Length = "length",
   Number = "number",
   Color = "color",
   Shadow = "shadow",
+  Time = "time",
   Animation = "animation",
   Font = "font",
   Url = "url",
@@ -88,6 +90,8 @@ export class DynamicParam {
         return isLengthValid(param);
       case DynamicParamType.Number:
         return isNumberValid(param);
+      case DynamicParamType.Time:
+        return isTimeValid(param);
       case DynamicParamType.Font:
         return this.builder.hasFont(param);
       case DynamicParamType.Color:
@@ -120,6 +124,8 @@ export class DynamicParam {
         return convertLengthToCss(param, this.builder.lengthType);
       case DynamicParamType.Number:
         return convertNumberToCss(param);
+      case DynamicParamType.Time:
+        return convertTimeToCss(param);
       case DynamicParamType.Font:
         return this.builder.getFont(param);
       case DynamicParamType.Color:
