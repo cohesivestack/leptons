@@ -21,6 +21,7 @@ export type Config = {
   shadows?: { [index: string]: string }
   animations?: { [index: string]: string }
   urls?: { [index: string]: string }
+  areaTemplate?: { [index: string]: string }
   collections?: { [index: string]: { [index: string]: string } }
   classes?: string[]
   aliases?: string[]

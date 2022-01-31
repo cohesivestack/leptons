@@ -41,10 +41,10 @@ const styles: { [key: string]: string } = {
   "tc-{keyword}":         "grid-template-columns: {keyword};",
 
   //Template Areas
-  "ta-n":                          "grid-template-areas: none;",
-  "ta-none":                       "grid-template-areas: none;",
-  "ta-{areas$gridTemplateAreas}":  "grid-template-areas: {areas};",
-  "ta-{keyword}":                  "grid-template-areas: {keyword};",
+  "ta-n":                       "grid-template-areas: none;",
+  "ta-none":                    "grid-template-areas: none;",
+  "ta-{template$areaTemplate}": "grid-template-areas: {template};",
+  "ta-{keyword}":               "grid-template-areas: {keyword};",
 
   //Auto Rows
   "ar-a":                 "grid-auto-rows: auto;",

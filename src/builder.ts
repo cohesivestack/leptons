@@ -21,6 +21,7 @@ export class Builder {
   private urls: { [url: string]: string } = {};
   private shadows: { [shadow: string]: string } = {};
   private animations: { [animation: string]: string } = {};
+  private areaTemplate: { [teamplateArea: string]: string } = {};
   private collections: { [collection: string]: { [item: string]: string } } = {};
   private modules: { [moduleName: string]: Module } = {};
   private errors: { [errorType: string]: { [className: string]: string } } = {};
@@ -63,6 +64,12 @@ export class Builder {
     if (this.config.animations) {
       Object.entries(this.config.animations).forEach(([name, animation]) => {
         this.animations[name] = animation;
+      })
+    }
+
+    if (this.config.areaTemplate) {
+      Object.entries(this.config.areaTemplate).forEach(([name, templateArea]) => {
+        this.areaTemplate[name] = templateArea;
       })
     }
 
@@ -387,6 +394,17 @@ export class Builder {
       throw new Error(`There is not a defined url with the name ${url}`);
     }
     return this.urls[url];
+  }
+
+  hasAreaTemplate(templateArea: string): boolean {
+    return !!this.areaTemplate[templateArea];
+  }
+
+  getAreaTemplate(templateArea: string): string {
+    if (!this.hasAreaTemplate(templateArea)) {
+      throw new Error(`There is not a defined templateArea with the name ${templateArea}`);
+    }
+    return this.areaTemplate[templateArea];
   }
 
   hasShadow(shadow: string): boolean {

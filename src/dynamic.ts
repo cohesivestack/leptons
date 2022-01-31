@@ -8,6 +8,7 @@ export enum DynamicParamType {
   Number = "number",
   Color = "color",
   Shadow = "shadow",
+  AreaTemplate = "areaTemplate",
   Time = "time",
   Animation = "animation",
   Font = "font",
@@ -102,6 +103,8 @@ export class DynamicParam {
         return this.builder.hasAnimation(param);
       case DynamicParamType.Url:
         return this.builder.hasUrl(param);
+      case DynamicParamType.AreaTemplate:
+        return this.builder.hasAreaTemplate(param);
       case DynamicParamType.Custom:
         return this.collection !== undefined && this.builder.getCollection(this.collection)[param] !== undefined;
       case DynamicParamType.Any:
@@ -136,6 +139,8 @@ export class DynamicParam {
         return this.builder.getAnimation(param);
       case DynamicParamType.Url:
         return this.builder.getUrl(param);
+      case DynamicParamType.AreaTemplate:
+        return this.builder.getAreaTemplate(param);
       case DynamicParamType.Any:
         if (param.trim().length == 0) {
           throw `The type "${this.type}" can't not be empty`  

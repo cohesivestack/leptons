@@ -67,6 +67,12 @@ export const configSchema = {
         ".+": { type: "string" }
       }
     },
+    areaTemplate: {
+      type: "object",
+      patternProperties: {
+        ".+": { type: "string" }
+      }
+    },
     collections: {
       type: "object",
       patternProperties: {
