@@ -1,7 +1,7 @@
 import { Module } from "../module";
 
 const name: string = "Animation";
-const symbol: string = "a";
+const symbol: string = "an";
 
 const styles: { [key: string]: string } = {
 

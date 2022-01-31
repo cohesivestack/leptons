@@ -1,3 +1,4 @@
+export { align } from "./align";
 export { all } from "./all";
 export { animation } from "./animation";
 export { backface } from "./backface";
@@ -23,6 +24,7 @@ export { height } from "./height";
 export { hyphens } from "./hyphens";
 export { image } from "./image";
 export { isolation } from "./isolation";
+export { justify } from "./justify";
 export { letterSpacing } from "./letter-spacing";
 export { lineHeight } from "./line-height";
 export { list } from "./list";
