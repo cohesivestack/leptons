@@ -18,7 +18,7 @@ export const mask: CoverageInfo[] = [
   },
   { style: "mask-image",
     values: "none|{image}|{url}|initial|inherit",
-    skipValues: "{image}|{url}",
-    note: "{image}|{url} will be covered in the future."
+    skipValues: "{image}",
+    note: "{image} could be covered in the future."
   }
 ]

@@ -61,7 +61,9 @@ export const grid: CoverageInfo[] = [
     note: "Covered by row module"
   },
   { style: "grid-row-start",
-    values: "auto|{number}",
+    values: "auto|{number}|{span n}",
+    skipValues: "{span n}",
+    note: "{span n} will be supported in the future."
   },
   { style: "grid-template",
     values: "none|{grid-template-rows} / {grid-template-columns}|grid-template-areas|initial|inherit",
@@ -72,11 +74,13 @@ export const grid: CoverageInfo[] = [
     values: "none|{template}",
   },
   { style: "grid-template-columns",
-    values: "none|auto|max-content|min-content|{length}|initial|inherit",
-    note: "Currently Leptons only support one length for all columns. In the future a type like {length...} could support an undefined array of params."
+    values: "none|auto|max-content|min-content|{length...}|initial|inherit",
+    skipValues: "{length...}",
+    note: "Array params like {length...} will be supported very soon."
   },
   { style: "grid-template-rows",
-    values: "none|auto|max-content|min-content|{length}|initial|inherit",
-    note: "Currently Leptons only support one length for all rows. In the future a type like {length...} could support an undefined array of params."
+    values: "none|auto|max-content|min-content|{length...}|initial|inherit",
+    skipValues: "{length...}",
+    note: "Array params like {length...} will be supported very soon."
   }
 ]

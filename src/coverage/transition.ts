@@ -14,10 +14,12 @@ export const transition: CoverageInfo[] = [
   },
   { style: "transition-property",
     values: "none|all|{property}|initial|inherit",
-    skipValues: "{property}"
+    skipValues: "{property}",
+    note: "{property} could be covered in the future."
   },
   { style: "transition-timing-function",
     values: "linear|ease|ease-in|ease-out|ease-in-out|step-start|step-end|initial|inherit",
-    skipValues: "steps(int,start|end)|cubic-bezier(n,n,n,n)"
+    skipValues: "steps(int,start|end)|cubic-bezier(n,n,n,n)",
+    note: "Skipped values could be covered in the future."
   }
 ]
