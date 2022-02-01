@@ -17,28 +17,26 @@ const styles: { [key: string]: string } = {
   "a-{keyword}":       "grid-area: {keyword};",
 
   //Template Rows
-  "tr-n":                 "grid-template-rows: none;",
-  "tr-none":              "grid-template-rows: none;",
-  "tr-a":                 "grid-template-rows: auto;",
-  "tr-auto":              "grid-template-rows: auto;",
-  "tr-maxc":              "grid-template-rows: max-content;",
-  "tr-maxContent":        "grid-template-rows: max-content;",
-  "tr-minc":              "grid-template-rows: min-content;",
-  "tr-minContent":        "grid-template-rows: min-content;",
-  "tr-{length$length}":   "grid-template-rows: {length};",
-  "tr-{keyword}":         "grid-template-rows: {keyword};",
+  "tr-n":          "grid-template-rows: none;",
+  "tr-none":       "grid-template-rows: none;",
+  "tr-a":          "grid-template-rows: auto;",
+  "tr-auto":       "grid-template-rows: auto;",
+  "tr-maxc":       "grid-template-rows: max-content;",
+  "tr-maxContent": "grid-template-rows: max-content;",
+  "tr-minc":       "grid-template-rows: min-content;",
+  "tr-minContent": "grid-template-rows: min-content;",
+  "tr-{keyword}":  "grid-template-rows: {keyword};",
 
   //Template Columns
-  "tc-n":                 "grid-template-columns: none;",
-  "tc-none":              "grid-template-columns: none;",
-  "tc-a":                 "grid-template-columns: auto;",
-  "tc-auto":              "grid-template-columns: auto;",
-  "tc-maxc":              "grid-template-columns: max-content;",
-  "tc-maxContent":        "grid-template-columns: max-content;",
-  "tc-minc":              "grid-template-columns: min-content;",
-  "tc-minContent":        "grid-template-columns: min-content;",
-  "tc-{length$length}":   "grid-template-columns: {length};",
-  "tc-{keyword}":         "grid-template-columns: {keyword};",
+  "tc-n":          "grid-template-columns: none;",
+  "tc-none":       "grid-template-columns: none;",
+  "tc-a":          "grid-template-columns: auto;",
+  "tc-auto":       "grid-template-columns: auto;",
+  "tc-maxc":       "grid-template-columns: max-content;",
+  "tc-maxContent": "grid-template-columns: max-content;",
+  "tc-minc":       "grid-template-columns: min-content;",
+  "tc-minContent": "grid-template-columns: min-content;",
+  "tc-{keyword}":  "grid-template-columns: {keyword};",
 
   //Template Areas
   "ta-n":                       "grid-template-areas: none;",
@@ -86,8 +84,8 @@ const styles: { [key: string]: string } = {
   "ce-{keyword}":         "grid-column-end: {keyword};",
 
   // Grid Column Start
-  "cs-s":                 "grid-column-start: auto;",
-  "cs-start":             "grid-column-start: auto;",
+  "cs-a":                 "grid-column-start: auto;",
+  "cs-auto":              "grid-column-start: auto;",
   "cs-{number$number}":   "grid-column-start: {number};",
   "cs-{keyword}":         "grid-column-start: {keyword};",
 
@@ -98,8 +96,8 @@ const styles: { [key: string]: string } = {
   "re-{keyword}":         "grid-row-end: {keyword};",
 
   // Grid Row Start
-  "rs-s":                 "grid-row-start: auto;",
-  "rs-start":             "grid-row-start: auto;",
+  "rs-a":                 "grid-row-start: auto;",
+  "rs-auto":             "grid-row-start: auto;",
   "rs-{number$number}":   "grid-row-start: {number};",
   "rs-{keyword}":         "grid-row-start: {keyword};",
 

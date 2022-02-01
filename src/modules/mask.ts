@@ -78,6 +78,7 @@ const styles: { [key: string]: string } = {
   "i-none":      "mask-image: none;",
   "i-luminance": "mask-image: luminance;",
   "i-alpha":     "mask-image: alpha;",
+  "i-{url}":     "mask-image: {url};",
   "i-{keyword}": "mask-image: {keyword};",
 
 }

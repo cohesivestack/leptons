@@ -72,6 +72,7 @@ const styles: { [key: string]: string } = {
   "zoomIn":        "cursor: zoom-in;",
   "zo":            "cursor: zoom-out;",
   "zoomOut":       "cursor: zoom-out;",
+  "{url$url}":     "cursor: {url};",
   "{keyword}":     "cursor: {keyword};"
 
 }

@@ -22,6 +22,7 @@ const styles: { [key: string]: string } = {
   "p-viewBox":    "clip-path: view-box;",
   "p-n":          "clip-path: none;",
   "p-none":       "clip-path: none;",
+  "p-{url}":      "clip-path: {url};",
   "p-{keyword}":  "clip-path: {keyword};"
 }
 
