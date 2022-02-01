@@ -7,9 +7,7 @@ export const listStyle: CoverageInfo[] = [
     note: "Covered by specific styles"
   },
   { style: "list-style-image",
-    values: "none|{url}|initial|inherit",
-    skip: true,
-    note: "It will be covered when URL is supported."
+    values: "none|{url}|initial|inherit"
   },
   { style: "list-style-position",
     values: "inside|outside|initial|inherit"

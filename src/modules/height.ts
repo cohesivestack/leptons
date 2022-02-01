@@ -6,7 +6,7 @@ const symbol: string = "h";
 const styles: { [key: string]: string } = {
 
   "auto":             "height: auto;",
-  "{heigth$length}":  "height: {heigth};",
+  "{height$length}":  "height: {height};",
   "{keyword}":        "height: {keyword};",
 
 }

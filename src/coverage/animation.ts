@@ -19,7 +19,7 @@ export const animation: CoverageInfo[] = [
     values: "none|forwards|backwards|both|initial|inherit"
   },
   { style: "animation-iteration-count",
-    values: "{number}|infinite|initial|inherit"
+    values: "{count}|infinite|initial|inherit"
   },
   { style: "animation-name",
     values: "{name}|none|initial|inherit"

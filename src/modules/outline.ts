@@ -38,7 +38,7 @@ const styles: { [key: string]: string } = {
   "c-{keyword}":      "outline-color: {keyword};",
 
   // Offset
-  "o-{width$length}":  "outline-offset: {width};",
+  "o-{offset$length}": "outline-offset: {offset};",
   "o-{keyword}":       "outline-offset: {keyword};",
 
 }

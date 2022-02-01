@@ -33,9 +33,7 @@ export const text: CoverageInfo[] = [
     note: "No plans to support {string} for now."
   },
   { style: "text-shadow",
-    values: "valor|initial|inherit",
-    skip: true,
-    note: "It will be covered with an item collection {shadow}"
+    values: "{shadow}|initial|inherit"
   },
   { style: "text-transform",
     values: "none|capitalize|uppercase|lowercase|initial|inherit"

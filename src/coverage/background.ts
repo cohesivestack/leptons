@@ -19,20 +19,20 @@ export const background: CoverageInfo[] = [
     values: "{color}|transparent|initial|inherit"
   },
   { style: "background-image",
-    values: "{url}|none|initial|inherit",
-    skip: true,
-    note: "It will be covered when URL is supported."
+    values: "{url}|none|initial|inherit"
   },
   { style: "background-origin",
     values: "padding-box|border-box|content-box|initial|inherit"
   },
   { style: "background-position",
-    values: "{length2}|left top|left center|left bottom|right top|right center|right bottom|center top|center center|center bottom|initial|inherit"
+    values: "{vertical}_{horizontal}|left top|left center|left bottom|right top|right center|right bottom|center top|center center|center bottom|initial|inherit",
+    skipValues: "{vertical}_{horizontal}",
+    note: "{vertical}_{horizontal} are covered by the properties pbr, pbl, ptr, ptl"
   },
   { style: "background-repeat",
     values: "repeat|repeat-x|repeat-y|no-repeat|initial|inherit"
   },
   { style: "background-size",
-    values: "auto|{length2}|cover|contain|initial|inherit"
+    values: "auto|width {width} height {height}|cover|contain|initial|inherit"
   }
 ]

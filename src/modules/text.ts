@@ -84,6 +84,12 @@ const styles: { [key: string]: string } = {
   "o-ellipsis":  "text-overflow: ellipsis;",
   "o-{keyword}": "text-overflow: {keyword};",
 
+   // Shadow
+   "s-n":         "text-shadow: none;",
+   "s-none":      "text-shadow: none;",
+   "s-{shadow}":  "text-shadow: {shadow};",
+   "s-{keyword}": "text-shadow: {keyword};",
+
   // Transform
   "t-u":         "text-transform: uppercase;",
   "t-l":         "text-transform: lowercase;",

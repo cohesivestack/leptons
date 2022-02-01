@@ -32,6 +32,8 @@ export const grid: CoverageInfo[] = [
   },
   { style: "grid-column-gap",
     values: "{length}|initial|inherit",
+    skip: true,
+    note: "Covered by column module"
   },
   { style: "grid-column-start",
     values: "auto|{span n}|{number}",
@@ -55,6 +57,8 @@ export const grid: CoverageInfo[] = [
   },
   { style: "grid-row-gap",
     values: "{length}",
+    skip: true,
+    note: "Covered by row module"
   },
   { style: "grid-row-start",
     values: "auto|{number}",
@@ -65,9 +69,7 @@ export const grid: CoverageInfo[] = [
     note: "Covered by specific styles."
   },
   { style: "grid-template-areas",
-    values: "none|{itemnames}",
-    skip: true,
-    note: "This could be covered in the future with a {template-area} collection item"
+    values: "none|{template}",
   },
   { style: "grid-template-columns",
     values: "none|auto|max-content|min-content|{length}|initial|inherit",

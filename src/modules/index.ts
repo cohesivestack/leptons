@@ -4,7 +4,7 @@ export { animation } from "./animation";
 export { backface } from "./backface";
 export { background } from "./background";
 export { border } from "./border";
-export { boxSizing } from "./box-sizing";
+export { box } from "./box";
 export { break_ } from "./break";
 export { caption } from "./caption";
 export { caret } from "./caret";

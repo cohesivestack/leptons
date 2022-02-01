@@ -10,7 +10,7 @@ export const border: CoverageInfo[] = [
     values: "{color}|transparent|initial|inherit"
   },
   { style: "border-width",
-    values: "medium|thin|thick|{length}|initial|inherit"
+    values: "medium|thin|thick|{width}|initial|inherit"
   },
   { style: "border-style",
     values: "none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit"
@@ -33,7 +33,7 @@ export const border: CoverageInfo[] = [
     values: "none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit"
   },
   { style: "border-bottom-width",
-    values: "medium|thin|thick|{length}|initial|inherit"
+    values: "medium|thin|thick|{width}|initial|inherit"
   },
   { style: "border-image",
     values: "source slice width outset repeat|initial|inherit",
@@ -41,21 +41,19 @@ export const border: CoverageInfo[] = [
     note: "Covered by specific styles."
   },
   { style: "border-image-outset",
-    values: "{length4}|initial|inherit"
+    values: "{top} {right} {bottom} {left}|initial|inherit"
   },
   { style: "border-image-repeat",
     values: "stretch|repeat|round|space|initial|inherit"
   },
   { style: "border-image-slice",
-    values: "{length2}|fill|initial|inherit"
+    values: "{top} {right} {bottom} {left}|fill|initial|inherit"
   },
   { style: "border-image-source",
-    values: "none|{url}|initial|inherit",
-    skip: true,
-    note: "It will be covered when URL is supported."
+    values: "none|{url}|initial|inherit"
   },
   { style: "border-image-width",
-    values: "{length4}|auto|initial|inherit"
+    values: "{top} {right} {bottom} {left}|auto|initial|inherit"
   },
   { style: "border-left",
     values: "border-left-width border-left-style border-left-color|initial|inherit",
@@ -69,7 +67,7 @@ export const border: CoverageInfo[] = [
     values: "none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit"
   },
   { style: "border-left-width",
-    values: "medium|thin|thick|{length}|initial|inherit"
+    values: "medium|thin|thick|{width}|initial|inherit"
   },
   { style: "border-radius",
     values: "{length4}|initial|inherit",
@@ -86,10 +84,10 @@ export const border: CoverageInfo[] = [
     values: "none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit"
   },
   { style: "border-right-width",
-    values: "medium|thin|thick|{length}|initial|inherit"
+    values: "medium|thin|thick|{width}|initial|inherit"
   },
   { style: "border-spacing",
-    values: "{length2}|initial|inherit"
+    values: "{horizontal} {vertical}|initial|inherit"
   },
   { style: "border-style",
     values: "none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit"
@@ -112,6 +110,6 @@ export const border: CoverageInfo[] = [
     values: "none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit"
   },
   { style: "border-top-width",
-    values: "medium|thin|thick|{length}|initial|inherit"
+    values: "medium|thin|thick|{width}|initial|inherit"
   }
 ]

@@ -8,7 +8,7 @@ export const mask: CoverageInfo[] = [
     values: "repeat|repeat-x|repeat-y|space|round|no-repeat|initial|inherit"
   },
   { style: "mask-position",
-    values: "{lenght2}|left top|left center|left bottom|right top|right center|right bottom|center top|center center|center bottom|initial|inherit"
+    values: "{horizontal} {vertical}|left top|left center|left bottom|right top|right center|right bottom|center top|center center|center bottom|initial|inherit"
   },
   { style: "mask-origin",
     values: "border-box|content-box|padding-box|margin-box|fill-box|stroke-box|view-box|initial|inherit"

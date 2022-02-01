@@ -5,6 +5,12 @@ const symbol: string = "bg";
 
 const styles: { [key: string]: string } = {
 
+  // Image
+  "i-n":         "background-image: none;",
+  "i-none":      "background-image: none;",
+  "i-{url}":     "background-image: {url};",
+  "i-{keyword}": "background-image: {keyword};",
+
   // Position
   "p-lt":                               "background-position: left top;",
   "p-leftTop":                          "background-position: left top;",

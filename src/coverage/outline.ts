@@ -10,12 +10,12 @@ export const outline: CoverageInfo[] = [
     values: "invert|{color}|initial|inherit"
   },
   { style: "outline-offset",
-    values: "{length}|initial|inherit"
+    values: "{offset}|initial|inherit"
   },
   { style: "outline-style",
     values: "none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit"
   },
   { style: "outline-width",
-    values: "medium|thin|thick|{length}|initial|inherit"
+    values: "medium|thin|thick|{width}|initial|inherit"
   }
 ]

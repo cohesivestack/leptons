@@ -27,12 +27,12 @@ export const columns: CoverageInfo[] = [
     values: "none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit"
   },
   { style: "column-rule-width",
-    values: "medium|thin|thick|{length}|initial|inherit"
+    values: "medium|thin|thick|{width}|initial|inherit"
   },
   { style: "column-span",
     values: "none|all|initial|inherit"
   },
   { style: "column-width",
-    values: "auto|{length}|initial|inherit"
+    values: "auto|{width}|initial|inherit"
   }
 ]

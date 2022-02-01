@@ -198,6 +198,12 @@ const styles: { [key: string]: string } = {
   "wr-{width$length}": "border-right-width: {width};",
   "wr-{keyword}":      "border-right-width: {keyword};",
 
+  // Image Source
+  "i-n":         "border-image-source: none;",
+  "i-none":      "border-image-source: none;",
+  "i-{url}":     "border-image-source: {url};",
+  "i-{keyword}": "border-image-source: {keyword};",
+
   // Image Outset
   "io-{width$length}":                                            "border-image-outset: {width};",
   "io-{vertical$length}_{horizontal$length}":                     "border-image-outset: {vertical} {horizontal};",
@@ -227,9 +233,9 @@ const styles: { [key: string]: string } = {
   "iw-a":                                                         "border-image-width: auto;",
   "iw-auto":                                                      "border-image-width: auto;",
   "iw-{width$length}":                                            "border-image-width: {width};",
-  "iw-{vertical$length}_{horizontal$length}":                     "border-image-slice: {vertical} {horizontal};",
-  "iw-{top$length}_{horizontal$length}_{bottom$length}":          "border-image-slice: {top} {horizontal} {bottom};",
-  "iw-{top$length}_{right$length}_{bottom$length}_{left$length}": "border-image-slice: {top} {right} {bottom} {left};",
+  "iw-{vertical$length}_{horizontal$length}":                     "border-image-width: {vertical} {horizontal};",
+  "iw-{top$length}_{horizontal$length}_{bottom$length}":          "border-image-width: {top} {horizontal} {bottom};",
+  "iw-{top$length}_{right$length}_{bottom$length}_{left$length}": "border-image-width: {top} {right} {bottom} {left};",
   "iw-{keyword}":                                                 "border-image-width: {keyword};",
 
   // Spacing
