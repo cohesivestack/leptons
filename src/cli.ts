@@ -70,8 +70,8 @@ program
 
     createCommand('coverage')
       .addOption(
-        createOption("-f --filter <type>", "Type between covered | not-covered | partially-covered | skipped")
-          .choices(["all", "covered", "not-covered", "partially-covered", "skipped"])
+        createOption("-f --filter <type>", "Type between covered | covered-with-skip | not-covered | partially-covered | skipped")
+          .choices(["all", "covered", "not-covered", "covered-with-skip", "partially-covered", "skipped"])
           .default("all")
       )
       .description('Display information about the CSS styles covered by Leptons')

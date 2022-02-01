@@ -31,6 +31,7 @@ export const printOutCoverInfo = (filter: string) => {
   const covers = Object.values(coversInfo).flat();
 
   const covered: CoverageInfo[] = [];
+  const coveredWithSkip: CoverageInfo[] = [];
   const partially: CoverageInfo[] = [];
   const notCovered: CoverageInfo[] = [];
   const skip: CoverageInfo[] = [];
@@ -72,7 +73,11 @@ export const printOutCoverInfo = (filter: string) => {
 
       switch (cover.covered) {
         case "yes":
-          covered.push(cover);
+          if (cover.skipValues) {
+            coveredWithSkip.push(cover);
+          } else {
+            covered.push(cover);
+          }
           break;
         case "no":
           notCovered.push(cover);
@@ -88,6 +93,11 @@ export const printOutCoverInfo = (filter: string) => {
   if (filter === "all" || filter === "covered") {
     output += `  Covered: ${covered.length}\n`;
     covered.forEach(c => output += buildLine(c));
+  }
+
+  if (filter === "all" || filter === "covered-with-skip") {
+    output += `  Covered with Skip Values: ${coveredWithSkip.length}\n`;
+    coveredWithSkip.forEach(c => output += buildLine(c));
   }
 
   if (filter === "all" || filter === "not-covered") {
