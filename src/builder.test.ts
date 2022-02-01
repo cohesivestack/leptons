@@ -133,40 +133,40 @@ describe("Builder", () => {
   });
 
 
-  // test("build should work", () => {
+  test("build should work", () => {
 
-  //   const content = `
-  //     <div class="w-100p w-100p-L f-s-1">Text 1</div>
-  //     <div class=" w-90p  w-100p-M  f-s-2:h  ">Text 2</div>
-  //   `
+    const content = `
+      <div class="w-100% w-100%-L f-s-1">Text 1</div>
+      <div class=" w-90%  w-100%-M  f-s-2:h  ">Text 2</div>
+    `
 
-  //   const plainConfig = {
-  //     lengthType: "em",
-  //     medias: {
-  //       M: "screen and (min-width: 16rem)",
-  //       L: "screen and (min-width: 32rem)"
-  //     },
-  //     source: {
-  //       html: { content: content }
-  //     }
-  //   }
+    const plainConfig = {
+      lengthType: "em",
+      medias: {
+        M: "screen and (min-width: 16rem)",
+        L: "screen and (min-width: 32rem)"
+      },
+      source: {
+        html: { content: content }
+      }
+    }
 
-  //   const builder = new Builder(plainConfig as Config, true);
-  //   const result = builder.buildToString();
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
 
-  //   expect(result.trim()).toBe(clearIdentForTesting(`
-  //     .f-s-1 { font-size: 1em; }
-  //     .f-s-2\\:h:hover { font-size: 2em; }
-  //     .w-100p { width: 100%; }
-  //     .w-90p { width: 90%; }
-  //     @media screen and (min-width: 16rem) {
-  //       .w-100p-M { width: 100%; }
-  //     }
-  //     @media screen and (min-width: 32rem) {
-  //       .w-100p-L { width: 100%; }
-  //     }`
-  //   ));
-  // });
+    expect(result.trim()).toBe(clearIdentForTesting(`
+      .f-s-1 { font-size: 1em; }
+      .f-s-2\\:h:hover { font-size: 2em; }
+      .w-100\\% { width: 100%; }
+      .w-90\\% { width: 90%; }
+      @media screen and (min-width: 16rem) {
+        .w-100\\%-M { width: 100%; }
+      }
+      @media screen and (min-width: 32rem) {
+        .w-100\\%-L { width: 100%; }
+      }`
+    ));
+  });
 
   // test("build using lengths with decimal", () => {
 

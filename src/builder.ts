@@ -190,7 +190,7 @@ export class Builder {
     let attributeMatches: RegExpExecArray | null;
     const classNames: string[] = [];
 
-    const regexClass = /[A-Za-z0-9!][A-Za-z0-9-_\.:]+/;
+    const regexClass = /[A-Za-z0-9!][A-Za-z0-9-_\.%:]+/;
 
     while (attributeMatches = regexAttribute.exec(content)) {
       let entries: null | string[] = null;
@@ -284,7 +284,8 @@ export class Builder {
     let output = className
       .replace(/\./g, "\\.")
       .replace(/:/g, "\\:")
-      .replace(/!/g, "\\!");
+      .replace(/!/g, "\\!")
+      .replace(/%/g, "\\%");
 
     if (atom.pseudoClasses) {
       atom.pseudoClasses.forEach(pc => output += pseudoClasses[pc]);
