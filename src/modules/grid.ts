@@ -85,26 +85,17 @@ const styles: { [key: string]: string } = {
   "ce-{number$number}":   "grid-column-end: {number};",
   "ce-{keyword}":         "grid-column-end: {keyword};",
 
-  // Grid Column Gap
-  "cg-{length$length}":   "grid-column-gap: {length};",
-  "cg-{keyword}":         "grid-column-gap: {keyword};",
-
   // Grid Column Start
   "cs-s":                 "grid-column-start: auto;",
   "cs-start":             "grid-column-start: auto;",
   "cs-{number$number}":   "grid-column-start: {number};",
   "cs-{keyword}":         "grid-column-start: {keyword};",
 
-
   // Grid Row End
   "re-a":                 "grid-row-end: auto;",
   "re-auto":              "grid-row-end: auto;",
   "re-{number$number}":   "grid-row-end: {number};",
   "re-{keyword}":         "grid-row-end: {keyword};",
-
-  // Grid Row Gap
-  "rg-{length$length}":   "grid-row-gap: {length};",
-  "rg-{keyword}":         "grid-row-gap: {keyword};",
 
   // Grid Row Start
   "rs-s":                 "grid-row-start: auto;",
