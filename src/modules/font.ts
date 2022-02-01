@@ -6,8 +6,8 @@ const symbol: string = "f";
 const styles: { [key: string]: string } = {
 
   // Family
-  "f-{font}":    "font-family: {font};",
-  "f-{keyword}": "font-family: {keyword};",
+  "f-{font$font}": "font-family: {font};",
+  "f-{keyword}":   "font-family: {keyword};",
 
   // Size
   "s-s":                "font-size: small;",
