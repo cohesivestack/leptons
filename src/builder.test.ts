@@ -136,8 +136,8 @@ describe("Builder", () => {
   test("build should work", () => {
 
     const content = `
-      <div class="w-100% w-100%-L f-s-1">Text 1</div>
-      <div class=" w-90%  w-100%-M  f-s-2:h  ">Text 2</div>
+      <div class="w-100px w-100px-L f-s-1">Text 1</div>
+      <div class=" w-90px  w-100px-M p-10px_20px_30rem_40pt  f-s-2:h  ">Text 2</div>
     `
 
     const plainConfig = {
@@ -157,235 +157,271 @@ describe("Builder", () => {
     expect(result.trim()).toBe(clearIdentForTesting(`
       .f-s-1 { font-size: 1em; }
       .f-s-2\\:h:hover { font-size: 2em; }
-      .w-100\\% { width: 100%; }
-      .w-90\\% { width: 90%; }
+      .p-10px_20px_30rem_40pt { padding: 10px 20px 30rem 40pt; }
+      .w-100px { width: 100px; }
+      .w-90px { width: 90px; }
       @media screen and (min-width: 16rem) {
-        .w-100\\%-M { width: 100%; }
+        .w-100px-M { width: 100px; }
       }
       @media screen and (min-width: 32rem) {
-        .w-100\\%-L { width: 100%; }
+        .w-100px-L { width: 100px; }
       }`
     ));
   });
 
-  // test("build using lengths with decimal", () => {
+  test("build using lengths with decimal", () => {
+    const content = `
+      <div class="f-s-1.5 f-s-2.0em-L p-1.0_2.0_3.0_4.0 p-5.0_6.0_7.0_8.0-L">Text 1</div>
+    `
 
-  //   const content = `
-  //     <div class="f-s-1.5 f-s-2.0em-L">Text 1</div>
-  //   `
+    const plainConfig = {
+      lengthType: "rem",
+      medias: {
+        L: "screen and (min-width: 32rem)"
+      },
+      source: {
+        html: { content: content }
+      }
+    }
 
-  //   const plainConfig = {
-  //     lengthType: "rem",
-  //     medias: {
-  //       L: "screen and (min-width: 32rem)"
-  //     },
-  //     source: {
-  //       html: { content: content }
-  //     }
-  //   }
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
 
-  //   const builder = new Builder(plainConfig as Config, true);
-  //   const result = builder.buildToString();
+    expect(result.trim()).toBe(clearIdentForTesting(`
+      .f-s-1\\.5 { font-size: 1.5rem; }
+      .p-1\\.0_2\\.0_3\\.0_4\\.0 { padding: 1.0rem 2.0rem 3.0rem 4.0rem; }
+      @media screen and (min-width: 32rem) {
+        .f-s-2\\.0em-L { font-size: 2.0em; }
+        .p-5\\.0_6\\.0_7\\.0_8\\.0-L { padding: 5.0rem 6.0rem 7.0rem 8.0rem; }
+      }`
+    ));
+  });
 
-  //   expect(result.trim()).toBe(clearIdentForTesting(`
-  //     .f-s-1\\.5 { font-size: 1.5rem; }
-  //     @media screen and (min-width: 32rem) {
-  //       .f-s-2\\.0em-L { font-size: 2.0em; }
-  //     }`
-  //   ));
-  // });
+  test("build using lengths with percentage", () => {
+    const content = `
+      <div class="f-s-1% f-s-2.5%-L p-1%_2%_3%_4% p-5.5%_6.5%_7.5%_8.5%-L">Text 1</div>
+    `
 
-  // test("build using important", () => {
-  //   const content = `
-  //     <div class="!f-s-1 !f-s-2-L">Text 1</div>
-  //   `
+    const plainConfig = {
+      lengthType: "rem",
+      medias: {
+        L: "screen and (min-width: 32rem)"
+      },
+      source: {
+        html: { content: content }
+      }
+    }
 
-  //   const plainConfig = {
-  //     lengthType: "rem",
-  //     medias: {
-  //       L: "screen and (min-width: 32rem)"
-  //     },
-  //     source: {
-  //       html: { content: content }
-  //     }
-  //   }
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
 
-  //   const builder = new Builder(plainConfig as Config, true);
-  //   const result = builder.buildToString();
+    expect(result.trim()).toBe(clearIdentForTesting(`
+      .f-s-1\\% { font-size: 1%; }
+      .p-1\\%_2\\%_3\\%_4\\% { padding: 1% 2% 3% 4%; }
+      @media screen and (min-width: 32rem) {
+        .f-s-2\\.5\\%-L { font-size: 2.5%; }
+        .p-5\\.5\\%_6\\.5\\%_7\\.5\\%_8\\.5\\%-L { padding: 5.5% 6.5% 7.5% 8.5%; }
+      }`
+    ));
+  });
 
-  //   expect(result.trim()).toBe(clearIdentForTesting(`
-  //     .\\!f-s-1 { font-size: 1rem; }
-  //     @media screen and (min-width: 32rem) {
-  //       .\\!f-s-2-L { font-size: 2rem; }
-  //     }`
-  //   ));
-  // });
+  test("build using important", () => {
+    const content = `
+      <div class="!f-s-1 !f-s-1.5%-M !f-s-2-L">Text 1</div>
+    `
 
-  // test("build using pseudo classes and pseudo elements", () => {
-  //   const content = `
-  //     <div class="f-w-5:h f-w-6:h-L">Text 1</div>
-  //     <div class="f-w-5::a f-w-6::a-L">Text 2</div>
-  //     <div class="f-w-5:h::a f-w-6:h::a-L">Text 3</div>
-  //   `
+    const plainConfig = {
+      lengthType: "rem",
+      medias: {
+        M: "screen and (min-width: 16rem)",
+        L: "screen and (min-width: 32rem)"
+      },
+      source: {
+        html: { content: content }
+      }
+    }
 
-  //   const plainConfig = {
-  //     lengthType: "rem",
-  //     medias: {
-  //       L: "screen and (min-width: 32rem)"
-  //     },
-  //     source: {
-  //       html: { content: content }
-  //     }
-  //   }
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
 
-  //   const builder = new Builder(plainConfig as Config, true);
-  //   const result = builder.buildToString();
+    expect(result.trim()).toBe(clearIdentForTesting(`
+      .\\!f-s-1 { font-size: 1rem; }
+      @media screen and (min-width: 16rem) {
+        .\\!f-s-1\\.5\\%-M { font-size: 1.5%; }
+      }
+      @media screen and (min-width: 32rem) {
+        .\\!f-s-2-L { font-size: 2rem; }
+      }`
+    ));
+  });
 
-  //   expect(result.trim()).toBe(clearIdentForTesting(`
-  //     .f-w-5\\:\\:a::after { font-weight: 500; }
-  //     .f-w-5\\:h:hover { font-weight: 500; }
-  //     .f-w-5\\:h\\:\\:a:hover::after { font-weight: 500; }
-  //     @media screen and (min-width: 32rem) {
-  //       .f-w-6\\:\\:a-L::after { font-weight: 600; }
-  //       .f-w-6\\:h-L:hover { font-weight: 600; }
-  //       .f-w-6\\:h\\:\\:a-L:hover::after { font-weight: 600; }
-  //     }`
-  //   ));
-  // });
+  test("build using pseudo classes and pseudo elements", () => {
+    const content = `
+      <div class="f-w-500:h f-w-600:h-L p-1.1%_1.2%:h::a-L">Text 1</div>
+      <div class="f-w-500::a f-w-600::a-L">Text 2</div>
+      <div class="f-w-500:h::a f-w-600:h::a-L">Text 3</div>
+    `
 
-  // test("build with colors and fonts should work", () => {
+    const plainConfig = {
+      lengthType: "rem",
+      medias: {
+        L: "screen and (min-width: 32rem)"
+      },
+      source: {
+        html: { content: content }
+      }
+    }
 
-  //   const content = `
-  //     <div class="bg-c-black t-c-white f-f-serif">Text 1</div>
-  //     <div class="bg-c-black t-c-gray f-f-sansSerif">Text 2</div>
-  //   `
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
 
-  //   const plainConfig = {
-  //     lengthType: "em",
-  //     medias: {
-  //       M: "screen and (min-width: 16rem)",
-  //       L: "screen and (min-width: 32rem)"
-  //     },
-  //     colors: {
-  //       white: "#ffeeee",
-  //       black: "#001111",
-  //       gray: "#cccccc"
-  //     },
-  //     fonts: {
-  //       serif: "Times New Roman",
-  //       sansSerif: "Roboto"
-  //     },
-  //     source: {
-  //       html: { content: content }
-  //     },
-  //   }
+    expect(result.trim()).toBe(clearIdentForTesting(`
+      .f-w-500\\:\\:a::after { font-weight: 500; }
+      .f-w-500\\:h:hover { font-weight: 500; }
+      .f-w-500\\:h\\:\\:a:hover::after { font-weight: 500; }
+      @media screen and (min-width: 32rem) {
+        .f-w-600\\:\\:a-L::after { font-weight: 600; }
+        .f-w-600\\:h-L:hover { font-weight: 600; }
+        .f-w-600\\:h\\:\\:a-L:hover::after { font-weight: 600; }
+        .p-1\\.1\\%_1\\.2\\%\\:h\\:\\:a-L:hover::after { padding: 1.1% 1.2%; }
+      }`
+    ));
+  });
 
-  //   const builder = new Builder(plainConfig as Config, true);
-  //   const result = builder.buildToString();
+  test("build with colors and fonts should work", () => {
 
-  //   expect(result.trim()).toBe(clearIdentForTesting(`
-  //     .bg-c-black { background-color: #001111; }
-  //     .f-f-sansSerif { font-family: Roboto; }
-  //     .f-f-serif { font-family: Times New Roman; }
-  //     .t-c-gray { color: #cccccc; }
-  //     .t-c-white { color: #ffeeee; }
-  //     @media screen and (min-width: 16rem) {
-  //     }
-  //     @media screen and (min-width: 32rem) {
-  //     }`
-  //   ));
-  // });
+    const content = `
+      <div class="bg-c-black b-c-powderBlue t-c-white f-f-serif">Text 1</div>
+      <div class="bg-c-black b-c-powderBlue t-c-gray f-f-sansSerif">Text 2</div>
+    `
 
-  // test("build with keyword values", () => {
+    const plainConfig = {
+      lengthType: "em",
+      medias: {
+        M: "screen and (min-width: 16rem)",
+        L: "screen and (min-width: 32rem)"
+      },
+      colors: {
+        white: "#ffeeee",
+        black: "#001111",
+        gray: "#cccccc"
+      },
+      fonts: {
+        serif: "Times New Roman",
+        sansSerif: "Roboto"
+      },
+      source: {
+        html: { content: content }
+      },
+    }
 
-  //   const content = `
-  //     <div class="bg-c-revert t-c-unset f-f-initial f-f-inherit">Text 1</div>
-  //   `
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
 
-  //   const plainConfig = {
-  //     lengthType: "em",
-  //     medias: { },
-  //     colors: { },
-  //     fonts: { },
-  //     source: {
-  //       html: { content: content }
-  //     },
-  //   }
+    expect(result.trim()).toBe(clearIdentForTesting(`
+      .b-c-powderBlue { border-color: #B0E0E6; }
+      .bg-c-black { background-color: #001111; }
+      .f-f-sansSerif { font-family: Roboto; }
+      .f-f-serif { font-family: Times New Roman; }
+      .t-c-gray { color: #cccccc; }
+      .t-c-white { color: #ffeeee; }
+      @media screen and (min-width: 16rem) {
+      }
+      @media screen and (min-width: 32rem) {
+      }`
+    ));
+  });
 
-  //   const builder = new Builder(plainConfig as Config, true);
-  //   const result = builder.buildToString();
+  test("build with keyword values", () => {
 
-  //   expect(result.trim()).toBe(clearIdentForTesting(`
-  //     .bg-c-revert { background-color: revert; }
-  //     .f-f-inherit { font-family: inherit; }
-  //     .f-f-initial { font-family: initial; }
-  //     .t-c-unset { color: unset; }`
-  //     ));
-  // });
+    const content = `
+      <div class="bg-c-revert t-c-unset f-f-initial f-f-inherit">Text 1</div>
+    `
 
-  // test("include should work", () => {
-  //   const content = `
-  //     <div class="f-s-1px">Text 1</div>
-  //   `
+    const plainConfig = {
+      lengthType: "em",
+      medias: { },
+      colors: { },
+      fonts: { },
+      source: {
+        html: { content: content }
+      },
+    }
 
-  //   const plainConfig = {
-  //     lengthType: "em",
-  //     medias: {
-  //       M: "screen and (min-width: 16rem)",
-  //       L: "screen and (min-width: 32rem)"
-  //     },
-  //     include: `
-  //       m-b-1
-  //       p-t-1
-  //       m-b-2-L
-  //       f-s-1px
-  //     `,
-  //     source: {
-  //       html: { content: content }
-  //     },
-  //   }
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
 
-  //   const builder = new Builder(plainConfig as Config, true);
-  //   const result = builder.buildToString();
+    expect(result.trim()).toBe(clearIdentForTesting(`
+      .bg-c-revert { background-color: revert; }
+      .f-f-inherit { font-family: inherit; }
+      .f-f-initial { font-family: initial; }
+      .t-c-unset { color: unset; }`
+      ));
+  });
 
-  //   expect(result.trim()).toBe(clearIdentForTesting(`
-  //     .f-s-1px { font-size: 1px; }
-  //     .m-b-1 { margin-bottom: 1em; }
-  //     .p-t-1 { padding-top: 1em; }
-  //     @media screen and (min-width: 16rem) {
-  //     }
-  //     @media screen and (min-width: 32rem) {
-  //       .m-b-2-L { margin-bottom: 2em; }
-  //     }`
-  //   ));
-  // });
+  test("include should work", () => {
+    const content = `
+      <div class="f-s-1px">Text 1</div>
+    `
 
-  // test("Build should include cssBefore and cssAfter", () => {
-  //   const plainConfig = {
-  //     lengthType: "em",
-  //     medias: {
-  //       M: "screen and (min-width: 16rem)",
-  //       L: "screen and (min-width: 32rem)"
-  //     },
-  //     source: {
-  //       html: { content: `<div class="f-s-1">Text 1</div>` }
-  //     },
-  //     cssBefore: "body { border: 0; }",
-  //     cssAfter: ".f-s-1 { font-size: 1px; }"
-  //   }
+    const plainConfig = {
+      lengthType: "em",
+      medias: {
+        M: "screen and (min-width: 16rem)",
+        L: "screen and (min-width: 32rem)"
+      },
+      include: `
+        m-b-1
+        p-t-1
+        m-b-2-L
+        f-s-1px
+      `,
+      source: {
+        html: { content: content }
+      },
+    }
 
-  //   const builder = new Builder(plainConfig as Config, true);
-  //   const result = builder.buildToString();
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
 
-  //   expect(result.trim()).toBe(clearIdentForTesting(
-  //     `body { border: 0; }
-  //     .f-s-1 { font-size: 1em; }
-  //     @media screen and (min-width: 16rem) {
-  //     }
-  //     @media screen and (min-width: 32rem) {
-  //     }
-  //     .f-s-1 { font-size: 1px; }`
-  //   ));
-  // });
+    expect(result.trim()).toBe(clearIdentForTesting(`
+      .f-s-1px { font-size: 1px; }
+      .m-b-1 { margin-bottom: 1em; }
+      .p-t-1 { padding-top: 1em; }
+      @media screen and (min-width: 16rem) {
+      }
+      @media screen and (min-width: 32rem) {
+        .m-b-2-L { margin-bottom: 2em; }
+      }`
+    ));
+  });
+
+  test("Build should include cssBefore and cssAfter", () => {
+    const plainConfig = {
+      lengthType: "em",
+      medias: {
+        M: "screen and (min-width: 16rem)",
+        L: "screen and (min-width: 32rem)"
+      },
+      source: {
+        html: { content: `<div class="f-s-1">Text 1</div>` }
+      },
+      cssBefore: "body { border: 0; }",
+      cssAfter: ".f-s-1 { font-size: 1px; }"
+    }
+
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
+
+    expect(result.trim()).toBe(clearIdentForTesting(
+      `body { border: 0; }
+      .f-s-1 { font-size: 1em; }
+      @media screen and (min-width: 16rem) {
+      }
+      @media screen and (min-width: 32rem) {
+      }
+      .f-s-1 { font-size: 1px; }`
+    ));
+  });
 
 });
