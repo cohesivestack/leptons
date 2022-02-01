@@ -21,8 +21,8 @@ Current version is `0.1.0.alpha.18`. The first goal is to release version `0.1.0
 - [x] Classes web search portal
 - [x] Improve values (length, number, etc)
 - [x] Leptons Collections like shadows
+- [x] Support standard HTML colors
 - [ ] Collections
-- [ ] Support standard HTML colors
 - [ ] Classes
 - [ ] Components
 - [ ] Documentation

@@ -13,6 +13,7 @@ import * as defaultModules from "./modules";
 import { pseudoClasses } from "./pseudo-class";
 import { pseudoElements } from "./pseudo-element";
 import { Dynamic } from "./dynamic";
+import { standardColors } from "./color";
 
 export class Builder {
 
@@ -365,14 +366,14 @@ export class Builder {
   }
 
   hasColor(color: string): boolean {
-    return !!this.colors[color];
+    return !!this.colors[color] || !!standardColors[color];
   }
 
   getColor(color: string): string {
     if (!this.hasColor(color)) {
       throw new Error(`There is not a defined color with the name ${color}`);
     }
-    return this.colors[color];
+    return this.colors[color] || standardColors[color];
   }
 
   hasCollection(collection: string): boolean {
