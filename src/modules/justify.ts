@@ -5,7 +5,37 @@ const symbol: string = "j";
 
 const styles: { [key: string]: string } = {
 
-  // Justify Content
+  // Items
+  "i-n":         "justify-items: normal;",
+  "i-normal":    "justify-items: normal;",
+  "i-s":         "justify-items: flex-start;",
+  "i-start":     "justify-items: flex-start;",
+  "i-e":         "justify-items: flex-end;",
+  "i-end":       "justify-items: flex-end;",
+  "i-c":         "justify-items: center;",
+  "i-center":    "justify-items: center;",
+  "i-stretch":   "justify-items: stretch;",
+  "i-b":         "justify-items: baseline;",
+  "i-baseline":  "justify-items: baseline;",
+  "i-{keyword}": "justify-items: {keyword};",
+
+  // Self
+  "s-a":         "justify-self: auto;",
+  "s-auto":      "justify-self: auto;",
+  "s-n":         "justify-self: normal;",
+  "s-normal":    "justify-self: normal;",
+  "s-s":         "justify-self: flex-start;",
+  "s-start":     "justify-self: flex-start;",
+  "s-e":         "justify-self: flex-end;",
+  "s-end":       "justify-self: flex-end;",
+  "s-c":         "justify-self: center;",
+  "s-center":    "justify-self: center;",
+  "s-stretch":   "justify-self: stretch;",
+  "s-b":         "justify-self: baseline;",
+  "s-baseline":  "justify-self: baseline;",
+  "s-{keyword}": "justify-self: {keyword};",
+
+  // Content
   "c-n":            "justify-content: normal;",
   "c-normal":       "justify-content: normal;",
   "c-s":            "justify-content: flex-start;",
