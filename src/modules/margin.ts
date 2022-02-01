@@ -4,12 +4,12 @@ const name: string = "Margin";
 const symbol: string = "m";
 
 const styles: { [key: string]: string } = {
-  "a":                  "margin: auto;",
-  "{width$length}":     "margin: {width};",
-  "{vertical$length}_{horizontal$length}":                        "margin: {vertical} {horizontal};",
-  "{top$length}_{horizontal$length}_{bottom$length}":             "margin: {top} {horizontal} {bottom};",
-  "{top$length}_{right$length}_{bottom$length}_{left$length}":    "margin: {top} {right} {bottom} {left};",
-  "{keyword}":                                                    "margin: {keyword};",
+  "a":                                                         "margin: auto;",
+  "{width$length}":                                            "margin: {width};",
+  "{vertical$length}_{horizontal$length}":                     "margin: {vertical} {horizontal};",
+  "{top$length}_{horizontal$length}_{bottom$length}":          "margin: {top} {horizontal} {bottom};",
+  "{top$length}_{right$length}_{bottom$length}_{left$length}": "margin: {top} {right} {bottom} {left};",
+  "{keyword}":                                                 "margin: {keyword};",
 
   "t-a":                "margin-top: auto;",
   "t-{width$length}":   "margin-top: {width};",

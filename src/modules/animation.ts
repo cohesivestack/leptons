@@ -12,8 +12,8 @@ const styles: { [key: string]: string } = {
   "n-{keyword}": "animation-name: {keyword};",
 
   //Duration
-  "d-{time$time}":    "animation-duration: {time};",
-  "d-{keyword}": "animation-duration: {keyword};",
+  "d-{time$time}": "animation-duration: {time};",
+  "d-{keyword}":   "animation-duration: {keyword};",
 
   //Timing-function
   "tf-l":         "animation-timing-function: linear;",

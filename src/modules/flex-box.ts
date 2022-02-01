@@ -32,12 +32,12 @@ const styles: { [key: string]: string } = {
   "d-{keyword}":     "flex-direction: {keyword};",
 
   // Grow
-  "g-{number$number}":  "flex-grow: {number};",
-  "g-{keyword}": "flex-grow: {keyword};",
+  "g-{number$number}": "flex-grow: {number};",
+  "g-{keyword}":       "flex-grow: {keyword};",
 
   // Shrink
-  "s-{number$number}":  "flex-shrink: {number};",
-  "s-{keyword}": "flex-shrink: {keyword};",
+  "s-{number$number}": "flex-shrink: {number};",
+  "s-{keyword}":       "flex-shrink: {keyword};",
 
   // Wrap
   "w-w":         "flex-wrap: wrap;",
