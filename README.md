@@ -10,46 +10,37 @@ Current version is `0.1.0.alpha.18`. The first goal is to release version `0.1.0
 
 ### Version 0.1.0
 - [x] Basic CSS generator
-- [x] Basic modules: `background`, `border`, `boxSizing`, `cursor`, `display`, `flexBox`, `font`, `height`, `margin`, `max`, `min`, `object`, `opacity`, `padding`, `position`, `text`, `verticalAlign`, `visibility`, `width`, `zIndex`.
+- [x] Basic modules
 - [x] !important
 - [x] Pseudo classes
 - [x] Pseudo elements
 - [x] Command line interface
 - [x] Watcher
 - [x] Add the type of value keyword, supporting `initial`, `revert`, `inherit` and `unset`
-- [x] Add modules:
-  - [x] `all`
-  - [x] `animation`
-  - [x] `backface`
-  - [x] `caret`
-  - [x] `caption`
-  - [x] `columns`
-  - [x] `grid`
-  - [x] `list`
-  - [x] `line-height`
-  - [x] `outline`
-  - [x] `resize`
-  - [x] `scroll`
-  - [x] `tab-size`
-  - [x] `transform`
-  - [x] `transition` 
-  - [x] `user-select`
-  - [x] `white-space`
-  - [x] `word`
+- [x] Add missing modules
 - [x] Classes web search portal
-- [ ] Improve values (length, number, etc)
+- [x] Improve values (length, number, etc)
+- [x] Leptons Collections like shadows
+- [ ] Collections
 - [ ] Support standard HTML colors
 - [ ] Classes
-- [ ] Collections
 - [ ] Components
 - [ ] Documentation
 - [ ] Website
 
+### Version 0.1.1
+- [ ] Negative lengths
+- [ ] Support for array params like {length...}
+- [ ] grid-template-rows and grid-template-columns with {length...}
+
 ### Version 0.2.0
-- [ ] Display errors, missing classes, duplicated classes
-- [ ] Collection of shadows
+- [ ] Display errors, missing classes and duplicated classes
 
 ### Version 1.0
+- [ ] Deprecation and backward compatibility program
+
+### Version 1.1
+- [ ] Custom types
 - [ ] External module system
 
 ## Default configuration
