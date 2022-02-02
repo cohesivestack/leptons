@@ -89,7 +89,14 @@ export const configSchema = {
     classes: {
       type: "object",
       patternProperties: {
-        ".+": { type: "string" }
+        ".+": {
+          type: "object",
+          patternProperties: {
+            ".+": {
+              type: "string"
+            }
+          }
+        }
       }
     },
     aliases: {

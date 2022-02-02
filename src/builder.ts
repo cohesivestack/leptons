@@ -14,6 +14,7 @@ import { pseudoClasses } from "./pseudo-class";
 import { pseudoElements } from "./pseudo-element";
 import { Dynamic } from "./dynamic";
 import { standardColors } from "./color";
+import { runInThisContext } from "vm";
 
 export class Builder {
 
@@ -24,6 +25,7 @@ export class Builder {
   private animations: { [animation: string]: string } = {};
   private areaTemplate: { [teamplateArea: string]: string } = {};
   private collections: { [collection: string]: { [item: string]: string } } = {};
+  private customModules: { [moduleName: string]: Module } = {};
   private modules: { [moduleName: string]: Module } = {};
   private errors: { [errorType: string]: { [className: string]: string } } = {};
   private classesIndex: string[] = [];
@@ -91,6 +93,13 @@ export class Builder {
         this.addModule(mod);
       });
     }
+
+    if (this.config.classes) {
+      Object.entries(this.config.classes).forEach(([name, styles]) => {
+        this.customModules[name] = new Module(name, name, styles, this);
+      })
+    }
+
   }
 
   public buildToString(): string {
@@ -248,8 +257,18 @@ export class Builder {
       return;
     }
 
-    // Check if module exist
-    if (!this.modules[<string>atom.module]) {
+    const modules: Module[] = [];
+
+    // Set Leptons module and Custom module.
+
+    // Custom modules have priority, so it's possible to override Leptons classes
+    if (this.customModules[<string>atom.module]) {
+      modules.push(this.customModules[<string>atom.module]);
+    }
+    if (this.modules[<string>atom.module]) {
+      modules.push(this.modules[<string>atom.module]);
+    }
+    if (modules.length === 0) {
       this.addError(ErrorType.NotMatching, className, `Module "${atom.module}" doesn't exist`);
       return;
     }
@@ -258,7 +277,7 @@ export class Builder {
     try {
       const cssClassStyle = {
         cssClass: this.atomToCssClass(className, atom),
-        cssStyle: this.atomToCssStyle(this.modules[<string>atom.module], atom)
+        cssStyle: this.atomToCssStyle(modules, atom)
       };
 
       if (!atom.medias) {
@@ -298,38 +317,58 @@ export class Builder {
   }
 
 
-  public atomToCssStyle(mod: Module, atom: Atom): string  {
+  public atomToCssStyle(mod: Module | Module[], atom: Atom): string  {
 
-    let cssStyle: string | undefined
+    let modules: Module[];
+    if (!(mod instanceof Array)) {
+      modules = [mod];
+    } else {
+      modules = mod;
+    }
 
-    let literalValue: string | undefined;
-    let keywordStyle: string | undefined;
+    let cssStyle: string | undefined;
 
     let keyModule = atom.attribute ? `${atom.attribute}-${atom.value}` : atom.value;
 
-    if (literalValue = mod.getLiteral(keyModule)) {
-
-      cssStyle = literalValue;
-
-    } else {
-
-      if (atom.attribute) {
-        keyModule = atom.attribute;
-      } else {
-        keyModule = "";
+    // Search in literals
+    for (const mod of modules) {
+      let literalValue: string | undefined;
+      if (literalValue = mod.getLiteral(keyModule)) {
+        cssStyle = literalValue;
+        break;
       }
+    }
 
-      let dynamics: Dynamic[] | undefined;
+    // Search in Keywords
+    if (!cssStyle) {
+      for (const mod of modules) {
+        let keywordStyle: string | undefined;
 
-      if ((keywordStyle = mod.getKeyword(keyModule)) && isValidStringKeyword(atom.value)) {
-        const template = keywordStyle;
-        cssStyle = template.replace(new RegExp("{keyword}", 'g'), atom.value);
-      } else if (dynamics = mod.getDynamics(keyModule)) {
-        for (const d of dynamics) {
-          d.setBuilder(this);
-          if (d.isMatching(atom.value)) {
-            cssStyle = d.parse(atom.value);
-            break;
+        const keyModule = atom.attribute || "";
+
+        if ((keywordStyle = mod.getKeyword(keyModule)) && isValidStringKeyword(atom.value)) {
+          const template = keywordStyle;
+          cssStyle = template.replace(new RegExp("{keyword}", 'g'), atom.value);
+          break;
+        }
+      }
+    }
+
+    // Search in Dynamics
+    if (!cssStyle) {
+      OUT:
+      for (const mod of modules) {
+        let dynamics: Dynamic[] | undefined;
+
+        const keyModule = atom.attribute || "";
+
+        if (dynamics = mod.getDynamics(keyModule)) {
+          for (const d of dynamics) {
+            d.setBuilder(this);
+            if (d.isMatching(atom.value)) {
+              cssStyle = d.parse(atom.value);
+              break OUT;
+            }
           }
         }
       }

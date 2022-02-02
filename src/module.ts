@@ -16,7 +16,8 @@ export class Module {
   constructor (
     public readonly name: string,
     public readonly symbol: string,
-    styles: { [key: string]: string }) {
+    styles: { [key: string]: string },
+    builder?: Builder) {
 
     Object.entries(styles).forEach(([key, style]) => {
 
@@ -32,7 +33,7 @@ export class Module {
           if (!this.dynamics[attr]) {
             this.dynamics[attr] = {}
           }
-          this.dynamics[attr][_params] = new Dynamic(_params, style);
+          this.dynamics[attr][_params] = new Dynamic(_params, style, builder);
         } else {
           throw Error(`String style is invalid "{ ${key}: ${style} }"`)
         }
