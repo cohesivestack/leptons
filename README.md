@@ -22,8 +22,8 @@ Current version is `0.1.0.alpha.18`. The first goal is to release version `0.1.0
 - [x] Improve values (length, number, etc)
 - [x] Leptons Collections like shadows
 - [x] Support standard HTML colors
-- [ ] Collections
-- [ ] Classes
+- [x] Collections
+- [x] Classes
 - [ ] Components
 - [ ] Documentation
 - [ ] Website
@@ -37,9 +37,10 @@ Current version is `0.1.0.alpha.18`. The first goal is to release version `0.1.0
 - [ ] Display errors, missing classes and duplicated classes
 
 ### Version 1.0
-- [ ] Deprecation and backward compatibility program
+- [ ] Deprecation and backward compatibility plan
 
-### Version 1.1
+### Version 2.0
+- [ ] Classes and components with functions
 - [ ] Custom types
 - [ ] External module system
 
