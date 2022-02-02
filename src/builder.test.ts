@@ -424,4 +424,49 @@ describe("Builder", () => {
     ));
   });
 
+  test("build with custom classes and collection", () => {
+
+    const content = `
+      <div class="c-a c-p">Text 1</div>
+      <div class="x-p-a x-p-2px x-p-va">Text 2</div>
+    `
+
+    const plainConfig = {
+      lengthType: "em",
+      medias: { },
+      colors: { },
+      fonts: { },
+      collections: {
+        col: {
+          va: "10px",
+          vb: "20px"
+        }
+      },
+      classes: {
+        x: {
+          "p-a": "padding: auto;",
+          "p-{v$length}": "padding: {v};",
+          "p-{v:col}": "padding: {v};"
+        },
+        c: {
+          "p": "cursor: move;" // Override leptons class
+        }
+      },
+      source: {
+        html: { content: content }
+      },
+    }
+
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
+
+
+    expect(result.trim()).toBe(clearIdentForTesting(`.c-a { cursor: auto; }
+      .c-p { cursor: move; }
+      .x-p-2px { padding: 2px; }
+      .x-p-a { padding: auto; }
+      .x-p-va { padding: 10px; }`
+    ));
+  });
+
 });
