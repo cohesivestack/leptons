@@ -249,7 +249,6 @@ export class Builder {
     }
 
     this.errors[errorType][className] = errorMessage;
-    this.classesIndex.push(className);
   }
 
   public addModule(mod: Module) {
@@ -261,6 +260,7 @@ export class Builder {
     if (this.classesIndex.indexOf(className) > -1) {
       return;
     }
+    this.classesIndex.push(className);
 
     let atom: Atom;
     try {
