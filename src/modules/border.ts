@@ -36,16 +36,16 @@ const styles: { [key: string]: string } = {
   "r-{topLeft$length}_{topRight$length}_{bottomRight$length}_{bottomLeft$length}": "border-radius: {topLeft} {topRight} {bottomRight} {bottomLeft};",
   "r-{keyword}":                                                                   "border-radius: {keyword};",
 
-  "rtl-{length2}": "border-top-left-radius: {length2};",
+  "rtl-{length$length}": "border-top-left-radius: {length};",
   "rtl-{keyword}": "border-top-left-radius: {keyword};",
 
-  "rtr-{length2}": "border-top-right-radius: {length2};",
+  "rtr-{length$length}": "border-top-right-radius: {length};",
   "rtr-{keyword}": "border-top-right-radius: {keyword};",
 
-  "rbl-{length2}": "border-bottom-left-radius: {length2};",
+  "rbl-{length$length}": "border-bottom-left-radius: {length};",
   "rbl-{keyword}": "border-bottom-left-radius: {keyword};",
 
-  "rbr-{length2}": "border-bottom-right-radius: {length2};",
+  "rbr-{length$length}": "border-bottom-right-radius: {length};",
   "rbr-{keyword}": "border-bottom-right-radius: {keyword};",
 
   // Style
