@@ -22,7 +22,7 @@ const styles: { [key: string]: string } = {
 
   "b-a":                "bottom: auto;",
   "b-auto":             "bottom: auto;",
-  "b-{length4length}":  "bottom: {length};",
+  "b-{length$length}":  "bottom: {length};",
   "b-{keyword}":        "bottom: {keyword};",
 
   "l-a":                "left: auto;",

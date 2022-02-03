@@ -32,12 +32,9 @@ const styles: { [key: string]: string } = {
   "cr-{keyword}":     "border-right-color: {keyword};",
 
   // Radius
-  "r-{length$length}": "border-radius: {length};",
-
+  "r-{length$length}":                                                             "border-radius: {length};",
   "r-{topLeft$length}_{topRight$length}_{bottomRight$length}_{bottomLeft$length}": "border-radius: {topLeft} {topRight} {bottomRight} {bottomLeft};",
-
-  "r-{length4}":   "border-radius: {length4};",
-  "r-{keyword}":   "border-radius: {keyword};",
+  "r-{keyword}":                                                                   "border-radius: {keyword};",
 
   "rtl-{length2}": "border-top-left-radius: {length2};",
   "rtl-{keyword}": "border-top-left-radius: {keyword};",
