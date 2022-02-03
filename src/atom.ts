@@ -63,7 +63,6 @@ export class Atom {
       parts[parts.length - 1] = subParts[0];
     }
 
-
     if (parts.length < 2) {
       throw "Class parts requires the Module and Value"
     }

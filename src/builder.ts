@@ -14,7 +14,7 @@ import { pseudoClasses } from "./pseudo-class";
 import { pseudoElements } from "./pseudo-element";
 import { Dynamic } from "./dynamic";
 import { standardColors } from "./color";
-import { runInThisContext } from "vm";
+import { pseudoRandomBytes } from "crypto";
 
 export class Builder {
 
@@ -95,11 +95,24 @@ export class Builder {
     }
 
     if (this.config.classes) {
-      Object.entries(this.config.classes).forEach(([name, styles]) => {
-        this.customModules[name] = new Module(name, name, styles, this);
-      })
-    }
+      const stylesPerModule: { [moduleName: string]: { [className: string]: string } } = {}
+      Object.entries(this.config.classes).forEach(([className, style]) => {
+        let parts = className.split('-');
 
+        if (parts.length < 2) {
+          throw `The class "${className}" requires at least a Module and Value. Example: module-value`
+        }
+        const moduleName = parts[0]; parts.shift();
+        const attrsAndValues = parts.join("-");
+        if (!stylesPerModule[moduleName]) {
+          stylesPerModule[moduleName] = {}
+        }
+        stylesPerModule[moduleName][attrsAndValues] = style;
+      })
+      Object.entries(stylesPerModule).forEach(([moduleName, styles]) => {
+        this.customModules[moduleName] = new Module(`Custom module ${moduleName}`, moduleName, styles, this);
+      });
+    }
   }
 
   public buildToString(): string {

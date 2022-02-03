@@ -23,7 +23,7 @@ export type Config = {
   urls?: { [index: string]: string }
   areaTemplate?: { [index: string]: string }
   collections?: { [index: string]: { [index: string]: string } }
-  classes?: { [index: string]: { [index: string]: string } }
+  classes?: { [index: string]: string }
   aliases?: string[]
   components?: string[]
   items?: { [index: string]: { [index: string]: number } }

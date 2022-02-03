@@ -443,14 +443,12 @@ describe("Builder", () => {
         }
       },
       classes: {
-        x: {
-          "p-a": "padding: auto;",
-          "p-{v$length}": "padding: {v};",
-          "p-{v:col}": "padding: {v};"
-        },
-        c: {
-          "p": "cursor: move;" // Override leptons class
-        }
+        "x-p-a": "padding: auto;",
+        "x-p-{v$length}": "padding: {v};",
+        "x-p-{v:col}": "padding: {v};",
+
+        // Override leptons class
+        "c-p": "cursor: move;"
       },
       source: {
         html: { content: content }
