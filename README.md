@@ -24,17 +24,20 @@ Current version is `0.1.0.alpha.18`. The first goal is to release version `0.1.0
 - [x] Support standard HTML colors
 - [x] Collections
 - [x] Classes
-- [ ] Components
+- [x] Components
+- [ ] Negative lengths
 - [ ] Documentation
 - [ ] Website
 
 ### Version 0.1.1
-- [ ] Negative lengths
 - [ ] Support for array params like {length...}
 - [ ] grid-template-rows and grid-template-columns with {length...}
 
 ### Version 0.2.0
 - [ ] Display errors, missing classes and duplicated classes
+
+### Version 0.3.0
+- [ ] Add support to themes, such as Dark theme
 
 ### Version 1.0
 - [ ] Deprecation and backward compatibility plan
