@@ -17,7 +17,8 @@ export class Module {
     public readonly name: string,
     public readonly symbol: string,
     styles: { [key: string]: string },
-    builder?: Builder) {
+    builder?: Builder,
+    public readonly hasComponents: boolean = false) {
 
     Object.entries(styles).forEach(([key, style]) => {
 

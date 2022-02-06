@@ -25,7 +25,7 @@ export type Config = {
   collections?: { [index: string]: { [index: string]: string } }
   classes?: { [index: string]: string }
   aliases?: string[]
-  components?: string[]
+  components?: { [index: string]: string }
   items?: { [index: string]: { [index: string]: number } }
   include?: string
   exclude?: string

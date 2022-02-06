@@ -188,7 +188,7 @@ export class Dynamic {
     return true;
   }
 
-  parse(params: string): string {
+  parse(params: string, isForComponent: boolean = false): string {
     const _params = params.split("_");
 
     if (_params.length !== this.dynamicParams.length) {
@@ -200,7 +200,7 @@ export class Dynamic {
 
       template = template.replace(
         new RegExp(`{${this.dynamicParams[i].name}}`, 'g'),
-        this.dynamicParams[i].parse(_params[i]))
+        isForComponent ? _params[i] : this.dynamicParams[i].parse(_params[i]))
     }
 
     return template;

@@ -1,7 +1,6 @@
 import { Atom } from "./atom";
-import { isValidStringKeyword } from "./style";
 import { Module } from "./module";
-import { ErrorType } from "./error";
+import { ErrorType, LeptonsError } from "./error";
 import { BuilderContext } from "./builder-context";
 import { LengthType } from "./length";
 import { Config } from "./config";
@@ -10,11 +9,7 @@ import { Source, sourceTypes, isSourceWithContent, isSourceWithRegexp, isSourceW
 import globby from "globby";
 import fs from "fs";
 import * as defaultModules from "./modules";
-import { pseudoClasses } from "./pseudo-class";
-import { pseudoElements } from "./pseudo-element";
-import { Dynamic } from "./dynamic";
 import { standardColors } from "./color";
-import { pseudoRandomBytes } from "crypto";
 
 export class Builder {
 
@@ -27,6 +22,7 @@ export class Builder {
   private collections: { [collection: string]: { [item: string]: string } } = {};
   private customModules: { [moduleName: string]: Module } = {};
   private modules: { [moduleName: string]: Module } = {};
+  private componentModules: { [moduleName: string]: Module } = {};
   private errors: { [errorType: string]: { [className: string]: string } } = {};
   private classesIndex: string[] = [];
   private medias: { [media: string]: Media } = {}
@@ -111,6 +107,26 @@ export class Builder {
       })
       Object.entries(stylesPerModule).forEach(([moduleName, styles]) => {
         this.customModules[moduleName] = new Module(`Custom module ${moduleName}`, moduleName, styles, this);
+      });
+    }
+
+    if (this.config.components) {
+      const stylesPerModule: { [moduleName: string]: { [className: string]: string } } = {}
+      Object.entries(this.config.components).forEach(([className, style]) => {
+        let parts = className.split('-');
+
+        if (parts.length < 2) {
+          throw `The component "${className}" requires at least a Module and Value. Example: module-value`
+        }
+        const moduleName = parts[0]; parts.shift();
+        const attrsAndValues = parts.join("-");
+        if (!stylesPerModule[moduleName]) {
+          stylesPerModule[moduleName] = {}
+        }
+        stylesPerModule[moduleName][attrsAndValues] = style;
+      })
+      Object.entries(stylesPerModule).forEach(([moduleName, styles]) => {
+        this.customModules[moduleName] = new Module(`Custom module ${moduleName}`, moduleName, styles, this, true);
       });
     }
   }
@@ -256,6 +272,7 @@ export class Builder {
   }
 
   public addClassName(className: string) {
+
     // Check if this css already was processed
     if (this.classesIndex.indexOf(className) > -1) {
       return;
@@ -264,146 +281,36 @@ export class Builder {
 
     let atom: Atom;
     try {
-      atom = new Atom(className);
+      atom = new Atom(className, this);
     } catch (e) {
       this.addError(ErrorType.Marformed, className, e as string);
       return;
     }
 
-    const modules: Module[] = [];
-
-    // Set Leptons module and Custom module.
-
-    // Custom modules have priority, so it's possible to override Leptons classes
-    if (this.customModules[<string>atom.module]) {
-      modules.push(this.customModules[<string>atom.module]);
-    }
-    if (this.modules[<string>atom.module]) {
-      modules.push(this.modules[<string>atom.module]);
-    }
-    if (modules.length === 0) {
-      this.addError(ErrorType.NotMatching, className, `Module "${atom.module}" doesn't exist`);
-      return;
-    }
-
-    // Add atom to css styles
     try {
-      const cssClassStyle = {
-        cssClass: this.atomToCssClass(className, atom),
-        cssStyle: this.atomToCssStyle(modules, atom)
-      };
+      const mediaClassStyles = atom.transform();
 
-      if (!atom.medias) {
-        // No media
-        this.medias[""].classes[className] = cssClassStyle;
-      } else {
-        atom.medias.forEach(media => {
-          if (!this.medias[media]) {
-            this.addError(ErrorType.NotMatching, className, `media "${media}" doesn't exist`);
-            return
-          }
-        });
-        atom.medias.forEach(media => {
-          this.medias[media].classes[className] = cssClassStyle;
-        });
-      }
+      Object.keys(mediaClassStyles).forEach(media =>
+        this.medias[media].classes[className] = mediaClassStyles[media]
+      )
     } catch (e) {
-      this.addError(ErrorType.Marformed, className, e as string);
+      if (e instanceof LeptonsError) {
+        this.addError(e.type, e.className, e.message);
+      }
       return;
     }
-  }
-
-  public atomToCssClass(className: string, atom: Atom): string  {
-    let output = className
-      .replace(/\./g, "\\.")
-      .replace(/:/g, "\\:")
-      .replace(/!/g, "\\!")
-      .replace(/%/g, "\\%");
-
-    if (atom.pseudoClasses) {
-      atom.pseudoClasses.forEach(pc => output += pseudoClasses[pc]);
-    }
-    if (atom.pseudoElement) {
-      output += pseudoElements[atom.pseudoElement];
-    }
-    return output;
-  }
-
-
-  public atomToCssStyle(mod: Module | Module[], atom: Atom): string  {
-
-    let modules: Module[];
-    if (!(mod instanceof Array)) {
-      modules = [mod];
-    } else {
-      modules = mod;
-    }
-
-    let cssStyle: string | undefined;
-
-    let keyModule = atom.attribute ? `${atom.attribute}-${atom.value}` : atom.value;
-
-    // Search in literals
-    for (const mod of modules) {
-      let literalValue: string | undefined;
-      if (literalValue = mod.getLiteral(keyModule)) {
-        cssStyle = literalValue;
-        break;
-      }
-    }
-
-    // Search in Keywords
-    if (!cssStyle) {
-      for (const mod of modules) {
-        let keywordStyle: string | undefined;
-
-        const keyModule = atom.attribute || "";
-
-        if ((keywordStyle = mod.getKeyword(keyModule)) && isValidStringKeyword(atom.value)) {
-          const template = keywordStyle;
-          cssStyle = template.replace(new RegExp("{keyword}", 'g'), atom.value);
-          break;
-        }
-      }
-    }
-
-    // Search in Dynamics
-    if (!cssStyle) {
-      OUT:
-      for (const mod of modules) {
-        let dynamics: Dynamic[] | undefined;
-
-        const keyModule = atom.attribute || "";
-
-        if (dynamics = mod.getDynamics(keyModule)) {
-          for (const d of dynamics) {
-            d.setBuilder(this);
-            if (d.isMatching(atom.value)) {
-              cssStyle = d.parse(atom.value);
-              break OUT;
-            }
-          }
-        }
-      }
-    }
-
-    if (!cssStyle) {
-      throw new Error(`Not match any key in the module "${atom.module}"`);
-    }
-
-    if (atom.important) {
-      cssStyle.split(";").join(" !important;")
-    }
-
-    return cssStyle;
   }
 
   convertNumberPerHundrerToCss(v: string): string {
     if (!/^[1-9]$/.test(v)) {
       throw new Error(`The value ${v} is not a valid number. It must be any number between 1 to 9`);
     }
-  
+
     return (parseInt(v) * 100).toString();
+  }
+
+  hasMedia(name: string): boolean {
+    return !!this.medias[name];
   }
 
   hasFont(font: string): boolean {
@@ -415,6 +322,39 @@ export class Builder {
       throw new Error(`There is not a defined font with the name ${font}`);
     }
     return this.fonts[font];
+  }
+
+  hasModule(name: string): boolean {
+    return !!this.modules[name];
+  }
+
+  getModule(name: string): Module {
+    if (!this.hasModule(name)) {
+      throw new Error(`There is not a defined module with the name ${name}`);
+    }
+    return this.modules[name];
+  }
+
+  hasCustomModule(name: string): boolean {
+    return !!this.customModules[name];
+  }
+
+  getCustomModule(name: string): Module {
+    if (!this.hasCustomModule(name)) {
+      throw new Error(`There is not a defined custom module with the name ${name}`);
+    }
+    return this.customModules[name];
+  }
+
+  hasComponentModule(name: string): boolean {
+    return !!this.componentModules[name];
+  }
+
+  getComponentModule(name: string): Module {
+    if (!this.hasComponentModule(name)) {
+      throw new Error(`There is not a defined custom module with the name ${name}`);
+    }
+    return this.componentModules[name];
   }
 
   hasColor(color: string): boolean {

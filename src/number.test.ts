@@ -16,8 +16,9 @@ describe("Number", () => {
       styles);
 
     const builder = new Builder();
+    builder.addModule(module);
 
-    const cssItem = builder.atomToCssStyle(module, new Atom("t-s-2"));
+    const cssItem = new Atom("t-s-2", builder).toCss(module)[""].cssStyle;
     expect(cssItem).toBe("size: 2;");
   });
 

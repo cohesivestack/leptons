@@ -1,6 +1,6 @@
 import { Dynamic } from "./dynamic";
 
-const regexLiteral = /^[a-z][a-zA-Z]*(-[a-z][a-zA-Z]*){0,2}$/;
+const regexLiteral = /^[a-z][a-zA-Z]*(-[a-z][a-zA-Z0-9]*){0,2}$/;
 const regexDynamic = /^([a-z][a-zA-Z]*-){0,2}(\{[a-z\$\:][\$\:a-zA-Z0-9]*\})(_\{[\$\:a-z][\$\:a-zA-Z0-9]*\})*$/;
 const regexKeyword = /^([a-z][a-zA-Z]*-){0,2}(initial|inherit|unset|revert)$/
 

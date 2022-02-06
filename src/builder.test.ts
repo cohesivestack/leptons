@@ -29,9 +29,10 @@ describe("Builder", () => {
       styles);
 
     const builder = new Builder({lengthType: LengthType.Px}, false);
+    builder.addModule(module);
 
     cases.forEach(([key, style, className, result]) => {
-      expect(builder.atomToCssStyle(module, new Atom(className))).toBe(result);
+      expect(new Atom(className, builder).transform()[""].cssStyle).toBe(result);
     })
 
   });
@@ -69,7 +70,8 @@ describe("Builder", () => {
   test("addClassName should add the Classname for different medias", () => {
 
     const styles: { [key: string]: string } = {
-      "p-{p$length}": "padding: {p};"
+      "p-{p$length}": "padding: {p};",
+      "m-{m$length}": "margin: {m};"
     }
 
     const module = new Module(
@@ -81,7 +83,8 @@ describe("Builder", () => {
       lengthType: LengthType.Rem,
       medias: {
         M: "only screen and (max-width: 48rem)",
-        L: "only screen and (max-width: 64rem)"
+        L: "only screen and (max-width: 64rem)",
+        X: "only screen and (max-width: 80rem)"
       }
     });
     builder.addModule(module);
@@ -89,22 +92,32 @@ describe("Builder", () => {
     const defaultMedia = "t-p-3";
     const mediumMedia = "t-p-3-M";
     const largeMedia = "t-p-3-L";
+    const mediumAndLargeMedia = "t-m-3-ML";
 
     builder.addClassName(defaultMedia);
     builder.addClassName(mediumMedia);
     builder.addClassName(largeMedia);
+    builder.addClassName(mediumAndLargeMedia);
 
     expect((builder as any).medias[""].classes[defaultMedia].cssStyle).toBe("padding: 3rem;");
     expect((builder as any).medias["M"].classes[defaultMedia]).toBeUndefined();
     expect((builder as any).medias["L"].classes[defaultMedia]).toBeUndefined();
+    expect((builder as any).medias["X"].classes[defaultMedia]).toBeUndefined();
 
     expect((builder as any).medias[""].classes[mediumMedia]).toBeUndefined();
     expect((builder as any).medias["M"].classes[mediumMedia].cssStyle).toBe("padding: 3rem;");
     expect((builder as any).medias["L"].classes[mediumMedia]).toBeUndefined();
+    expect((builder as any).medias["X"].classes[mediumMedia]).toBeUndefined();
 
     expect((builder as any).medias[""].classes[largeMedia]).toBeUndefined();
     expect((builder as any).medias["M"].classes[largeMedia]).toBeUndefined();
     expect((builder as any).medias["L"].classes[largeMedia].cssStyle).toBe("padding: 3rem;");
+    expect((builder as any).medias["X"].classes[largeMedia]).toBeUndefined();
+
+    expect((builder as any).medias[""].classes[largeMedia]).toBeUndefined();
+    expect((builder as any).medias["M"].classes[mediumAndLargeMedia].cssStyle).toBe("margin: 3rem;");
+    expect((builder as any).medias["L"].classes[mediumAndLargeMedia].cssStyle).toBe("margin: 3rem;");
+    expect((builder as any).medias["X"].classes[mediumAndLargeMedia]).toBeUndefined();
   });
 
   test("extractClassesFromContent should extract class names with Html regexp", () => {
@@ -245,12 +258,12 @@ describe("Builder", () => {
     const result = builder.buildToString();
 
     expect(result.trim()).toBe(clearIdentForTesting(`
-      .\\!f-s-1 { font-size: 1rem; }
+      .\\!f-s-1 { font-size: 1rem !important; }
       @media screen and (min-width: 16rem) {
-        .\\!f-s-1\\.5\\%-M { font-size: 1.5%; }
+        .\\!f-s-1\\.5\\%-M { font-size: 1.5% !important; }
       }
       @media screen and (min-width: 32rem) {
-        .\\!f-s-2-L { font-size: 2rem; }
+        .\\!f-s-2-L { font-size: 2rem !important; }
       }`
     ));
   });
@@ -464,6 +477,60 @@ describe("Builder", () => {
       .x-p-2px { padding: 2px; }
       .x-p-a { padding: auto; }
       .x-p-va { padding: 10px; }`
+    ));
+  });
+
+  test("build components", () => {
+
+    const content = `
+      <div class="bg-c-white b-c-powderBlue t-c-white f-f-serif">Text 1</div>
+      <div class="comp-a">Text 2</div>
+      <div class="comp-gray_0.5rem">Text 3</div>
+    `
+
+    const plainConfig = {
+      lengthType: "em",
+      medias: {
+        M: "screen and (min-width: 16rem)",
+        L: "screen and (min-width: 32rem)"
+      },
+      colors: {
+        white: "#ffeeee",
+        black: "#001111",
+        gray: "#cccccc"
+      },
+      fonts: {
+        serif: "Times New Roman",
+        sansSerif: "Roboto"
+      },
+      components: {
+        "comp-a": "bg-c-black b-c-powderBlue t-c-white f-f-sansSerif p-t-1px p-t-2px-M p-t-3px-L",
+        "comp-{c$color}_{l$length}": "bg-c-{c} b-c-powderBlue t-c-white f-f-sansSerif p-t-{l} p-t-{l}-M p-t-3px-L",
+      },
+      source: {
+        html: { content: content }
+      },
+    }
+
+    const builder = new Builder(plainConfig as Config, true);
+    const result = builder.buildToString();
+
+    expect(result.trim()).toBe(clearIdentForTesting(`
+      .b-c-powderBlue { border-color: #B0E0E6; }
+      .bg-c-white { background-color: #ffeeee; }
+      .comp-a { background-color: #001111; border-color: #B0E0E6; color: #ffeeee; font-family: Roboto; padding-top: 1px; }
+      .comp-gray_0\\.5rem { background-color: #cccccc; border-color: #B0E0E6; color: #ffeeee; font-family: Roboto; padding-top: 0.5rem; }
+      .f-f-serif { font-family: Times New Roman; }
+      .t-c-white { color: #ffeeee; }
+      @media screen and (min-width: 16rem) {
+        .comp-a { padding-top: 2px; }
+        .comp-gray_0\\.5rem { padding-top: 0.5rem; }
+      }
+      @media screen and (min-width: 32rem) {
+        .comp-a { padding-top: 3px; }
+        .comp-gray_0\\.5rem { padding-top: 3px; }
+      }
+      `
     ));
   });
 
