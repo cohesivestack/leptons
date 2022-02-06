@@ -16,7 +16,7 @@ export enum LengthType {
   P = 'p', // Percent %'
 }
 
-let regexString = "^[0-9]+(\.[0-9]+)?(";
+let regexString = "^n?[0-9]+(?:\.[0-9]+)?(";
 let regexTail: string = ""
 const utKeys: string[] = Object.keys(LengthType);
 
@@ -40,11 +40,15 @@ export const convertLengthToCss = (length: string, defaultType?: LengthType): st
 
   let value = length;
 
-  if (/^[0-9]+(\.[0-9]+)?$/.test(length)) {
+  if (/^n?[0-9]+(?:\.[0-9]+)?$/.test(length)) {
     value += defaultType;
   }
 
-  if (/[0-9]+p$/.test(value)) {
+  if (/^n/.test(value)) {
+    value = value.replace("n", "-");
+  }
+
+  if (/p$/.test(value)) {
     value = value.replace("p", "%");
   }
 

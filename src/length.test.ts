@@ -32,7 +32,9 @@ describe("Length", () => {
       ['19vmax', '19vmax', LengthType.Vmax],
       ['19', '19%', LengthType.P],
       ['19%', '19%', LengthType.P],
-      ['19p', '19%', LengthType.P]
+      ['19p', '19%', LengthType.P],
+      ['n19', '-19mm', LengthType.Mm],
+      ['n19%', '-19%', LengthType.P]
     ].forEach(([v, r, t]) => expect(convertLengthToCss(v, t as LengthType)).toBe(r))
   });
 
@@ -52,7 +54,10 @@ describe("Length", () => {
       '19vmin',
       '19vmax',
       '19p',
-      '19%'
+      '19%',
+      'n19vmax',
+      'n19p',
+      'n19%',
     ].forEach(l => expect(isLengthValid(l)).toBe(true))
   });
 
@@ -60,7 +65,8 @@ describe("Length", () => {
     [ '19z',
       '19n',
       '19In',
-      '19PX'
+      '19PX',
+      'n19PX'
     ].forEach(l => expect(isLengthValid(l)).toBe(false))
   });
 

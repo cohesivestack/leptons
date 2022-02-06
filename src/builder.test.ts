@@ -184,7 +184,7 @@ describe("Builder", () => {
 
   test("build using lengths with decimal", () => {
     const content = `
-      <div class="f-s-1.5 f-s-2.0em-L p-1.0_2.0_3.0_4.0 p-5.0_6.0_7.0_8.0-L">Text 1</div>
+      <div class="f-s-1.5 f-s-2.0em-L p-1.0_2.0_n3.0_4.0 p-5.0_6.0_7.0_8.0-L">Text 1</div>
     `
 
     const plainConfig = {
@@ -202,7 +202,7 @@ describe("Builder", () => {
 
     expect(result.trim()).toBe(clearIdentForTesting(`
       .f-s-1\\.5 { font-size: 1.5rem; }
-      .p-1\\.0_2\\.0_3\\.0_4\\.0 { padding: 1.0rem 2.0rem 3.0rem 4.0rem; }
+      .p-1\\.0_2\\.0_n3\\.0_4\\.0 { padding: 1.0rem 2.0rem -3.0rem 4.0rem; }
       @media screen and (min-width: 32rem) {
         .f-s-2\\.0em-L { font-size: 2.0em; }
         .p-5\\.0_6\\.0_7\\.0_8\\.0-L { padding: 5.0rem 6.0rem 7.0rem 8.0rem; }
@@ -212,7 +212,7 @@ describe("Builder", () => {
 
   test("build using lengths with percentage", () => {
     const content = `
-      <div class="f-s-1% f-s-2.5%-L p-1%_2%_3%_4% p-5.5%_6.5%_7.5%_8.5%-L">Text 1</div>
+      <div class="f-s-1% f-s-2.5%-L p-1%_2%_n3%_4% p-5.5%_6.5%_7.5%_8.5%-L">Text 1</div>
     `
 
     const plainConfig = {
@@ -230,7 +230,7 @@ describe("Builder", () => {
 
     expect(result.trim()).toBe(clearIdentForTesting(`
       .f-s-1\\% { font-size: 1%; }
-      .p-1\\%_2\\%_3\\%_4\\% { padding: 1% 2% 3% 4%; }
+      .p-1\\%_2\\%_n3\\%_4\\% { padding: 1% 2% -3% 4%; }
       @media screen and (min-width: 32rem) {
         .f-s-2\\.5\\%-L { font-size: 2.5%; }
         .p-5\\.5\\%_6\\.5\\%_7\\.5\\%_8\\.5\\%-L { padding: 5.5% 6.5% 7.5% 8.5%; }
