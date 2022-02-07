@@ -35,7 +35,7 @@ export const configSchema = {
     },
     lengthType: {
       type: "string",
-      enum: [ "mm", "cm", "in", "px", "pt", "pc", "em", "ex", "ch", "rem", "vw", "vh", "vmin", "vmax", "p" ]
+      enum: [ "mm", "cm", "in", "px", "pt", "pc", "em", "ex", "ch", "rem", "vw", "vh", "vmin", "vmax", "p", "%" ]
     },
     fonts: {
       type: "object",
