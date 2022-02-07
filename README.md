@@ -26,17 +26,18 @@ Current version is `0.1.0-beta.1`. The first goal is to release version `0.1.0` 
 - [x] Classes
 - [x] Components
 - [x] Negative lengths
+- [ ] Display errors
 - [ ] Documentation
 - [ ] Website
 
 ### Version 0.1.1
-- [ ] Display errors, missing classes and duplicated classes
-
-### Version 0.1.2
 - [ ] Support for array params like {length...}
 - [ ] grid-template-rows and grid-template-columns with {length...}
 
-### Version 0.3.0
+### Version 0.1.2
+- [ ] Display missing classes and duplicated classes
+
+### Version 0.2.0
 - [ ] Add support to themes, such as Dark theme
 
 ### Version 1.0
