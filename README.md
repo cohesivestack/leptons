@@ -6,7 +6,7 @@ Unopinionated and Pragmatic Atomic CSS Generator.
 
 ## Roadmap
 
-Current version is `0.1.0.alpha.18`. The first goal is to release version `0.1.0` in order to make this tool public. However, new versions could break compatibility with old versions until version 1.0 is reached.
+Current version is `0.1.0-beta.1`. The first goal is to release version `0.1.0` in order to make this tool public. However, new versions could break compatibility with old versions until version 1.0 is reached.
 
 ### Version 0.1.0
 - [x] Basic CSS generator
@@ -25,16 +25,16 @@ Current version is `0.1.0.alpha.18`. The first goal is to release version `0.1.0
 - [x] Collections
 - [x] Classes
 - [x] Components
-- [ ] Negative lengths
+- [x] Negative lengths
 - [ ] Documentation
 - [ ] Website
 
 ### Version 0.1.1
+- [ ] Display errors, missing classes and duplicated classes
+
+### Version 0.1.2
 - [ ] Support for array params like {length...}
 - [ ] grid-template-rows and grid-template-columns with {length...}
-
-### Version 0.2.0
-- [ ] Display errors, missing classes and duplicated classes
 
 ### Version 0.3.0
 - [ ] Add support to themes, such as Dark theme
