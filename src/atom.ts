@@ -141,7 +141,7 @@ export class Atom {
         !this.pseudoElement &&
         !this.pseudoClasses &&
         this.builder.hasComponentModule(this.module as string)) {
-      modules.push(this.builder.getModule(this.module as string));
+      modules.push(this.builder.getComponentModule(this.module as string));
     }
     if (modules.length === 0) {
       throw new LeptonsError(ErrorType.NotMatching, this.className, `Module "${this.module}" doesn't exist`);
@@ -255,7 +255,7 @@ export class Atom {
       } else {
         this.medias.forEach(media => {
           if (!this.builder.hasMedia(media)) {
-            throw new LeptonsError(ErrorType.NotMatching, className, `media "${media}" doesn't exist`);
+            throw new LeptonsError(ErrorType.NotMatching, className, `Media "${media}" doesn't exist`);
           }
           result[media] = {
             cssClass: className,

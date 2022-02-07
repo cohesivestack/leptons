@@ -96,7 +96,10 @@ export class Builder {
         let parts = className.split('-');
 
         if (parts.length < 2) {
-          throw `The class "${className}" requires at least a Module and Value. Example: module-value`
+          throw new LeptonsError(
+            ErrorType.Marformed,
+            className,
+            "Class parts requires at least the Module and Value");
         }
         const moduleName = parts[0]; parts.shift();
         const attrsAndValues = parts.join("-");
@@ -116,7 +119,10 @@ export class Builder {
         let parts = className.split('-');
 
         if (parts.length < 2) {
-          throw `The component "${className}" requires at least a Module and Value. Example: module-value`
+          throw new LeptonsError(
+            ErrorType.Marformed,
+            className,
+            "Class parts requires at least the Module and Value");
         }
         const moduleName = parts[0]; parts.shift();
         const attrsAndValues = parts.join("-");
@@ -126,7 +132,7 @@ export class Builder {
         stylesPerModule[moduleName][attrsAndValues] = style;
       })
       Object.entries(stylesPerModule).forEach(([moduleName, styles]) => {
-        this.customModules[moduleName] = new Module(`Custom module ${moduleName}`, moduleName, styles, this, true);
+        this.componentModules[moduleName] = new Module(`Components module ${moduleName}`, moduleName, styles, this, true);
       });
     }
   }
