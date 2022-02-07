@@ -20,7 +20,7 @@ export class Atom {
   public readonly pseudoElement?: string;
   public readonly medias?: string[];
 
-  constructor(private className: string, private builder?: Builder) {
+  constructor(private className: string, private builder: Builder) {
 
     let parts = className.split('-');
 
@@ -125,10 +125,6 @@ export class Atom {
 
   public transform(isForComponent: boolean = false): { [media: string]: ClassStyle } {
 
-    if (!this.builder) {
-      throw "Calling the function transform() requires a builder. Set a builder with the constructor"
-    }
-
     const modules: Module[] = [];
 
     // Set Leptons module and Custom module.
@@ -156,11 +152,6 @@ export class Atom {
 
 
   public toCss(mod: Module | Module[]): { [media: string]: ClassStyle }  {
-
-    if (!this.builder) {
-      throw "Calling the function transform() requires a builder. Set a builder with the constructor"
-    }
-    const builder = this.builder as Builder;
 
     let modules: Module[];
     if (!(mod instanceof Array)) {
@@ -263,7 +254,7 @@ export class Atom {
         }
       } else {
         this.medias.forEach(media => {
-          if (!builder.hasMedia(media)) {
+          if (!this.builder.hasMedia(media)) {
             throw new LeptonsError(ErrorType.NotMatching, className, `media "${media}" doesn't exist`);
           }
           result[media] = {

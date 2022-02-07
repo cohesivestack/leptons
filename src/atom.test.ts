@@ -1,4 +1,5 @@
 import { Atom } from "./atom";
+import { Builder } from "./builder";
 
 describe("Atom", () => {
 
@@ -20,7 +21,7 @@ describe("Atom", () => {
       ["!a-b-c:h:l::f", true, "a", "b", "c", ["h", "l"], "f", undefined],
       ["!a-b-c:h:l::f-ML", true, "a", "b", "c", ["h", "l"], "f", ["M", "L"]],
     ].forEach(v => {
-      const atom = new Atom(<string>v[0]);
+      const atom = new Atom(v[0] as string, new Builder());
 
       expect(atom.important).toBe(v[1]);
       expect(atom.module).toBe(v[2]);
@@ -46,7 +47,7 @@ describe("Atom", () => {
       ["a:a-b", "Invalid Module characters \"a:a\""],
       ["a-", "Value is empty"]
     ].forEach(v => {
-      expect(() => new Atom(<string>v[0])).toThrow(v[1]);
+      expect(() => new Atom(v[0] as string, new Builder())).toThrow(v[1]);
     });
   });
 
