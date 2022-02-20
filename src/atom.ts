@@ -1,7 +1,7 @@
 import { Builder } from "./builder";
 import { ClassStyle } from "./class-style";
 import { Dynamic } from "./dynamic";
-import { ErrorType, LeptonsError } from "./error";
+import { AtomError } from "./error";
 import { Module } from "./module";
 import { pseudoClasses } from "./pseudo-class";
 import { pseudoElements } from "./pseudo-element";
@@ -20,12 +20,15 @@ export class Atom {
   public readonly pseudoElement?: string;
   public readonly medias?: string[];
 
+  /**
+  * @throws {AtomError}
+  */
   constructor(private className: string, private builder: Builder) {
 
     let parts = className.split('-');
 
     if (parts.length < 2 && !parts[0].match(/:/)) {
-      throw new LeptonsError(ErrorType.Marformed, className, "Class parts requires at least the Module and Value");
+      throw new AtomError(className, "requires at least the Module and Value");
     }
 
     // MEDIAS
@@ -46,10 +49,10 @@ export class Atom {
     if (part.indexOf("::") > -1) {
       let subParts = part.split("::");
       if (subParts.length < 2) {
-        throw new LeptonsError(ErrorType.Marformed, className, "Bad format for pseudo element");
+        throw new AtomError(className, "has a pseudo element with bad format");
       }
       if (subParts[1].length < 1) {
-        throw new LeptonsError(ErrorType.Marformed, className, "Missing pseudo element name");
+        throw new AtomError(className, "missing pseudo element name");
       }
       this.pseudoElement = subParts[1];
       parts[parts.length - 1] = subParts[0];
@@ -63,12 +66,12 @@ export class Atom {
     if (part.indexOf(":") > -1) {
       let subParts = part.split(":");
       if (subParts.length < 2) {
-        throw new LeptonsError(ErrorType.Marformed, className, "Bad format for pseudo class");
+        throw new AtomError(className, "has a pseudo format with bad format");
       }
       this.pseudoClasses = [];
       for (let i = 1; i < subParts.length; i++) {
         if (subParts[i].length < 1) {
-          throw new LeptonsError(ErrorType.Marformed, className, "Missing pseudo class name");
+          throw new AtomError(className, "missing pseudo class name");
         }
         this.pseudoClasses.push(subParts[i]);
       }
@@ -76,7 +79,7 @@ export class Atom {
     }
 
     if (parts.length < 2) {
-      throw new LeptonsError(ErrorType.Marformed, className, "Class parts requires the Module and Value");
+      throw new AtomError(className, "requires at least the Module and Value");
     }
 
     part = parts[0];
@@ -93,7 +96,7 @@ export class Atom {
       }
       parts.splice(0, 1);
     } else {
-      throw new LeptonsError(ErrorType.Marformed, className, `Invalid Module characters "${part}"`);
+      throw new AtomError(className, `has invalid Module characters: "${part}"`);
     }
 
     // ATTRIBUTE
@@ -103,26 +106,29 @@ export class Atom {
         this.attribute = part;
         parts.splice(0, 1);
       } else {
-        throw new LeptonsError(ErrorType.Marformed, className, `Invalid Attribute characters "${part}"`);
+        throw new AtomError(className, `has invalid Attribute characters: "${part}"`);
       }
     }
 
     // VALUE
     part = parts[0];
     if (part.trim().length === 0) {
-      throw new LeptonsError(ErrorType.Marformed, className, "Value is empty");
+      throw new AtomError(className, "has an empty value");
     }
 
     this.value = part;
     parts.splice(0, 1);
 
     if (parts.length > 1) {
-      throw new LeptonsError(ErrorType.Marformed, className, `These class parts are invalid "${parts.join('-')}"`);
+      throw new AtomError(className, `has invalid class parts: "${parts.join('-')}"`);
     } else if (parts.length === 1) {
-      throw new LeptonsError(ErrorType.Marformed, className, `This class part is invalid "${part}"`);
+      throw new AtomError(className, `has invalid class part: "${part}"`);
     }
   }
 
+  /**
+  * @throws {AtomError}
+  */
   public transform(isForComponent: boolean = false): { [media: string]: ClassStyle } {
 
     const modules: Module[] = [];
@@ -144,15 +150,17 @@ export class Atom {
       modules.push(this.builder.getComponentModule(this.module as string));
     }
     if (modules.length === 0) {
-      throw new LeptonsError(ErrorType.NotMatching, this.className, `Module "${this.module}" doesn't exist`);
+      throw new AtomError(this.className, `has an nonexisting module: "${this.module}"`);
     }
 
     return this.toCss(modules);
   }
 
 
+  /**
+  * @throws {AtomError}
+  */
   public toCss(mod: Module | Module[]): { [media: string]: ClassStyle }  {
-
     let modules: Module[];
     if (!(mod instanceof Array)) {
       modules = [mod];
@@ -214,10 +222,7 @@ export class Atom {
     }
 
     if (!cssStyle) {
-      throw new LeptonsError(
-        ErrorType.NotMatching,
-        this.className,
-        `Not match any key in the module "${this.module}"`);
+      throw new AtomError(this.className, `doesn't match any keys in the Module: "${this.module}"`);
     }
 
     const result: {[media: string]: ClassStyle} = {}
@@ -255,7 +260,7 @@ export class Atom {
       } else {
         this.medias.forEach(media => {
           if (!this.builder.hasMedia(media)) {
-            throw new LeptonsError(ErrorType.NotMatching, className, `Media "${media}" doesn't exist`);
+            throw new AtomError(this.className, `has a nonexisting Media: "${media}"`);
           }
           result[media] = {
             cssClass: className,
@@ -264,6 +269,7 @@ export class Atom {
         });
       }
     }
+
 
     return result;
   }

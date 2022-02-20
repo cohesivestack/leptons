@@ -1,56 +1,76 @@
 import { isSourceWithContent, isSourceWithRegexpAndPath, Source } from "./source";
 import chokidar from 'chokidar';
-import { Config, isConfigErrors, parseFromFile } from "./config";
+import { Config, isSchemaErrors, parseFromFile } from "./config";
 import { Builder } from "./builder";
+import { printOutSchemaErrors, SchemaError } from "./error";
+import { ErrorObject } from "ajv";
+import { debounce } from "./util";
+import chalk from "chalk";
 
 export class Watcher {
 
-  private config: Config;
+  private config?: Config;
   private sourceWatcher: chokidar.FSWatcher | undefined;
   private configWatcher: chokidar.FSWatcher | undefined;
+  private debouncedBuild = debounce(this.build);
 
-  constructor(private configPath: string) {
+  constructor(private configPath: string) { }
+
+  private setConfig() {
     // Parse config
     const config = parseFromFile(this.configPath);
 
-    if (isConfigErrors(config)) {
-      throw Error("Errors parsing plain object:\n" + config);
+    if (isSchemaErrors(config)) {
+      printOutSchemaErrors((config as ErrorObject[]).map(e => new SchemaError(e)));
+    } else {
+      this.config = config;
     }
+  }
 
-    this.config = config;
+  private build() {
+    if (this.config) {
+      const builder = new Builder(this.config, true);
+      builder.buildToFile();
+    }
+    console.log(chalk.green("Leptons is watching"));
+
+  }
+
+  private setSourceWatcher() {
+    if (this.config && !this.sourceWatcher) {
+      const sourcePaths = Watcher.extractPathsFromSource(this.config.source);
+
+      this.sourceWatcher = chokidar.watch(sourcePaths, {
+        persistent: true
+      }).on("all", (event: string, path: string) => {
+
+        if (event !== 'ready') {
+          console.log("Leptons is reading...", path)
+          this.debouncedBuild();
+        }
+      });
+    }
   }
 
   public watch() {
-
-    // First build before start watching
-    const builder = new Builder(this.config, true);
-    builder.buildToFile();
-
-    const sourcePaths = Watcher.extractPathsFromSource(this.config.source);
-
-    this.sourceWatcher = chokidar.watch(sourcePaths, {
-      persistent: true
-    }).on("all", (event: string, path: string) => {
-      console.log("reading...", path)
-      const builder = new Builder(this.config, true);
-      builder.buildToFile();
-    });
+    this.setConfig();
+    this.setSourceWatcher();
 
     this.configWatcher = chokidar.watch(this.configPath, {
       persistent: true
     }).on("change", (path: string) => {
       console.log("reading...", path);
-      (this.sourceWatcher as chokidar.FSWatcher).unwatch(Watcher.extractPathsFromSource(this.config.source));
-  
-      const newConfig = parseFromFile(this.configPath);
-      if (isConfigErrors(newConfig)) {
-        throw Error("Errors parsing plain object:\n" + newConfig);
+
+      if (this.config && this.sourceWatcher) {
+        (this.sourceWatcher as chokidar.FSWatcher).unwatch(Watcher.extractPathsFromSource(this.config.source));
       }
-      this.config = newConfig;
-  
-      const builder = new Builder(this.config, true);
-      builder.buildToFile();
-      (this.sourceWatcher as chokidar.FSWatcher).add(Watcher.extractPathsFromSource(this.config.source));
+
+      this.setConfig();
+      this.debouncedBuild();
+
+      if (this.config && this.sourceWatcher) {
+        (this.sourceWatcher as chokidar.FSWatcher).add(Watcher.extractPathsFromSource(this.config.source));
+      }
     });
   }
 

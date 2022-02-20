@@ -1,6 +1,7 @@
 // import { SearchData } from "./search-data";
 import { Builder } from "./builder";
 import { Dynamic } from "./dynamic";
+import { DynamicError, ModuleError } from "./error";
 import { SearchData } from "./search-data";
 import {
   isValidStringLiteral,
@@ -10,6 +11,7 @@ export class Module {
   private literals: { [key: string]: string } = {};
   private keywords: { [key: string]: string } = {};
   private dynamics: { [key: string]: { [params: string]: Dynamic } } = {};
+  public readonly errors: ModuleError[] = [];
 
   private coveredStyles: string[] = [];
 
@@ -24,7 +26,7 @@ export class Module {
 
       this.coveredStyles.push(style);
 
-      if (isValidStringLiteral(key)) {
+      if (key === "" || isValidStringLiteral(key)) {
         this.literals[key] = style;
       } else {
         const [attr, _params] = this.extractItemNameAndParams(key);
@@ -34,9 +36,17 @@ export class Module {
           if (!this.dynamics[attr]) {
             this.dynamics[attr] = {}
           }
-          this.dynamics[attr][_params] = new Dynamic(_params, style, builder);
+          try {
+            this.dynamics[attr][_params] = new Dynamic(_params, style, builder);
+          } catch (e) {
+            if (e instanceof DynamicError) {
+              this.errors.push(new ModuleError(e.message, symbol, name, `${symbol}-${key}`));
+            } else {
+              throw e;
+            }
+          }
         } else {
-          throw Error(`String style is invalid "{ ${key}: ${style} }"`)
+          this.errors.push(new ModuleError(`has an invalid value`, symbol, name, `${symbol}-${key}`));
         }
       }
     });
@@ -57,7 +67,7 @@ export class Module {
     return this.keywords[key];
   }
   public getDynamics(key: string): Dynamic[] | undefined {
-    return Object.values(this.dynamics[key]);
+    return this.dynamics[key] && Object.values(this.dynamics[key]);
   }
 
   public getSearchData(): SearchData[] {

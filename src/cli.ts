@@ -1,9 +1,12 @@
 import { Command, createCommand, createOption } from 'commander';
-import { init, parseFromFile, isConfigErrors } from './config';
+import { init, parseFromFile, isSchemaErrors } from './config';
 import { Builder } from './builder';
 import { Watcher } from './watcher';
 import { printOutCoverInfo } from './coverage-info';
 import { exportToJsonString } from './search-data-exporter';
+import { ErrorObject } from 'ajv';
+import { printOutSchemaErrors, SchemaError } from './error';
+import chalk from 'chalk';
 
 const program = new Command();
 program.version('0.0.1');
@@ -33,17 +36,21 @@ program
   .option("-c, --config [file_path]", "set the config file path. Defaults to ./leptons.yaml")
   .action((options) => {
 
-    const configPath = options.config || './leptons.yaml';
-    const config = parseFromFile(configPath);
+    try {
+      const configPath = options.config || './leptons.yaml';
+      const config = parseFromFile(configPath);
 
-    if (isConfigErrors(config)) {
-      throw Error("Errors parsing plain object:\n" + config);
+      if (isSchemaErrors(config)) {
+        printOutSchemaErrors((config as ErrorObject[]).map(e => new SchemaError(e)));
+      } else {
+        const builder = new Builder(config, true);
+        builder.buildToFile();
+
+        console.log(chalk.green("\nThe leptons css file '" + config.output + "' was created!"));
+      }
+    } catch (e) {
+      console.error(chalk.red(e))
     }
-
-    const builder = new Builder(config, true);
-    builder.buildToFile();
-
-    console.log("The leptons css file '" + config.output + "' was created!");
   });
 
 
@@ -55,8 +62,6 @@ program
 
     const watcher = new Watcher(options.config || './leptons.yaml')
     watcher.watch();
-
-    console.log("Leptons is watching");
   });
 
 program

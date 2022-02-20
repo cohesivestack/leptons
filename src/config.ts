@@ -1,15 +1,10 @@
 import fs from "fs";
 import path from "path";
-import Ajv from "ajv";
+import Ajv, { ErrorObject } from "ajv";
 import yaml from "js-yaml";
 import { configSchema } from "./config-schema"
 import { LengthType } from "./length";
 import { Source } from "./source";
-
-export type ConfigError = {
-  path: string,
-  message?: string
-}
 
 export type Config = {
   source?: Source
@@ -33,60 +28,51 @@ export type Config = {
   cssAfter?: string
 }
 
-export function isConfig(config: Config | ConfigError[]): config is Config {
+export function isConfig(config: Config | ErrorObject[]): config is Config {
   return (config as Config).source !== undefined;
 }
 
-export function isConfigErrors(configErrors: Config | ConfigError[]): configErrors is ConfigError[] {
-  return (configErrors as ConfigError[]).length !== undefined;
+export function isSchemaErrors(configErrors: Config | ErrorObject[]): configErrors is ErrorObject[] {
+  return (configErrors as ErrorObject[]).length !== undefined;
 }
 
-export function schemaErrors(plainConfig: any): ConfigError[] | null {
+export function schemaErrors(plainConfig: any): ErrorObject[] | null {
 
   const ajv = new Ajv({allErrors: true});
   const validate = ajv.compile(configSchema);
   const valid = validate(plainConfig);
 
   if (!valid) {
-    const errors : ConfigError[] = [];
-
-    validate.errors?.forEach(err => {
-      errors.push({
-        path: err.schemaPath,
-        message: err.message
-      })
-    });
-
-    return errors;
+    return validate.errors as ErrorObject[];
   }
 
   return null;
 }
 
-export function parseFromYaml(yamlConfig: string): (Config | ConfigError[]) {
+export function parseFromYaml(yamlConfig: string): (Config | ErrorObject[]) {
   return parse(yaml.load(yamlConfig, {schema: yaml.DEFAULT_SCHEMA}));
 }
 
-export function parseFromJson(jsonConfig: string): (Config | ConfigError[]) {
+export function parseFromJson(jsonConfig: string): (Config | ErrorObject[]) {
   return parse(JSON.parse(jsonConfig));
 }
 
-export function parseFromFile(configFilePath: string): (Config | ConfigError[]) {
+export function parseFromFile(configFilePath: string): (Config | ErrorObject[]) {
   const textConfig = fs.readFileSync(configFilePath, 'utf8');
   const configExtension = path.extname(configFilePath);
 
   switch (configExtension) {
     case '.yaml':
     case '.yml':
-      return parseFromYaml(textConfig);
+      return textConfig.trim().length === 0 ? {} : parseFromYaml(textConfig);
     case '.json':
-      return parseFromJson(textConfig);
+      return textConfig.trim().length === 0 ? {} : parseFromJson(textConfig);
     default:
       throw Error('Invalid file extension (must be any of: .yaml, .yml or .json)');
   }
 }
 
-export function parse(plainConfig: any): (Config | ConfigError[]) {
+export function parse(plainConfig: any): (Config | ErrorObject[]) {
   const errors = schemaErrors(plainConfig);
   if (errors) {
     return errors;

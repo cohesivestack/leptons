@@ -11,10 +11,6 @@ export class BuilderContext {
     return convertLengthToCss(length, this.builder.config.lengthType);
   }
 
-  convertNumberPerHundrerToCss(number: string): string {
-    return this.builder.convertNumberPerHundrerToCss(number);
-  }
-
   getFont(font: string): string {
     return this.builder.getFont(font);
   }

@@ -1,11 +1,11 @@
 import { Atom } from "./atom";
 import { Module } from "./module";
-import { ErrorType, LeptonsError } from "./error";
+import { AtomError, ConfigError, InputError, isInputError, printOutConfigErrors, printOutSourceErrors, SourceError } from "./error";
 import { BuilderContext } from "./builder-context";
 import { LengthType } from "./length";
 import { Config } from "./config";
 import { Media } from "./media";
-import { Source, sourceTypes, isSourceWithContent, isSourceWithRegexp, isSourceWithRegexpAndPath } from "./source";
+import { Source, sourceTypes, isSourceWithContent, isSourceWithRegexp, isSourceWithRegexpAndPath, SourceType, SourcesClasses } from "./source";
 import globby from "globby";
 import fs from "fs";
 import * as defaultModules from "./modules";
@@ -23,7 +23,10 @@ export class Builder {
   private customModules: { [moduleName: string]: Module } = {};
   private modules: { [moduleName: string]: Module } = {};
   private componentModules: { [moduleName: string]: Module } = {};
-  private errors: { [errorType: string]: { [className: string]: string } } = {};
+  private configErrors: ConfigError[] = [];
+  private sourceErrors: SourceError[] = [];
+  private sourceErrorsWithFile: {[file: string]: SourceError[]} = {};
+  private sourceErrorsWithClassName: {[file: string]: {[className: string]: SourceError}} = {};
   private classesIndex: string[] = [];
   private medias: { [media: string]: Media } = {}
   private context: BuilderContext;
@@ -86,6 +89,9 @@ export class Builder {
 
     if (initDefaultModules) {
       Object.values(defaultModules).forEach(mod => {
+        if (mod.errors.length > 0) {
+          throw new Error(`Fatal errors in Leptons Module:\n\n${JSON.stringify(mod.errors)}`)
+        }
         this.addModule(mod);
       });
     }
@@ -96,10 +102,9 @@ export class Builder {
         let parts = className.split('-');
 
         if (parts.length < 2) {
-          throw new LeptonsError(
-            ErrorType.Marformed,
-            className,
-            "Class parts requires at least the Module and Value");
+          this.addError(new ConfigError(
+            `requires at least the module name and the value. E.g. ${className}-v.`, `/classes/${className}`
+          ));
         }
         const moduleName = parts[0]; parts.shift();
         const attrsAndValues = parts.join("-");
@@ -109,7 +114,10 @@ export class Builder {
         stylesPerModule[moduleName][attrsAndValues] = style;
       })
       Object.entries(stylesPerModule).forEach(([moduleName, styles]) => {
-        this.customModules[moduleName] = new Module(`Custom module ${moduleName}`, moduleName, styles, this);
+        const mod = new Module(`Custom module ${moduleName}`, moduleName, styles, this);
+        this.customModules[moduleName] = mod;
+        mod.errors.forEach(e => this.addError(
+          new ConfigError(e.description, `/classes/${e.className}`)))
       });
     }
 
@@ -119,10 +127,9 @@ export class Builder {
         let parts = className.split('-');
 
         if (parts.length < 2) {
-          throw new LeptonsError(
-            ErrorType.Marformed,
-            className,
-            "Class parts requires at least the Module and Value");
+          this.addError(new ConfigError(
+            `requires at least the module name and the value. E.g. ${className}-v.`, `/components/${className}`
+          ));
         }
         const moduleName = parts[0]; parts.shift();
         const attrsAndValues = parts.join("-");
@@ -132,21 +139,69 @@ export class Builder {
         stylesPerModule[moduleName][attrsAndValues] = style;
       })
       Object.entries(stylesPerModule).forEach(([moduleName, styles]) => {
-        this.componentModules[moduleName] = new Module(`Components module ${moduleName}`, moduleName, styles, this, true);
+        const mod = new Module(`Components module ${moduleName}`, moduleName, styles, this, true);
+        this.componentModules[moduleName] = mod;
+        mod.errors.forEach(e => this.addError(
+          new ConfigError(e.description, `/components/${e.className}`)))
+
+        Object.entries(styles).forEach(([key, styleClassNames]) => {
+          const componentClassName = `${moduleName}-${key}`;
+          styleClassNames.split(" ").forEach(s => {
+            try {
+              new Atom(s, this).transform()
+            } catch (e) {
+              if (e instanceof AtomError) {
+                this.addError(new ConfigError(e.description, `/components/${componentClassName}/${s}`));
+              } else {
+                throw e;
+              }
+            }
+          })
+        })
       });
     }
   }
 
   public buildToString(): string {
-    let classes = Builder.extractClassesFromSource(this.config.source);
+    let classes: string[] = [];
+
     if (this.config.include) {
       classes = classes.concat(this.config.include.split(/\s+/));
+
+      // Distinct classes
+      classes = [...new Set(classes)];
+
+      classes.forEach(c => {
+        try {
+          this.addClassName(c);
+        } catch (e) {
+          if (e instanceof AtomError) {
+            this.addError(ConfigError.createFromAtomError("include", e))
+          } else {
+            throw e
+          }
+        }
+      });
     }
 
-    // Distinct classes
-    classes = [...new Set(classes)];
+    let sourcesClasses = this.extractClassesFromSource(this.config.source);
 
-    classes.forEach(c => this.addClassName(c));
+    Object.keys(sourcesClasses).forEach(source => {
+      classes.push(...sourcesClasses[source]);
+      // Distinct classes
+      classes = [...new Set(classes)];
+      classes.forEach(c => {
+        try {
+          this.addClassName(c);
+        } catch (e) {
+          if (e instanceof AtomError) {
+            this.addError(new SourceError(source, e));
+          } else {
+            throw e;
+          }
+        }
+      });
+    })
 
     let output = "";
 
@@ -168,6 +223,9 @@ export class Builder {
       }
     }
 
+    printOutConfigErrors(this.configErrors);
+    printOutSourceErrors(this.sourceErrors);
+
     return output;
   }
 
@@ -175,11 +233,12 @@ export class Builder {
     fs.writeFileSync(this.config.output || "leptons.css", this.buildToString());
   }
 
-  public static extractClassesFromSource(source?: Source): string[] {
+  public extractClassesFromSource(source?: Source): SourcesClasses {
     const _source: Source = source ? source : {"html": "**/*.html"}
-    const classes: string[] = [];
+    const sourcesClasses: SourcesClasses = {};
+    let contentIndex = 0;
 
-    Object.keys(_source).forEach(sourceName => {
+    for (const sourceName of Object.keys(_source)) {
       const sourcePaths: string[] = [];
       let regexp: RegExp;
 
@@ -188,8 +247,10 @@ export class Builder {
         regexp = new RegExp(sourceWithRegexp.regexp as string, "g");
       } else {
         if (!sourceTypes[sourceName]) {
-          throw new Error(
-            `The source ${sourceName} is not a valid predetermined source name. Only "html" and "react" are valid predefined source names. Use a custom source rather`);
+          this.addError(new ConfigError(
+            `/source/${sourceName} is not a valid predetermined source name. Only ${Object.values(SourceType).map(st => st).join(",")} are valid predefined source names. Use a custom source rather.`
+          ));
+          continue;
         }
 
         regexp = new RegExp(sourceTypes[sourceName]);
@@ -198,7 +259,10 @@ export class Builder {
       if (isSourceWithContent(_source, sourceName)) {
 
         const sourceWithContent = (_source[sourceName] as any);
-        classes.push(...Builder.extractClassesFromContent(sourceWithContent.content, regexp));
+
+        const key = `content${contentIndex}`;
+        sourcesClasses[key] = sourcesClasses[key] || [];
+        sourcesClasses[key].push(...Builder.extractClassesFromContent(sourceWithContent.content, regexp));
 
       } else {
 
@@ -223,12 +287,14 @@ export class Builder {
 
         globby
           .sync(sourcePaths)
-          .forEach(f => classes.push(...Builder.extractClassesFromFile(f, regexp)));
+          .forEach(f => {
+            sourcesClasses[f] = sourcesClasses[f] || [];
+            sourcesClasses[f].push(...Builder.extractClassesFromFile(f, regexp))
+          });
       }
+    }
 
-    });
-
-    return classes;
+    return sourcesClasses;
   }
 
   public static extractClassesFromContent(content: string, regexAttribute: RegExp): string[] {
@@ -265,18 +331,33 @@ export class Builder {
     return Builder.extractClassesFromContent(fs.readFileSync(file, "utf8"), regexp);
   }
 
-  private addError(errorType: ErrorType, className: string, errorMessage: string) {
-    if (!this.errors[errorType]) {
-      this.errors[errorType] = {};
+  private addError(error: InputError) {
+    if (error instanceof ConfigError) {
+      this.configErrors.push(error);
+    } else if (error instanceof SourceError) {
+      if (error.artifact) {
+        if (error.source) {
+          this.sourceErrorsWithClassName[error.source] = this.sourceErrorsWithClassName[error.source] || {};
+          this.sourceErrorsWithClassName[error.source][error.artifact] = error;
+        } else {
+          throw new Error(`Unexpected fatal error. Builder requires a Source in an error with ClassName. ClassName: "${error.artifact} - Message: "${error.message}"`);
+        }
+      } else if (error.source) {
+        this.sourceErrorsWithFile[error.source] = this.sourceErrorsWithFile[error.source] || [];
+        this.sourceErrorsWithFile[error.source].push(error);
+      } else {
+        this.sourceErrors.push(error);
+      }
     }
-
-    this.errors[errorType][className] = errorMessage;
   }
 
   public addModule(mod: Module) {
     this.modules[mod.symbol] = mod;
   }
 
+  /**
+  * @throws {AtomError}
+  */
   public addClassName(className: string) {
 
     // Check if this css already was processed
@@ -285,34 +366,13 @@ export class Builder {
     }
     this.classesIndex.push(className);
 
-    let atom: Atom;
-    try {
-      atom = new Atom(className, this);
-    } catch (e) {
-      this.addError(ErrorType.Marformed, className, e as string);
-      return;
-    }
+    const atom = new Atom(className, this);
 
-    try {
-      const mediaClassStyles = atom.transform();
+    const mediaClassStyles = atom.transform();
 
-      Object.keys(mediaClassStyles).forEach(media =>
-        this.medias[media].classes[className] = mediaClassStyles[media]
-      )
-    } catch (e) {
-      if (e instanceof LeptonsError) {
-        this.addError(e.type, e.className, e.message);
-      }
-      return;
-    }
-  }
-
-  convertNumberPerHundrerToCss(v: string): string {
-    if (!/^[1-9]$/.test(v)) {
-      throw new Error(`The value ${v} is not a valid number. It must be any number between 1 to 9`);
-    }
-
-    return (parseInt(v) * 100).toString();
+    Object.keys(mediaClassStyles).forEach(media =>
+      this.medias[media].classes[className] = mediaClassStyles[media]
+    )
   }
 
   hasMedia(name: string): boolean {

@@ -1,4 +1,5 @@
 import { Builder } from "./builder"
+import { DynamicError } from "./error"
 import { convertLengthToCss, isLengthValid } from "./length"
 import { convertNumberToCss, isNumberValid } from "./number"
 import { convertTimeToCss, isTimeValid } from "./time"
@@ -22,6 +23,9 @@ export class DynamicParam {
   private type!: DynamicParamType
   private collection?: string
 
+  /**
+  * @throws {DynamicError}
+  */
   constructor(param: string, private builder?: Builder) {
     let pair: string[] = [];
     let specificType: string | undefined;
@@ -30,7 +34,7 @@ export class DynamicParam {
     if (param.trim().length < 3 ||
       param.trim()[0] !== "{" ||
       param.trim()[param.trim().length - 1] !== "}") {
-      throw `Invalid parameter type for "${param}"`;
+      throw new DynamicError(`Invalid parameter type for "${param}"`);
     }
 
     param = param.trim().substring(1, param.trim().length - 1);
@@ -47,23 +51,23 @@ export class DynamicParam {
 
     if (this.type !== DynamicParamType.Any) {
       if (pair.length !== 2) {
-        throw `Invalid parameter type for "${param}"`;
+        throw new DynamicError(`Invalid parameter type for "${param}"`);
       }
 
       this.name = pair[0];
       specificType = pair[1];
 
       if (specificType.length === 0 || !specificType.match(/^[a-z]+[a-zA-Z0-9]*$/)) {
-        throw `Invalid parameter type for "${param}"`;
+        throw new DynamicError(`Invalid parameter type for "${param}"`);
       }
 
       if (this.type === DynamicParamType.Custom) {
         if (!builder) {
-          throw `Custom type "${specificType}" requires a builder.`;
+          throw new DynamicError(`Custom type "${specificType}" requires a builder.`);
         }
 
         if (!builder.hasCollection(specificType)) {
-          throw `There is not a collection with the name :"${specificType}."`;
+          throw new DynamicError(`There is not a collection with the name :"${specificType}."`);
         }
         this.collection = specificType;
 
@@ -71,20 +75,23 @@ export class DynamicParam {
         if (!(Object.values(DynamicParamType) as string[]).includes(specificType) ||
           specificType === DynamicParamType.Custom.toString() ||
           specificType === DynamicParamType.Any.toString()) {
-          throw `Invalid system type $"${specificType}"`;
+            throw new DynamicError(`Invalid system type $"${specificType}"`);
         }
         this.type = specificType as DynamicParamType;
       }
     }
 
     if (!this.name.match(/^[a-z]+[a-zA-Z0-9]*$/)) {
-      throw `Invalid name for "${param}"`;
+      throw new DynamicError(`Invalid name for "${param}"`);
     }
   }
 
+  /**
+  * @throws {DynamicError}
+  */
   isMatching(param: string): boolean {
     if (!this.builder) {
-      throw `Calling the function isMatching() requires a builder. Set a builder with the constructor or use setBuilder().`;
+      throw new Error(`Fatal Error: Calling the function isMatching() requires a builder. Set a builder with the constructor or use setBuilder().`);
     }
     switch (this.type) {
       case DynamicParamType.Length:
@@ -110,7 +117,7 @@ export class DynamicParam {
       case DynamicParamType.Any:
         return param.trim().length > 0;
       default:
-        throw `Invalid type "${this.type}"`;
+        throw new DynamicError(`Invalid type "${this.type}"`);
     }
   }
 
@@ -118,9 +125,12 @@ export class DynamicParam {
     this.builder = builder;
   }
 
+  /**
+  * @throws {DynamicError}
+  */
   parse(param: string): string {
     if (!this.builder) {
-      throw `Calling the function parse() requires a builder. Set a builder with the constructor or use setBuilder().`;
+      throw new Error(`Fatal Error: Calling the function parse() requires a builder. Set a builder with the constructor or use setBuilder().`);
     }
     switch (this.type) {
       case DynamicParamType.Length:
@@ -143,19 +153,19 @@ export class DynamicParam {
         return this.builder.getAreaTemplate(param);
       case DynamicParamType.Any:
         if (param.trim().length == 0) {
-          throw `The type "${this.type}" can't not be empty`  
+          throw new DynamicError(`The type "${this.type}" can't not be empty`);
         }
         return param;
       case DynamicParamType.Custom:
         if (!this.collection) {
-          throw `The type "${this.type}" is not a collection`  
+          throw new DynamicError(`The type "${this.type}" is not a collection`);
         }
         if (!this.builder.getCollection(this.collection)[param]) {
-          throw `The value "${param}" doesn't exist in the collection "${this.collection}"`
+          throw new DynamicError(`The value "${param}" doesn't exist in the collection "${this.collection}"`);
         };
         return this.builder.getCollection(this.collection)[param];
       default:
-        throw `Invalid type "${this.type}"`;
+        throw new DynamicError(`Invalid type "${this.type}"`);
     }
   } 
 }
@@ -166,12 +176,18 @@ export class Dynamic {
   public readonly style: string;
 
 
+  /**
+  * @throws {AtomError}
+  */
   constructor(params: string, style: string, builder?: Builder) {
     this.params = params;
     this.style = style;
     this.dynamicParams = params.split("_").map(p => new DynamicParam(p, builder));
   }
 
+  /**
+  * @throws {DynamicError}
+  */
   isMatching(params: string): boolean {
     const _params = params.split("_");
 
@@ -188,11 +204,14 @@ export class Dynamic {
     return true;
   }
 
+  /**
+  * @throws {DynamicError}
+  */
   parse(params: string, isForComponent: boolean = false): string {
     const _params = params.split("_");
 
     if (_params.length !== this.dynamicParams.length) {
-      throw `The number of params don't match "${this.params}"`; 
+      throw new DynamicError(`The number of params don't match "${this.params}"`);
     }
     let template = this.style;
 

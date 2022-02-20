@@ -30,3 +30,7 @@ export function isSourceWithRegexp(source: Source, sourceName: string): boolean 
 export function isSourceWithRegexpAndPath(source: Source, sourceName: string): boolean {
   return isSourceWithRegexp(source, sourceName) && (source[sourceName] as any)["path"] ? true : false;
 }
+
+export type SourcesClasses = {
+  [source: string]: string[]
+}
