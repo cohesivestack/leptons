@@ -143,21 +143,6 @@ export class Builder {
         this.componentModules[moduleName] = mod;
         mod.errors.forEach(e => this.addError(
           new ConfigError(e.description, `/components/${e.className}`)))
-
-        Object.entries(styles).forEach(([key, styleClassNames]) => {
-          const componentClassName = `${moduleName}-${key}`;
-          styleClassNames.split(" ").forEach(s => {
-            try {
-              new Atom(s, this).transform()
-            } catch (e) {
-              if (e instanceof AtomError) {
-                this.addError(new ConfigError(e.description, `/components/${componentClassName}/${s}`));
-              } else {
-                throw e;
-              }
-            }
-          })
-        })
       });
     }
   }
