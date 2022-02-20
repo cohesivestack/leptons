@@ -17,11 +17,11 @@ export class Watcher {
   constructor(private configPath: string) { }
 
   private setConfig() {
-    // Parse config
     const config = parseFromFile(this.configPath);
 
     if (isSchemaErrors(config)) {
       printOutSchemaErrors((config as ErrorObject[]).map(e => new SchemaError(e)));
+      this.config = undefined;
     } else {
       this.config = config;
     }
@@ -31,9 +31,8 @@ export class Watcher {
     if (this.config) {
       const builder = new Builder(this.config, true);
       builder.buildToFile();
+      console.log(chalk.green("Leptons is watching"));
     }
-    console.log(chalk.green("Leptons is watching"));
-
   }
 
   private setSourceWatcher() {
@@ -44,10 +43,8 @@ export class Watcher {
         persistent: true
       }).on("all", (event: string, path: string) => {
 
-        if (event !== 'ready') {
-          console.log("Leptons is reading...", path)
-          this.debouncedBuild();
-        }
+        console.log("Leptons is reading...", path)
+        this.debouncedBuild();
       });
     }
   }
