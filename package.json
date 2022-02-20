@@ -10,7 +10,7 @@
   "scripts": {
     "test": "jest",
     "build": "tsc",
-    "publish": "tsc; npm publish"
+    "release": "tsc; npm publish"
   },
   "bin": {
     "leptons": "bin/leptons"
