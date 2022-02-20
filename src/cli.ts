@@ -7,9 +7,10 @@ import { exportToJsonString } from './search-data-exporter';
 import { ErrorObject } from 'ajv';
 import { printOutSchemaErrors, SchemaError } from './error';
 import chalk from 'chalk';
+const packageJson = require('../package.json');
 
 const program = new Command();
-program.version('0.0.1');
+program.version(packageJson.version);
 
 program
   .command('init [file_path]')
