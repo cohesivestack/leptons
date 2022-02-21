@@ -160,7 +160,7 @@ export function printOutSchemaErrors(errors: SchemaError[]) {
 
 export function printOutConfigErrors(errors: ConfigError[]) {
   if (errors.length > 0) {
-    console.error(chalk.yellow.red("\nErrors in your Leptons source files:"));
+    console.error(chalk.yellow.red("\nErrors in your Leptons config file:"));
     console.group();
     errors.forEach(e => console.error(chalk.yellow.red(`* ${e.path}: ${e.description}`)));
     console.groupEnd();
