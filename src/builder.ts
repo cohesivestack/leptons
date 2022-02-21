@@ -151,7 +151,7 @@ export class Builder {
     let classes: string[] = [];
 
     if (this.config.include) {
-      classes = classes.concat(this.config.include.split(/\s+/));
+      classes = classes.concat(this.config.include.split(/[\s\n]+/).filter(c => c.length > 0));
 
       // Distinct classes
       classes = [...new Set(classes)];
