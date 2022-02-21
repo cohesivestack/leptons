@@ -35,17 +35,17 @@ describe("Atom", () => {
 
   test("Should not be created", () => {
     [
-      ["a", "Class parts requires at least the Module and Value"],
-      ["!a", "Class parts requires at least the Module and Value"],
-      ["a-L", "Class parts requires the Module and Value"],
-      ["a:h", "Class parts requires the Module and Value"],
-      ["a:h::f", "Class parts requires the Module and Value"],
-      ["a:h::f-L", "Class parts requires the Module and Value"],
-      ["A-b", "Invalid Module characters \"A\""],
-      ["A-b-c", "Invalid Module characters \"A\""],
-      ["A-b-c:h-L", "Invalid Module characters \"A\""],
-      ["a:a-b", "Invalid Module characters \"a:a\""],
-      ["a-", "Value is empty"]
+      ["a", "\"a\" \"requires at least the Module and Value\""],
+      ["!a", "\"!a\" \"requires at least the Module and Value\""],
+      ["a-L", "\"a-L\" \"requires at least the Module and Value\""],
+      ["a:h", "\"a:h\" \"requires at least the Module and Value\""],
+      ["a:h::f", "\"a:h::f\" \"requires at least the Module and Value\""],
+      ["a:h::f-L", "\"a:h::f-L\" \"requires at least the Module and Value\""],
+      ["A-b", "\"A-b\" \"has invalid Module characters: \"A\""],
+      ["A-b-c", "\"A-b-c\" \"has invalid Module characters: \"A\""],
+      ["A-b-c:h-L", "\"A-b-c:h-L\" \"has invalid Module characters: \"A\""],
+      ["a:a-b", "\"a:a-b\" \"has invalid Module characters: \"a:a\""],
+      ["a-", "\"a-\" \"has an empty value\""]
     ].forEach(v => {
       expect(() => new Atom(v[0] as string, new Builder())).toThrow(v[1]);
     });
