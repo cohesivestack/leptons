@@ -86,7 +86,7 @@ export class Module {
 
     searchData.push(...Object.keys(this.dynamics).flatMap(className =>
       Object.values(this.dynamics[className]).map(dynamic =>
-        new SearchData(this.name, `${this.symbol}-${className ? className + "-" : ""}{${dynamic.params}}`, dynamic.style)
+        new SearchData(this.name, `${this.symbol}-${className ? className + "-" : ""}${dynamic.params.replace(/\$[a-zA-Z0-9]+/g, '')}`, dynamic.style)
       )
     ));
 
